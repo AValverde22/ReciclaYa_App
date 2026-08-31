@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LLFondoIR"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@drawable/linearlayout_transparente"
+    android:orientation="horizontal"
+    android:padding="15dp"
+    android:layout_marginBottom="15dp"
+    >
+
+    <ImageView
+        android:id="@+id/IVRolIR"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+
+        android:background="@drawable/persona_seleccionada"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_weight="1"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/TVRolRS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/gotham_bold"
+            android:text="@string/PersonaRecicla"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+        />
+
+        <TextView
+            android:id="@+id/TVDescripcionIR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/gothamnarrow_medium"
+            android:text="@string/MensajePersona"
+            android:textColor="@color/gris"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/IVSeleccionIR"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+
+        android:background="@drawable/no_seleccionado" />
+
+</LinearLayout>

@@ -1,7 +1,7 @@
-package pe.reciclaya.app.config;
+package pe.reciclaya.app.general.config;
 
 import pe.reciclaya.app.BuildConfig;
-import pe.reciclaya.app.services.UserService;
+import pe.reciclaya.app.general.services.UserService;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

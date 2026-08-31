@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".fragments.fragment_register_datos">
+    tools:context=".general.fragments.register.FRDatos">
 
     <TextView
         android:id="@+id/TV1"
@@ -47,7 +47,7 @@
             android:scaleType="fitCenter" />
 
         <EditText
-            android:id="@+id/ETFullNameRD"
+            android:id="@+id/ETFullNameFRD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -90,7 +90,7 @@
             android:scaleType="fitCenter" />
 
         <EditText
-            android:id="@+id/ETEmailRD"
+            android:id="@+id/ETEmailFRD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -150,7 +150,7 @@
             android:scaleType="fitCenter" />
 
         <EditText
-            android:id="@+id/ETPasswordRD"
+            android:id="@+id/ETPasswordFRD"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -203,7 +203,7 @@
             android:scaleType="fitCenter" />
 
         <EditText
-            android:id="@+id/ETConfirmPasswordRD"
+            android:id="@+id/ETConfirmPasswordFRD"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -241,7 +241,7 @@
         app:layout_constraintTop_toBottomOf="@+id/LL4">
 
         <CheckBox
-            android:id="@+id/CBRD"
+            android:id="@+id/CBFRD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -258,7 +258,7 @@
             >
 
             <TextView
-                android:id="@+id/TVTyCRD"
+                android:id="@+id/TVTyCFRD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -281,7 +281,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/BtnCrearCuentaRD"
+        android:id="@+id/BtnCrearCuentaFRD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -319,7 +319,7 @@
             />
 
         <TextView
-            android:id="@+id/TVIniciarSesionRD"
+            android:id="@+id/TVIniciarSesionFRD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2.5dp"
