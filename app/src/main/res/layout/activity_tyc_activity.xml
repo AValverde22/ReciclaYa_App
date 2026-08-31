@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".activities.TyCActivity">
+    tools:context=".general.activities.TyCActivity">
 
     <TextView
         android:id="@+id/TVTituloTyC"

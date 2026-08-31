@@ -1,12 +1,11 @@
-package pe.reciclaya.app.requests;
+package pe.reciclaya.app.general.requests.user;
 
-public class UserValidate {
+public class UserLogin {
     private String email;
     private String password;
 
-    public UserValidate() {}
-
-    public UserValidate(String email, String password){
+    public UserLogin() {}
+    public UserLogin(String email, String password){
         this.email = email;
         this.password = password;
     }
