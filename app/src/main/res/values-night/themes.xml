@@ -7,6 +7,13 @@
 
     <style name="Theme.ReciclaYa" parent="Base.Theme.ReciclaYa" />
 
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/verde</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/reciclaya</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.ReciclaYa</item>
+    </style>
+
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/gris_intermedio</item>
         <item name="colorControlActivated">@color/verde</item>

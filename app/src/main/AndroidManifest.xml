@@ -14,26 +14,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReciclaYa">
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name=".general.activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".general.activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.Splash"
+            android:theme="@style/Theme.App.Starting"
+            android:name=".general.activities.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".reciclador.activities.MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.TyCActivity"
+            android:name=".usuario.activities.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".general.activities.TyCActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

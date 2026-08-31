@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/white"
-    tools:context=".activities.LoginActivity">
+    tools:context=".general.activities.LoginActivity">
 
     <LinearLayout
         android:id="@+id/LLLoadingLogin"
@@ -193,7 +193,6 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/TVOlvidoContrasenaLogin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
@@ -255,7 +254,7 @@
                         android:layout_height="22.5dp"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/desbloquear_password"
-                        android:onClick="mostrarPassword" />
+                    />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -269,7 +268,7 @@
 
             android:layout_marginTop="20dp"
             android:background="@drawable/green_button_background"
-            android:onClick="IniciarSesion"
+            android:onClick="iniciarSesion"
             android:text="@string/IniciarSesion"
 
             android:textAllCaps="false"
@@ -303,7 +302,7 @@
 
             android:fontFamily="@font/gotham_medium"
 
-            android:onClick="IrARegistro"
+            android:onClick="irARegistro"
             android:text="@string/RegistrateAqui"
             android:textColor="@color/verde"
             android:textSize="14sp"
