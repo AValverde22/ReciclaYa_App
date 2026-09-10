@@ -14,14 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReciclaYa">
         <activity
-            android:name=".general.activities.RegisterActivity"
+            android:name=".antiguo.general.activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".general.activities.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
             android:theme="@style/Theme.App.Starting"
-            android:name=".general.activities.Splash"
+            android:name=".antiguo.general.activities.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,15 +29,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".reciclador.activities.MainActivity"
+            android:name=".antiguo.reciclador.activities.MainActivityReciclador"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".usuario.activities.MainActivity"
+            android:name=".antiguo.usuario.activities.MainActivityUsuario"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".general.activities.TyCActivity"
+            android:name=".antiguo.general.activities.TyCActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

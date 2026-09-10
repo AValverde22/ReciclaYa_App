@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".general.activities.RegisterActivity">
+    tools:context=".antiguo.general.activities.RegisterActivity">
 
     <LinearLayout
         android:id="@+id/LLLoadingRegister"
