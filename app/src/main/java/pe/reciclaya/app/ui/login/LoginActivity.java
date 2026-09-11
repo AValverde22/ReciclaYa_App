@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import pe.reciclaya.app.antiguo.general.activities.RegisterActivity;
+import pe.reciclaya.app.ui.register.RegisterActivity;
 import pe.reciclaya.app.antiguo.reciclador.activities.MainActivityReciclador;
 import pe.reciclaya.app.antiguo.usuario.activities.MainActivityUsuario;
 import pe.reciclaya.app.ui.util.Inicializaciones;

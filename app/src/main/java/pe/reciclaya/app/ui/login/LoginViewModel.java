@@ -20,10 +20,9 @@ public class LoginViewModel extends AndroidViewModel {
     private final MutableLiveData<String> passwordError = new MutableLiveData<>();
 
     private final LoginRepository loginRepository;
-
     public LoginViewModel(@NonNull Application application) {
         super(application);
-        this.loginRepository = new LoginRepository(application.getApplicationContext());
+        loginRepository = new LoginRepository(application.getApplicationContext());
     }
 
     public LiveData<Boolean> getLoading() { return loading; }

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReciclaYa">
         <activity
-            android:name=".antiguo.general.activities.RegisterActivity"
+            android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
@@ -37,7 +37,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".antiguo.general.activities.TyCActivity"
+            android:name=".ui.register.TyCActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
