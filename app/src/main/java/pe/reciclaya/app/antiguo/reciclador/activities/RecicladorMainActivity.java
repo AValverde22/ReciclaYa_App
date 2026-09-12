@@ -1,4 +1,4 @@
-package pe.reciclaya.app.antiguo.usuario.activities;
+package pe.reciclaya.app.antiguo.reciclador.activities;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import pe.reciclaya.app.R;
 
-public class MainActivityUsuario extends AppCompatActivity {
+public class RecicladorMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +15,6 @@ public class MainActivityUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView TVProximamente = findViewById(R.id.TVProximamenteMain);
-        TVProximamente.setText("PROXIMAMENTE: PANTALLA DE USUARIO.");
-
+        TVProximamente.setText("PROXIMAMENTE: PANTALLA DE RECICLADOR.");
     }
 }

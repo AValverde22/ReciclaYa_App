@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.register;
+package pe.reciclaya.app.ui.view.register;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pe.reciclaya.app.R;
-import pe.reciclaya.app.data.model.register.Rol;
+import pe.reciclaya.app.domain.model.Rol;
 
 public class RolRA extends RecyclerView.Adapter<RolRA.RolRAHolder> {
     private final Rol[] roles;

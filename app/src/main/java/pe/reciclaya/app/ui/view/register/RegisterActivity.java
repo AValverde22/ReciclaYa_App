@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.register;
+package pe.reciclaya.app.ui.view.register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.R;
-import pe.reciclaya.app.ui.tyc.TyCActivity;
+import pe.reciclaya.app.ui.view.tyc.TyCActivity;
+import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
 

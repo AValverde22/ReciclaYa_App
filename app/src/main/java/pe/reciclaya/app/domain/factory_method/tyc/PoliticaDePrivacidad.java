@@ -1,4 +1,4 @@
-package pe.reciclaya.app.data.factory_method.tyc;
+package pe.reciclaya.app.domain.factory_method.tyc;
 
 import pe.reciclaya.app.R;
 

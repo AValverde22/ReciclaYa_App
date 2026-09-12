@@ -1,4 +1,4 @@
-package pe.reciclaya.app.data.model.register;
+package pe.reciclaya.app.domain.model;
 
 public class Rol {
     private final String rol;

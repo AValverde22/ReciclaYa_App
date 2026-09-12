@@ -1,11 +1,11 @@
-package pe.reciclaya.app.ui.tyc;
+package pe.reciclaya.app.ui.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import pe.reciclaya.app.data.factory_method.tyc.FactoryPoliticaDePrivacidad;
-import pe.reciclaya.app.data.factory_method.tyc.FactoryTerminosDeServicio;
+import pe.reciclaya.app.domain.factory_method.tyc.FactoryPoliticaDePrivacidad;
+import pe.reciclaya.app.domain.factory_method.tyc.FactoryTerminosDeServicio;
 import pe.reciclaya.app.data.repository.TyCRepository;
 
 public class TyCViewModel extends ViewModel {

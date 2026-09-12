@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.splash;
+package pe.reciclaya.app.ui.viewmodel;
 
 import android.app.Application;
 

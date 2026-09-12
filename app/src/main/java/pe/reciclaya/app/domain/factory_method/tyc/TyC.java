@@ -1,4 +1,4 @@
-package pe.reciclaya.app.data.factory_method.tyc;
+package pe.reciclaya.app.domain.factory_method.tyc;
 
 public interface TyC {
     int getTituloID();

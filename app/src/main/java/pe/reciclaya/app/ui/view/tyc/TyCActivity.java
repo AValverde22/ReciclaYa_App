@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.tyc;
+package pe.reciclaya.app.ui.view.tyc;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.viewmodel.TyCViewModel;
 
 public class TyCActivity extends AppCompatActivity {
     private TextView TVTitulo, TVMensaje;

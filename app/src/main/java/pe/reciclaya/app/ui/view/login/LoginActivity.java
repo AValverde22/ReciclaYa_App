@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.login;
+package pe.reciclaya.app.ui.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import pe.reciclaya.app.ui.register.RegisterActivity;
-import pe.reciclaya.app.antiguo.reciclador.activities.MainActivityReciclador;
-import pe.reciclaya.app.antiguo.usuario.activities.MainActivityUsuario;
+import pe.reciclaya.app.ui.viewmodel.LoginViewModel;
+import pe.reciclaya.app.ui.view.register.RegisterActivity;
+import pe.reciclaya.app.antiguo.reciclador.activities.RecicladorMainActivity;
+import pe.reciclaya.app.antiguo.usuario.activities.UsuarioMainActivity;
 import pe.reciclaya.app.ui.util.Inicializaciones;
 
 import pe.reciclaya.app.R;
@@ -60,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
 
         viewModel.getRoleResponse().observe(this, role -> {
             if(role.equals("Usuario"))
-                startActivity(new Intent(this, MainActivityUsuario.class));
+                startActivity(new Intent(this, UsuarioMainActivity.class));
             else
-                startActivity(new Intent(this, MainActivityReciclador.class));
+                startActivity(new Intent(this, RecicladorMainActivity.class));
 
             finishAffinity();
         });

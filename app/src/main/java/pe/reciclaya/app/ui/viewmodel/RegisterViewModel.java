@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.register;
+package pe.reciclaya.app.ui.viewmodel;
 
 import android.app.Application;
 

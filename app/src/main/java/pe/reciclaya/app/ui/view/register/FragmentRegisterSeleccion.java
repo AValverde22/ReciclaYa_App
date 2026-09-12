@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.register;
+package pe.reciclaya.app.ui.view.register;
 
 import android.os.Bundle;
 
@@ -16,7 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import pe.reciclaya.app.R;
-import pe.reciclaya.app.data.model.register.Rol;
+import pe.reciclaya.app.domain.model.Rol;
+import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 
 public class FragmentRegisterSeleccion extends Fragment {
     private ImageView IVRegresarUnoAtras;
