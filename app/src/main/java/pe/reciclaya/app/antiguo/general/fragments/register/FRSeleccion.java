@@ -13,18 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import pe.reciclaya.app.R;
-import pe.reciclaya.app.antiguo.general.activities.RegisterActivity;
 import pe.reciclaya.app.antiguo.general.adapters.RolRA;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.antiguo.general.items.Rol;
 import pe.reciclaya.app.data.model.login.LoginResponse;
-import pe.reciclaya.app.antiguo.general.requests.user.UserRegister;
+import pe.reciclaya.app.data.model.register.RegisterRequestUser;
 import pe.reciclaya.app.data.remote.UserService;
 import pe.reciclaya.app.ui.util.Common;
-import pe.reciclaya.app.ui.util.Inicializaciones;
 import pe.reciclaya.app.antiguo.general.util.Singleton;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -131,7 +128,7 @@ public class FRSeleccion extends Fragment {
             String password = requireArguments().getString("password");
 
             UserService apiService = BackendClient.getUserService();
-            UserRegister body = new UserRegister(fullName, email, password, rol);
+            RegisterRequestUser body = new RegisterRequestUser(fullName, email, password, rol);
 
             Singleton.getMostrarLLLoadingRegister().postValue(true);
             apiService.registerUser(body).enqueue(new Callback<>() {

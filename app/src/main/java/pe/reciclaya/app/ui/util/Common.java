@@ -45,22 +45,4 @@ public class Common {
             default: break;
         }
     }
-
-    public static void mostrarPassword(@NonNull EditText ETPassword,
-                                       @NonNull ImageView IVOjo
-    ) {
-        boolean[] bloquear = { true };
-        IVOjo.setOnClickListener(view -> {
-            bloquear[0] = !bloquear[0];
-
-            if(bloquear[0]) {
-                ETPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                IVOjo.setBackgroundResource(R.drawable.desbloquear_password);
-
-            } else {
-                ETPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                IVOjo.setBackgroundResource(R.drawable.bloquear_password);
-            }
-        });
-    }
 }

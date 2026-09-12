@@ -1,8 +1,8 @@
-package pe.reciclaya.app.antiguo.general.requests.user;
+package pe.reciclaya.app.data.model.register;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserRegister {
+public class RegisterRequestUser {
 
     @SerializedName("full_name")
     private String fullName;
@@ -10,8 +10,8 @@ public class UserRegister {
     private String password;
     private String role;
 
-    public UserRegister() {}
-    public UserRegister(String fullName, String email, String password, String role) {
+    public RegisterRequestUser() {}
+    public RegisterRequestUser(String fullName, String email, String password, String role) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;

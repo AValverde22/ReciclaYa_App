@@ -21,7 +21,7 @@
             android:exported="false" />
         <activity
             android:theme="@style/Theme.App.Starting"
-            android:name=".antiguo.general.activities.Splash"
+            android:name=".ui.splash.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.register.TyCActivity"
+            android:name=".ui.tyc.TyCActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
