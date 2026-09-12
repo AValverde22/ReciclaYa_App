@@ -33,19 +33,12 @@ public class LoginActivity extends AppCompatActivity {
 
         inicializarComponentes();
         inicializarVM();
+        inicializarListeners();
     }
 
     private void inicializarComponentes() {
         ETEmail = findViewById(R.id.ETEmailLogin);
-        ETEmail.setOnFocusChangeListener((view, hasFocus) -> {
-            if(!hasFocus) viewModel.updateEmail(ETEmail.getText().toString());
-        });
-
         ETPassword = findViewById(R.id.ETPasswordLogin);
-        ETPassword.setOnFocusChangeListener((view, hasFocus) -> {
-            if(!hasFocus) viewModel.updatePassword(ETPassword.getText().toString());
-        });
-
         BtnIniciarSesion = findViewById(R.id.BtnIniciarSesionLogin);
         LLLoading = findViewById(R.id.LLLoadingLogin);
 
@@ -85,6 +78,16 @@ public class LoginActivity extends AppCompatActivity {
         viewModel.getPasswordError().observe(this, error ->
                 ETPassword.setError(error)
         );
+    }
+
+    private void inicializarListeners() {
+        ETEmail.setOnFocusChangeListener((view, hasFocus) -> {
+            if(!hasFocus) viewModel.updateEmail(ETEmail.getText().toString());
+        });
+
+        ETPassword.setOnFocusChangeListener((view, hasFocus) -> {
+            if(!hasFocus) viewModel.updatePassword(ETPassword.getText().toString());
+        });
     }
 
     public void iniciarSesion(View view) {
