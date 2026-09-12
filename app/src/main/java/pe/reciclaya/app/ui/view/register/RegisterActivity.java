@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.antiguo.reciclador.activities.RecicladorMainActivity;
+import pe.reciclaya.app.antiguo.usuario.activities.UsuarioMainActivity;
 import pe.reciclaya.app.ui.view.tyc.TyCActivity;
 import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 
@@ -41,6 +43,21 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         );
 
+        viewModel.getTipo().observe(this, tipo -> {
+            if(tipo == null) return;
+
+            startActivity(new Intent(this, TyCActivity.class)
+                    .putExtra("Tipo", tipo));
+        });
+
+        viewModel.getFinalizarActivity().observe(this, finalizar -> {
+            if(finalizar) finish();
+        });
+
+        viewModel.getEliminarFragment().observe(this, eliminar -> {
+            if(eliminar) getSupportFragmentManager().popBackStack();
+        });
+
         viewModel.irSiguiente().observe(this, irSiguiente -> {
             if(irSiguiente) {
                 getSupportFragmentManager().beginTransaction()
@@ -51,17 +68,13 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getTipo().observe(this, tipo ->
-                startActivity(new Intent(this, TyCActivity.class)
-                        .putExtra("Tipo", tipo))
-        );
+        viewModel.getRoleResponse().observe(this, role -> {
+            if(role.equals("Usuario"))
+                startActivity(new Intent(this, UsuarioMainActivity.class));
+            else
+                startActivity(new Intent(this, RecicladorMainActivity.class));
 
-        viewModel.getFinalizarActivity().observe(this, finalizar -> {
-            if(finalizar) finish();
-        });
-
-        viewModel.getEliminarFragment().observe(this, eliminar -> {
-            if(eliminar) getSupportFragmentManager().popBackStack();
+            finishAffinity();
         });
     }
 }

@@ -14,17 +14,18 @@ public class RegisterViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> siguiente = new MutableLiveData<>(false);
     private final MutableLiveData<String> error = new MutableLiveData<>();
-    private final MutableLiveData<Integer> tipo = new MutableLiveData<>(0);
+    private final MutableLiveData<Integer> tipo = new MutableLiveData<>();
 
     private final MutableLiveData<Boolean> finalizarActivity = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> eliminarFragment = new MutableLiveData<>(false);
+    private final MutableLiveData<String> roleResponse = new MutableLiveData<>();
 
     private final MutableLiveData<String> fullNameError = new MutableLiveData<>();
     private final MutableLiveData<String> emailError = new MutableLiveData<>();
     private final MutableLiveData<String> passwordError = new MutableLiveData<>();
     private final MutableLiveData<String> confirmPasswordError = new MutableLiveData<>();
     private final MutableLiveData<String> roleError = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> checkError = new MutableLiveData<>(true);
+    private final MutableLiveData<Boolean> checkError = new MutableLiveData<>(false);
 
     private String fullName;
     private String email;
@@ -44,12 +45,13 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public LiveData<Boolean> getFinalizarActivity() { return finalizarActivity; }
     public LiveData<Boolean> getEliminarFragment() { return eliminarFragment; }
+    public LiveData<String> getRoleResponse() { return roleResponse; }
+
 
     public LiveData<String> getFullNameError() { return fullNameError; }
     public LiveData<String> getEmailError() { return emailError; }
     public LiveData<String> getPasswordError() { return passwordError; }
     public LiveData<String> getConfirmPasswordError() { return confirmPasswordError; }
-    public LiveData<String> getRoleError() { return roleError; }
 
     public void updateTipo(int t) { tipo.setValue(t); }
     public void updateFinalizarActivity(boolean finalizar) { finalizarActivity.setValue(finalizar); }
@@ -63,7 +65,7 @@ public class RegisterViewModel extends AndroidViewModel {
         confirmPasswordError.setValue(Validaciones.confirmPassword(password, confirmPassword));
     }
 
-    public void updateRole(String role) { roleError.setValue(role); }
+    public void updateRole(String role) { this.role = role; }
     public void updateCheckBox(boolean isChecked) { checkError.setValue(!isChecked); }
 
     public void validarEmail(String fullName, String email, String password, String confirmPassword) {
@@ -75,9 +77,10 @@ public class RegisterViewModel extends AndroidViewModel {
         if(fullNameError.getValue() != null
                 || emailError.getValue() != null
                 || passwordError.getValue() != null
-                || confirmPasswordError.getValue() != null
-        )
+                || confirmPasswordError.getValue() != null) {
+            error.setValue("Los campos no pueden estar vacíos.");
             return;
+        }
 
         if(Boolean.TRUE.equals(checkError.getValue())) {
             error.setValue("Para seguir, debe de aceptar los términos y condiciones.");
@@ -105,14 +108,18 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public void registerUser() {
-        updateRole(role);
-        if(roleError.getValue() != null) return;
+        roleError.setValue(Validaciones.role(role));
+        if(roleError.getValue() != null) {
+            error.setValue(roleError.getValue());
+            return;
+        }
 
         loading.setValue(true);
         registerRepository.registerUser(fullName, email, password, role, new RegisterRepository.RegisterCallback() {
             @Override
             public void onSuccess() {
                 loading.postValue(false);
+                roleResponse.postValue(role);
             }
 
             @Override

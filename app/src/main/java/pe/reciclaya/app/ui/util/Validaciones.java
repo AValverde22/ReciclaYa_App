@@ -47,4 +47,9 @@ public class Validaciones {
 
         return null;
     }
+
+    public static String role(String role) {
+        if(role == null) return "Debe de seleccionar un rol";
+        else return null;
+    }
 }

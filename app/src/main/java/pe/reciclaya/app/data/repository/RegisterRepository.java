@@ -30,7 +30,7 @@ public class RegisterRepository {
             public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     boolean existe = response.body();
-                    if(existe) callback.onSuccess();
+                    if(!existe) callback.onSuccess();
                     else callback.onError("El correo ya se encuentra registrado.");
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
