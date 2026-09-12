@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".ui.register.TyCActivity">
+    tools:context=".ui.tyc.TyCActivity">
 
     <TextView
         android:id="@+id/TVTituloTyC"
