@@ -7,7 +7,7 @@
     android:background="@color/verde"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".antiguo.general.activities.Splash">
+    tools:context=".ui.splash.Splash">
 
     <ImageView
         android:id="@+id/logo"
