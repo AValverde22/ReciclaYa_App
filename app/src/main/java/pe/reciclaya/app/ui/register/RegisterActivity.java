@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.R;
-import pe.reciclaya.app.antiguo.general.fragments.register.FRSeleccion;
 import pe.reciclaya.app.ui.tyc.TyCActivity;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -30,8 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void eliminarFragment() { getSupportFragmentManager().popBackStack(); }
-
     private void inicializarVM() {
         RegisterViewModel viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
         viewModel.getLoading().observe(this, isLoading -> {
@@ -47,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
             if(irSiguiente) {
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.FLRegister, new FRSeleccion())
+                        .replace(R.id.FLRegister, new FragmentRegisterSeleccion())
                         .addToBackStack(null)
                         .commit();
             }
@@ -58,6 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
                         .putExtra("Tipo", tipo))
         );
 
-        viewModel.getFinalizarActivity().observe(this, finalizar -> { if(finalizar) finish(); });
+        viewModel.getFinalizarActivity().observe(this, finalizar -> {
+            if(finalizar) finish();
+        });
+
+        viewModel.getEliminarFragment().observe(this, eliminar -> {
+            if(eliminar) getSupportFragmentManager().popBackStack();
+        });
     }
 }

@@ -1,4 +1,4 @@
-package pe.reciclaya.app.antiguo.general.items;
+package pe.reciclaya.app.data.model.register;
 
 public class Rol {
     private final String rol;

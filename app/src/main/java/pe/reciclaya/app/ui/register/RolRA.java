@@ -1,4 +1,4 @@
-package pe.reciclaya.app.antiguo.general.adapters;
+package pe.reciclaya.app.ui.register;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,14 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pe.reciclaya.app.R;
-import pe.reciclaya.app.antiguo.general.items.Rol;
+import pe.reciclaya.app.data.model.register.Rol;
 
 public class RolRA extends RecyclerView.Adapter<RolRA.RolRAHolder> {
     private final Rol[] roles;
     private int posSeleccionada;
+    private final OnRolSelectedListener listener;
 
-    public RolRA(Rol[] roles){
+    public RolRA(Rol[] roles, OnRolSelectedListener listener){
         this.roles = roles;
+        this.listener = listener;
+
         posSeleccionada = -1;
     }
 
@@ -43,15 +46,17 @@ public class RolRA extends RecyclerView.Adapter<RolRA.RolRAHolder> {
             notifyItemChanged(posSeleccionada);
 
             if(posAnterior != -1) notifyItemChanged(posAnterior);
+
+            if(posSeleccionada == -1) listener.onRolSelected(null);
+            else listener.onRolSelected(roles[posSeleccionada].getRol());
         });
     }
 
     @Override
     public int getItemCount() { return roles.length; }
 
-    public String getRol() {
-        if(posSeleccionada == -1) return null;
-        return roles[posSeleccionada].getRol();
+    public interface OnRolSelectedListener {
+        void onRolSelected(String rol);
     }
 
     public static class RolRAHolder extends RecyclerView.ViewHolder {

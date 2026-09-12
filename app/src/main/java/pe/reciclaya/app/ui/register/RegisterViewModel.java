@@ -15,7 +15,9 @@ public class RegisterViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> siguiente = new MutableLiveData<>(false);
     private final MutableLiveData<String> error = new MutableLiveData<>();
     private final MutableLiveData<Integer> tipo = new MutableLiveData<>(0);
+
     private final MutableLiveData<Boolean> finalizarActivity = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> eliminarFragment = new MutableLiveData<>(false);
 
     private final MutableLiveData<String> fullNameError = new MutableLiveData<>();
     private final MutableLiveData<String> emailError = new MutableLiveData<>();
@@ -39,7 +41,9 @@ public class RegisterViewModel extends AndroidViewModel {
     public LiveData<Boolean> irSiguiente() { return siguiente; }
     public LiveData<Integer> getTipo() { return tipo; }
     public LiveData<String> getError() { return error; }
+
     public LiveData<Boolean> getFinalizarActivity() { return finalizarActivity; }
+    public LiveData<Boolean> getEliminarFragment() { return eliminarFragment; }
 
     public LiveData<String> getFullNameError() { return fullNameError; }
     public LiveData<String> getEmailError() { return emailError; }
@@ -49,6 +53,7 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public void updateTipo(int t) { tipo.setValue(t); }
     public void updateFinalizarActivity(boolean finalizar) { finalizarActivity.setValue(finalizar); }
+    public void updateEliminarFragment(boolean eliminar) { eliminarFragment.setValue(eliminar); }
 
     public void updateFullName(String fullName) { fullNameError.setValue(Validaciones.campoGenerico(fullName)); }
     public void updateEmail(String email) { emailError.setValue(Validaciones.email(email)); }
@@ -99,7 +104,7 @@ public class RegisterViewModel extends AndroidViewModel {
         });
     }
 
-    public void registerUser(String role) {
+    public void registerUser() {
         updateRole(role);
         if(roleError.getValue() != null) return;
 
