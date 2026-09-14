@@ -5,8 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import pe.reciclaya.app.data.local.AppPreferencesManager;
-import pe.reciclaya.app.data.model.register.RegisterRequestEmail;
-import pe.reciclaya.app.data.model.register.RegisterRequestUser;
+import pe.reciclaya.app.data.model.register.request.RegisterRequestEmail;
+import pe.reciclaya.app.data.model.register.request.RegisterRequestUser;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
 import retrofit2.Call;

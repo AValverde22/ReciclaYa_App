@@ -4,8 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import pe.reciclaya.app.data.model.login.LoginRequest;
-import pe.reciclaya.app.data.model.login.LoginResponse;
+import pe.reciclaya.app.data.model.login.request.LoginRequest;
+import pe.reciclaya.app.data.model.login.response.LoginResponse;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
 import pe.reciclaya.app.data.local.AppPreferencesManager;

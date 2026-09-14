@@ -14,13 +14,19 @@
 
     <!-- Subsubtitulos -->
     <string name="InfoPersonal">INFORMACIÓN PERSONAL</string>
+    <string name="RestablecerContrasena">Restablecer Contraseña</string>
+    <string name="VerificarCodigo">Verificar Codigo</string>
     <string name="SeguridadDeLaCuenta">SEGURIDAD DE LA CUENTA</string>
     <string name="CualRol">¿CUÁL SERÁ TU ROL?</string>
+    <string name="CambiarContrasena">Cambiar contraseña</string>
 
     <!-- Mensajes -->
     <string name="MensajeBienvenida">Únete a la red de reciclaje local. \nConectamos personas con recicladores\npara un planeta más verde.</string>
     <string name="MensajeTyC">Tus datos serán procesados según nuestra política de sostenibilidad.</string>
     <string name="MensajeUnete">Completa tus datos para empezar a transformar residuos en recursos.</string>
+    <string name="MensajeVerificarCodigo">Ingrese el código de seguridad que le \nllegó a su correo electrónico.</string>
+    <string name="MensajeOlvido">Ingrese su correo electrónico y se le \nenviará un código de verificación. Siga \nlas instrucciones que llegue en su correo \ncon el que se ha registrado.</string>
+    <string name="MensajeCambiarContrasena">Digite su cambio de contraseña en los \napartados.</string>
 
     <string name="MensajePersona">Deseo publicar solicitudes de recolección para mis residuos.</string>
     <string name="MensajeReciclador">Busco recolectar materiales y contribuir a la economía circular.</string>
@@ -31,6 +37,7 @@
 
     <string name="Contrasena">Contraseña</string>
     <string name="ConfirmarContra">Confirmar Contraseña</string>
+    <string name="VuelvaAEscribirContrasena">Vuelva a escribir su contraseña</string>
     <string name="ContrasenaEjemplo">••••••••</string>
 
     <string name="NombreCompleto">Nombre completo</string>
@@ -44,16 +51,19 @@
 
     <string name="TyC">Acepto los Términos de Servicio y la Política de Privacidad.</string>
 
+    <string name="SiYaTienesCuenta">Si ya tienes cuenta</string>
     <string name="YaTienesUnaCuenta">¿Ya tienes una cuenta? </string>
     <string name="Iniciarssesion">Iniciar sesión</string>
+    <string name="VolverAEnviarCodigo">Volver a enviar código</string>
 
     <!-- Botones -->
     <string name="IniciarSesion">Iniciar Sesión</string>
     <string name="Confirmar">Confirmar</string>
+    <string name="Continuar">Continuar</string>
+    <string name="EnviarCodigo">Enviar Código</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
     <string name="MensajeTerminosDeServicio">
         <b>1. Introducción\n</b>

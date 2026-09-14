@@ -1,14 +1,15 @@
-package pe.reciclaya.app.data.model.login;
+package pe.reciclaya.app.data.model.restablecer.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResponse {
+public class RestablecerResponse {
     private int id;
-    @SerializedName ("full_name") private String fullName;
+    @SerializedName("full_name") private String fullName;
     private String email;
     private String role;
 
-    public LoginResponse(int id, String fullName, String email, String role) {
+    public RestablecerResponse() {}
+    public RestablecerResponse(int id, String fullName, String email, String role) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -21,8 +22,7 @@ public class LoginResponse {
     public String getRole() { return role; }
 
     public void setID(int id) { this.id = id; }
-    public void setFullName(String full_name) { this.fullName = fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
     public void setEmail(String email) { this.email = email; }
     public void setRole(String role) { this.role = role; }
-
 }

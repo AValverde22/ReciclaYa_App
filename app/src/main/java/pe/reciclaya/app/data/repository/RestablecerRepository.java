@@ -1,0 +1,99 @@
+package pe.reciclaya.app.data.repository;
+
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+
+import pe.reciclaya.app.data.local.AppPreferencesManager;
+import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestCompare;
+import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestRecover;
+import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestReset;
+import pe.reciclaya.app.data.model.restablecer.response.RestablecerResponse;
+import pe.reciclaya.app.data.remote.BackendClient;
+import pe.reciclaya.app.data.remote.UserService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RestablecerRepository {
+    private final UserService apiService;
+    private final Context context;
+
+    public RestablecerRepository(Context context) {
+        apiService = BackendClient.getUserService();
+        this.context = context;
+    }
+
+    public void enviarCodigo(String email, RestablecerCallback callback) {
+        RestablecerRequestRecover body = new RestablecerRequestRecover(email);
+
+        apiService.recoverUser(body).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if(response.isSuccessful()) callback.onSuccess();
+                else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onError("Error en la red, compruebe su conexión.");
+            }
+        });
+    }
+
+    public void compararCodigo(String email, int codigo, RestablecerCallback callback) {
+        RestablecerRequestCompare body = new RestablecerRequestCompare(email, codigo);
+
+        apiService.compareCode(body).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Boolean> call, @NonNull  Response<Boolean> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    boolean correcto = response.body();
+                    if(correcto) callback.onSuccess();
+                    else callback.onError("Código incorrecto");
+                } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable t) {
+                callback.onError("Error en la red, compruebe su conexión");
+            }
+        });
+    }
+
+    public void resetUser(String email, String password, ResetCallback callback) {
+        RestablecerRequestReset body = new RestablecerRequestReset(email, password);
+
+        apiService.resetUser(body).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<RestablecerResponse> call, @NonNull  Response<RestablecerResponse> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    almacenarDatos(response.body());
+                    callback.onSuccess(response.body());
+                } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RestablecerResponse> call, @NonNull Throwable t) {
+                callback.onError("Error en la red, compruebe su conexión.");
+            }
+        });
+    }
+
+    public interface RestablecerCallback {
+        void onSuccess();
+        void onError(String errorMessage);
+    }
+
+    public interface ResetCallback {
+        void onSuccess(RestablecerResponse response);
+        void onError(String errorMessage);
+    }
+
+    private void almacenarDatos(RestablecerResponse response) {
+        AppPreferencesManager.putInt("id", response.getID(), context);
+        AppPreferencesManager.putString("fullName", response.getFullName(), context);
+        AppPreferencesManager.putString("email", response.getEmail(), context);
+        AppPreferencesManager.putString("role", response.getRole(), context);
+    }
+}

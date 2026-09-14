@@ -1,4 +1,4 @@
-package pe.reciclaya.app.data.model.register;
+package pe.reciclaya.app.data.model.register.request;
 
 import com.google.gson.annotations.SerializedName;
 

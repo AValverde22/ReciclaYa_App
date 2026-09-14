@@ -42,7 +42,7 @@ public class RolRA extends RecyclerView.Adapter<RolRA.RolRAHolder> {
             int posAnterior = posSeleccionada;
 
             posSeleccionada = holder.getAbsoluteAdapterPosition();
-            if(posAnterior == posSeleccionada) posSeleccionada  = -1;
+            if(posAnterior == posSeleccionada) posSeleccionada = -1;
             notifyItemChanged(posSeleccionada);
 
             if(posAnterior != -1) notifyItemChanged(posAnterior);

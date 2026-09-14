@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import pe.reciclaya.app.data.model.login.LoginResponse;
+import pe.reciclaya.app.data.model.login.response.LoginResponse;
 import pe.reciclaya.app.data.repository.LoginRepository;
 import pe.reciclaya.app.ui.util.Validaciones;
 
