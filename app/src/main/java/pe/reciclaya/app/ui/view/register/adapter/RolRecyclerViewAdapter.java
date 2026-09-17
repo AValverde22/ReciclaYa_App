@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.register;
+package pe.reciclaya.app.ui.view.register.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.domain.model.Rol;
 
-public class RolRA extends RecyclerView.Adapter<RolRA.RolRAHolder> {
+public class RolRecyclerViewAdapter extends RecyclerView.Adapter<RolRecyclerViewAdapter.ViewHolder> {
     private final Rol[] roles;
     private int posSeleccionada;
     private final OnRolSelectedListener listener;
 
-    public RolRA(Rol[] roles, OnRolSelectedListener listener){
+    public RolRecyclerViewAdapter(Rol[] roles, OnRolSelectedListener listener){
         this.roles = roles;
         this.listener = listener;
 
@@ -28,13 +28,13 @@ public class RolRA extends RecyclerView.Adapter<RolRA.RolRAHolder> {
 
     @NonNull
     @Override
-    public RolRAHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rol, parent, false);
-        return new RolRAHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RolRAHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(posSeleccionada == position) holder.imprimirVerde(roles[position]);
         else holder.imprimirNormal(roles[position]);
 
@@ -59,13 +59,13 @@ public class RolRA extends RecyclerView.Adapter<RolRA.RolRAHolder> {
         void onRolSelected(String rol);
     }
 
-    public static class RolRAHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final Context context;
         private final LinearLayout LLFondo;
         private final TextView TVRol, TVDescripcion;
         private final ImageView IVRol, IVSeleccion;
 
-        public RolRAHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
 

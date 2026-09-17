@@ -1,7 +1,7 @@
 package pe.reciclaya.app.data.repository;
 
-import pe.reciclaya.app.domain.factory_method.tyc.FactoryTyC;
-import pe.reciclaya.app.domain.factory_method.tyc.TyC;
+import pe.reciclaya.app.ui.view.tyc.factory_method.FactoryTyC;
+import pe.reciclaya.app.ui.view.tyc.factory_method.TyC;
 
 public class TyCRepository {
     private final TyC tyc;

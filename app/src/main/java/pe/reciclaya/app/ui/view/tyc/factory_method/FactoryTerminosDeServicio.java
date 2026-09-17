@@ -1,4 +1,4 @@
-package pe.reciclaya.app.domain.factory_method.tyc;
+package pe.reciclaya.app.ui.view.tyc.factory_method;
 
 public class FactoryTerminosDeServicio implements FactoryTyC{
     @Override
