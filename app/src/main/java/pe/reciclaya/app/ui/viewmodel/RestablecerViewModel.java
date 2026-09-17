@@ -18,8 +18,6 @@ public class RestablecerViewModel extends AndroidViewModel {
     private final MutableLiveData<String> error = new MutableLiveData<>();
 
     private final MutableLiveData<String> roleResponse = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> finalizarActivity = new MutableLiveData<>(false);
-    private final MutableLiveData<Boolean> eliminarFragment = new MutableLiveData<>(false);
 
     private final MutableLiveData<String> emailError = new MutableLiveData<>();
     private final MutableLiveData<String> passwordError = new MutableLiveData<>();
@@ -39,15 +37,10 @@ public class RestablecerViewModel extends AndroidViewModel {
     public LiveData<String> getError() { return error; }
 
     public LiveData<String> getRoleResponse() { return roleResponse; }
-    public LiveData<Boolean> getFinalizarActivity() { return finalizarActivity; }
-    public LiveData<Boolean> getEliminarFragment() { return eliminarFragment; }
 
     public LiveData<String> getEmailError() { return emailError; }
     public LiveData<String> getPasswordError() { return passwordError; }
     public LiveData<String> getConfirmPasswordError() { return confirmPasswordError; }
-
-    public void updateFinalizarActivity(boolean finalizar) { finalizarActivity.setValue(finalizar); }
-    public void updateEliminarFragment(boolean eliminar) { eliminarFragment.setValue(eliminar); }
 
     public void updateEmail(String email){ emailError.setValue(Validaciones.campoGenerico(email)); }
     public void updatePassword(String password) { passwordError.setValue(Validaciones.password(password)); }

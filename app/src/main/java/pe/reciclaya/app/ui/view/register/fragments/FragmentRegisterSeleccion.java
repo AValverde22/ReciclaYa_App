@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.register;
+package pe.reciclaya.app.ui.view.register.fragments;
 
 import android.os.Bundle;
 
@@ -17,6 +17,8 @@ import android.widget.ImageView;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.domain.model.Rol;
+import pe.reciclaya.app.ui.util.FragmentNavigation;
+import pe.reciclaya.app.ui.view.register.adapter.RolRecyclerViewAdapter;
 import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 
 public class FragmentRegisterSeleccion extends Fragment {
@@ -28,7 +30,7 @@ public class FragmentRegisterSeleccion extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_register_select, container, false);
+        return inflater.inflate(R.layout.fragment_register_seleccion, container, false);
     }
 
     @Override
@@ -42,7 +44,7 @@ public class FragmentRegisterSeleccion extends Fragment {
     }
 
     private void inicializarComponentes(View view) {
-        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarRegister);
+        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarFRS);
 
         RVRol = view.findViewById(R.id.RVRolFRS);
         btnConfirmar = view.findViewById(R.id.BtnConfirmarFRS);
@@ -70,7 +72,7 @@ public class FragmentRegisterSeleccion extends Fragment {
                 )
         };
 
-        RolRA rolRA = new RolRA(roles, rol -> viewModel.updateRole(rol));
+        RolRecyclerViewAdapter rolRecyclerViewAdapter = new RolRecyclerViewAdapter(roles, rol -> viewModel.updateRole(rol));
         RVRol.setLayoutManager(
                 new LinearLayoutManager(getContext()) {
                     @Override
@@ -80,11 +82,14 @@ public class FragmentRegisterSeleccion extends Fragment {
                 }
         );
 
-        RVRol.setAdapter(rolRA);
+        RVRol.setAdapter(rolRecyclerViewAdapter);
     }
 
     private void inicializarListeners() {
-        IVRegresarUnoAtras.setOnClickListener(view -> viewModel.updateEliminarFragment(true));
+        IVRegresarUnoAtras.setOnClickListener(view ->
+            ((FragmentNavigation) requireActivity()).navigateBack()
+        );
+
         btnConfirmar.setOnClickListener(view -> viewModel.registerUser());
     }
 }

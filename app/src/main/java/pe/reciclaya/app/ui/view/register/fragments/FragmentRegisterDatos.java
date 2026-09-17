@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.register;
+package pe.reciclaya.app.ui.view.register.fragments;
 
 import android.os.Bundle;
 
@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.util.FragmentNavigation;
 import pe.reciclaya.app.ui.util.Inicializaciones;
 import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 
@@ -50,7 +51,7 @@ public class FragmentRegisterDatos extends Fragment {
     }
 
     private void inicializarComponentes(View view) {
-        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarRegister);
+        IVRegresarUnoAtras = view.findViewById(R.id.IVRegresarFRD);
 
         ETFullName = view.findViewById(R.id.ETFullNameFRD);
         ETEmail = view.findViewById(R.id.ETEmailFRD);
@@ -94,8 +95,13 @@ public class FragmentRegisterDatos extends Fragment {
     }
 
     private void inicializarListeners() {
-        IVRegresarUnoAtras.setOnClickListener(view -> viewModel.updateFinalizarActivity(true));
-        TVIrALogin.setOnClickListener(view -> viewModel.updateFinalizarActivity(true));
+        IVRegresarUnoAtras.setOnClickListener(view ->
+            ((FragmentNavigation) requireActivity()).navigateBack()
+        );
+
+        TVIrALogin.setOnClickListener(view ->
+            ((FragmentNavigation) requireActivity()).navigateBack()
+        );
 
         ETFullName.setOnFocusChangeListener((view, hasFocus) -> {
             if(!hasFocus) viewModel.updateFullName(ETFullName.getText().toString());

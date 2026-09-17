@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.restablecer;
+package pe.reciclaya.app.ui.view.restablecer.fragments;
 
 import android.os.Bundle;
 
@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.util.FragmentNavigation;
 import pe.reciclaya.app.ui.viewmodel.RestablecerViewModel;
 
 public class FragmentRestablecerCompararCodigo extends Fragment {
@@ -43,7 +44,7 @@ public class FragmentRestablecerCompararCodigo extends Fragment {
     }
 
     private void inicializarComponentes(View view) {
-        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarReset);
+        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarRCC);
 
         ETCod1 = view.findViewById(R.id.ETCod1RCC);
         ETCod2 = view.findViewById(R.id.ETCod2RCC);
@@ -65,7 +66,9 @@ public class FragmentRestablecerCompararCodigo extends Fragment {
     }
 
     private void inicializarListeners() {
-        IVRegresarUnoAtras.setOnClickListener(view -> viewModel.updateEliminarFragment(true));
+        IVRegresarUnoAtras.setOnClickListener(view ->
+            ((FragmentNavigation) requireActivity()).navigateBack()
+        );
 
         ETCod1.addTextChangedListener(TextWatcherReutilizable());
         ETCod2.addTextChangedListener(TextWatcherReutilizable());

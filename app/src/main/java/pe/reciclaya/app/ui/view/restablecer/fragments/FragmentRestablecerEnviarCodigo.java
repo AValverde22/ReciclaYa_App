@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.restablecer;
+package pe.reciclaya.app.ui.view.restablecer.fragments;
 
 import android.os.Bundle;
 
@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.util.FragmentNavigation;
 import pe.reciclaya.app.ui.viewmodel.RestablecerViewModel;
 
 
@@ -42,7 +43,7 @@ public class FragmentRestablecerEnviarCodigo extends Fragment {
     }
 
     private void inicializarComponentes(View view) {
-        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarReset);
+        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarREC);
 
         ETEmail = view.findViewById(R.id.ETEmailREC);
         btnEnviarCodigo = view.findViewById(R.id.btnEnviarCodigoREC);
@@ -62,8 +63,13 @@ public class FragmentRestablecerEnviarCodigo extends Fragment {
     }
 
     private void inicializarListeners() {
-        IVRegresarUnoAtras.setOnClickListener(view -> viewModel.updateFinalizarActivity(true));
-        TVIrALogin.setOnClickListener(view -> viewModel.updateFinalizarActivity(true));
+        IVRegresarUnoAtras.setOnClickListener(view ->
+            ((FragmentNavigation) requireActivity()).navigateBack()
+        );
+
+        TVIrALogin.setOnClickListener(view ->
+            ((FragmentNavigation) requireActivity()).navigateBack()
+        );
 
         ETEmail.setOnFocusChangeListener((view, hasFocus) -> {
             if(!hasFocus) viewModel.updateEmail(ETEmail.getText().toString());

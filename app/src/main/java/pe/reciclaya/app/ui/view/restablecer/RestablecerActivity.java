@@ -12,9 +12,13 @@ import androidx.lifecycle.ViewModelProvider;
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.antiguo.reciclador.activities.RecicladorMainActivity;
 import pe.reciclaya.app.antiguo.usuario.activities.UsuarioMainActivity;
+import pe.reciclaya.app.ui.util.FragmentNavigation;
+import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerCambiarPassword;
+import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerCompararCodigo;
+import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerEnviarCodigo;
 import pe.reciclaya.app.ui.viewmodel.RestablecerViewModel;
 
-public class RestablecerActivity extends AppCompatActivity {
+public class RestablecerActivity extends AppCompatActivity implements FragmentNavigation {
     private LinearLayout LLLoading;
 
     @Override
@@ -40,14 +44,6 @@ public class RestablecerActivity extends AppCompatActivity {
         viewModel.getError().observe(this, errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         );
-
-        viewModel.getFinalizarActivity().observe(this, finalizar -> {
-            if(finalizar) finish();
-        });
-
-        viewModel.getEliminarFragment().observe(this, eliminar -> {
-            if(eliminar) getSupportFragmentManager().popBackStack();
-        });
 
         viewModel.irSiguiente().observe(this, irSiguiente -> {
             if(irSiguiente) {
@@ -76,5 +72,11 @@ public class RestablecerActivity extends AppCompatActivity {
 
             finishAffinity();
         });
+    }
+
+    @Override
+    public void navigateBack() {
+        if(getSupportFragmentManager().getBackStackEntryCount() == 0) finish();
+        else getSupportFragmentManager().popBackStack();
     }
 }

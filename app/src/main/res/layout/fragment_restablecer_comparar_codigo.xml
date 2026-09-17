@@ -1,274 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.view.restablecer.FragmentRestablecerCompararCodigo"
-    >
+    android:orientation="vertical"
+    tools:context=".ui.view.restablecer.fragments.FragmentRestablecerCompararCodigo">
 
-    <ImageView
-        android:id="@+id/ImageViewRCC1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/verificar_codigo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/TextViewRCC1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/gotham_bold"
-        android:text="@string/VerificarCodigo"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ImageViewRCC1" />
-
-    <TextView
-        android:id="@+id/TextViewRCC2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-
-        android:fontFamily="@font/gothamnarrow_medium"
-        android:gravity="center"
-        android:text="@string/MensajeVerificarCodigo"
-        android:textColor="@color/gris"
-        android:textSize="14sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewRCC1" />
-
-    <LinearLayout
-        android:id="@+id/LLRCC1"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewRCC2" >
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="2.5dp"
-
-            app:cardBackgroundColor="@color/gris_claro"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp"
-            >
-
-            <EditText
-                android:id="@+id/ETCod1RCC"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gothamnarrow_medium"
-
-                android:maxLength="1"
-                android:nextFocusRight="@id/ETCod2RCC"
-
-                android:inputType="number"
-                android:background="@color/transparente"
-                />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="2.5dp"
-
-            app:cardBackgroundColor="@color/gris_claro"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp"
-            >
-
-            <EditText
-                android:id="@+id/ETCod2RCC"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gothamnarrow_medium"
-
-                android:maxLength="1"
-                android:nextFocusLeft="@id/ETCod1RCC"
-                android:nextFocusRight="@id/ETCod3RCC"
-
-                android:inputType="number"
-                android:background="@color/transparente"
-                />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="2.5dp"
-
-            app:cardBackgroundColor="@color/gris_claro"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp"
-            >
-
-            <EditText
-                android:id="@+id/ETCod3RCC"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gothamnarrow_medium"
-
-                android:maxLength="1"
-                android:nextFocusLeft="@id/ETCod2RCC"
-                android:nextFocusRight="@id/ETCod4RCC"
-
-                android:inputType="number"
-                android:background="@color/transparente"
-                />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="2.5dp"
-
-            app:cardBackgroundColor="@color/gris_claro"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp"
-            >
-
-            <EditText
-                android:id="@+id/ETCod4RCC"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-
-                android:background="@color/transparente"
-                android:fontFamily="@font/gothamnarrow_medium"
-                android:inputType="number"
-                android:maxLength="1"
-
-                android:nextFocusLeft="@id/ETCod3RCC"
-                android:nextFocusRight="@id/ETCod5RCC"
-
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="2.5dp"
-
-            app:cardBackgroundColor="@color/gris_claro"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp"
-            >
-
-            <EditText
-                android:id="@+id/ETCod5RCC"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gothamnarrow_medium"
-
-                android:maxLength="1"
-                android:nextFocusLeft="@id/ETCod4RCC"
-                android:nextFocusRight="@id/ETCod6RCC"
-
-                android:inputType="number"
-                android:background="@color/transparente"
-                />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="2.5dp"
-
-            app:cardBackgroundColor="@color/gris_claro"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp"
-            >
-
-            <EditText
-                android:id="@+id/ETCod6RCC"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gothamnarrow_medium"
-
-                android:maxLength="1"
-                android:nextFocusLeft="@id/ETCod5RCC"
-
-                android:inputType="number"
-                android:background="@color/transparente"
-                />
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/TVReenviarCodigoRCC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-
-        android:fontFamily="@font/gotham_medium"
-        android:text="@string/VolverAEnviarCodigo"
-        android:textColor="@color/verde"
-        android:textSize="14sp"
-        android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LLRCC1"
-        />
-
-    <Button
-        android:id="@+id/btnContinuarRCC"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
 
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/green_button_background"
+        <ImageView
+            android:id="@+id/IVRegresarRCC"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
 
-        android:text="@string/Continuar"
-        android:textAllCaps="false"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/flechaizquierda" />
 
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TVReenviarCodigoRCC" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:fontFamily="@font/gothamnarrow_medium"
+
+            android:gravity="center"
+            android:text="@string/RestablecerContrasena"
+            android:textColor="@color/black"
+            android:textSize="19sp" />
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0.05dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="0.9"
+        android:paddingHorizontal="30dp">
+
+        <ImageView
+            android:id="@+id/ImageViewRCC1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/verificar_codigo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TextViewRCC1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/gotham_bold"
+            android:text="@string/VerificarCodigo"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ImageViewRCC1" />
+
+        <TextView
+            android:id="@+id/TextViewRCC2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+
+            android:fontFamily="@font/gothamnarrow_medium"
+            android:gravity="center"
+            android:text="@string/MensajeVerificarCodigo"
+            android:textColor="@color/gris"
+            android:textSize="14sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextViewRCC1" />
+
+        <LinearLayout
+            android:id="@+id/LLRCC1"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginHorizontal="20dp"
+
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextViewRCC2">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="2.5dp"
+
+                app:cardBackgroundColor="@color/gris_claro"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/ETCod1RCC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:inputType="number"
+                    android:maxLength="1"
+
+                    android:nextFocusRight="@id/ETCod2RCC"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="2.5dp"
+
+                app:cardBackgroundColor="@color/gris_claro"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/ETCod2RCC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:inputType="number"
+                    android:maxLength="1"
+
+                    android:nextFocusLeft="@id/ETCod1RCC"
+                    android:nextFocusRight="@id/ETCod3RCC"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="2.5dp"
+
+                app:cardBackgroundColor="@color/gris_claro"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/ETCod3RCC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:inputType="number"
+                    android:maxLength="1"
+
+                    android:nextFocusLeft="@id/ETCod2RCC"
+                    android:nextFocusRight="@id/ETCod4RCC"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="2.5dp"
+
+                app:cardBackgroundColor="@color/gris_claro"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/ETCod4RCC"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:inputType="number"
+                    android:maxLength="1"
+
+                    android:nextFocusLeft="@id/ETCod3RCC"
+                    android:nextFocusRight="@id/ETCod5RCC"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="2.5dp"
+
+                app:cardBackgroundColor="@color/gris_claro"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/ETCod5RCC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:inputType="number"
+                    android:maxLength="1"
+
+                    android:nextFocusLeft="@id/ETCod4RCC"
+                    android:nextFocusRight="@id/ETCod6RCC"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="2.5dp"
+
+                app:cardBackgroundColor="@color/gris_claro"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/ETCod6RCC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:inputType="number"
+                    android:maxLength="1"
+
+                    android:nextFocusLeft="@id/ETCod5RCC"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TVReenviarCodigoRCC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+
+            android:fontFamily="@font/gotham_medium"
+            android:text="@string/VolverAEnviarCodigo"
+            android:textColor="@color/verde"
+            android:textSize="14sp"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LLRCC1" />
+
+        <Button
+            android:id="@+id/btnContinuarRCC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/green_button_background"
+
+            android:text="@string/Continuar"
+            android:textAllCaps="false"
+
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVReenviarCodigoRCC" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

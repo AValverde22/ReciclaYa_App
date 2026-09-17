@@ -13,10 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.antiguo.reciclador.activities.RecicladorMainActivity;
 import pe.reciclaya.app.antiguo.usuario.activities.UsuarioMainActivity;
+import pe.reciclaya.app.ui.view.register.fragments.FragmentRegisterDatos;
+import pe.reciclaya.app.ui.view.register.fragments.FragmentRegisterSeleccion;
 import pe.reciclaya.app.ui.view.tyc.TyCActivity;
 import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements RegisterNavigation {
 
     private LinearLayout LLLoading;
 
@@ -50,14 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
                     .putExtra("Tipo", tipo));
         });
 
-        viewModel.getFinalizarActivity().observe(this, finalizar -> {
-            if(finalizar) finish();
-        });
-
-        viewModel.getEliminarFragment().observe(this, eliminar -> {
-            if(eliminar) getSupportFragmentManager().popBackStack();
-        });
-
         viewModel.irSiguiente().observe(this, irSiguiente -> {
             if(irSiguiente) {
                 getSupportFragmentManager().beginTransaction()
@@ -76,5 +70,11 @@ public class RegisterActivity extends AppCompatActivity {
 
             finishAffinity();
         });
+    }
+
+    @Override
+    public void navigateBack() {
+        if(getSupportFragmentManager().getBackStackEntryCount() == 0) finish();
+        else getSupportFragmentManager().popBackStack();
     }
 }

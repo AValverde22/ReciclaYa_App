@@ -1,160 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.view.restablecer.FragmentRestablecerEnviarCodigo">
+    android:orientation="vertical"
+    tools:context=".ui.view.restablecer.fragments.FragmentRestablecerEnviarCodigo">
 
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-
-        android:gravity="center_horizontal"
-        android:fontFamily="@font/gotham_bold"
-        android:text="@string/OlvidoContrasena"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-
-        android:fontFamily="@font/gothamnarrow_medium"
-        android:gravity="center"
-        android:text="@string/MensajeOlvido"
-        android:textColor="@color/gris"
-        android:textSize="14sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout20"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21">
+        <ImageView
+            android:id="@+id/IVRegresarREC"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/flechaizquierda" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:fontFamily="@font/gothamnarrow_medium"
+
+            android:gravity="center"
+            android:text="@string/RestablecerContrasena"
+            android:textColor="@color/black"
+            android:textSize="19sp" />
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0.05dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="0.9"
+        android:paddingHorizontal="30dp"
+        >
+
+        <TextView
+            android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
 
-            android:fontFamily="@font/gotham_medium"
+            android:fontFamily="@font/gotham_bold"
+            android:gravity="center_horizontal"
+            android:text="@string/OlvidoContrasena"
+            android:textColor="@color/black"
+            android:textSize="24sp"
 
-            android:text="@string/CorreoElectronico"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+
+            android:fontFamily="@font/gothamnarrow_medium"
+            android:gravity="center"
+            android:text="@string/MensajeOlvido"
             android:textColor="@color/gris"
-            android:textSize="14sp" />
+            android:textSize="14sp"
 
-        <androidx.cardview.widget.CardView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/gotham_medium"
+
+                android:text="@string/CorreoElectronico"
+                android:textColor="@color/gris"
+                android:textSize="14sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gris_claro"
+
+                    android:paddingHorizontal="15dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/correo"
+                        android:backgroundTint="@color/gris"
+                        android:scaleType="fitCenter" />
+
+                    <EditText
+                        android:id="@+id/ETEmailREC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+
+                        android:background="@color/transparente"
+                        android:ems="10"
+                        android:fontFamily="@font/gothamnarrow_medium"
+
+                        android:hint="@string/CorreoEjemplo"
+                        android:inputType="textEmailAddress"
+                        android:paddingVertical="15dp"
+
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gris"
+
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnEnviarCodigoREC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/green_button_background"
+            android:onClick="EnviarCodigo"
+            android:text="@string/EnviarCodigo"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/gris_claro"
+            android:textAllCaps="false"
 
-                android:paddingHorizontal="15dp">
+            android:textColor="@color/white"
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout20" />
 
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/correo"
-                    android:backgroundTint="@color/gris"
-                    android:scaleType="fitCenter" />
+        <TextView
+            android:id="@+id/textView22"
 
-                <EditText
-                    android:id="@+id/ETEmailREC"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-                    android:background="@color/transparente"
-                    android:ems="10"
-                    android:fontFamily="@font/gothamnarrow_medium"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/gothamnarrow_medium"
+            android:gravity="center"
+            android:text="@string/SiYaTienesCuenta"
+            android:textColor="@color/gris"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/TVLoginREC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-                    android:hint="@string/CorreoEjemplo"
-                    android:inputType="textEmailAddress"
-                    android:paddingVertical="15dp"
+        <TextView
+            android:id="@+id/TVLoginREC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gris"
+            android:layout_marginBottom="15dp"
 
-                    android:textSize="14sp" />
+            android:fontFamily="@font/gotham_medium"
+            android:text="@string/Iniciarssesion"
+            android:textColor="@color/verde"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnEnviarCodigoREC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-        android:background="@drawable/green_button_background"
-        android:onClick="EnviarCodigo"
-        android:text="@string/EnviarCodigo"
-
-        android:textAllCaps="false"
-
-        android:textColor="@color/white"
-
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout20" />
-
-    <TextView
-        android:id="@+id/textView22"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="5dp"
-        android:fontFamily="@font/gothamnarrow_medium"
-        android:gravity="center"
-        android:text="@string/SiYaTienesCuenta"
-        android:textColor="@color/gris"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/TVLoginREC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/TVLoginREC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="15dp"
-
-        android:fontFamily="@font/gotham_medium"
-        android:text="@string/Iniciarssesion"
-        android:textColor="@color/verde"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,6 +1,5 @@
-package pe.reciclaya.app.ui.view.restablecer;
+package pe.reciclaya.app.ui.view.restablecer.fragments;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.util.FragmentNavigation;
 import pe.reciclaya.app.ui.util.Inicializaciones;
-import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 import pe.reciclaya.app.ui.viewmodel.RestablecerViewModel;
 
 public class FragmentRestablecerCambiarPassword extends Fragment {
@@ -42,7 +41,7 @@ public class FragmentRestablecerCambiarPassword extends Fragment {
     }
 
     private void inicializarComponentes(View view) {
-        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarReset);
+        IVRegresarUnoAtras = requireActivity().findViewById(R.id.IVRegresarRCP);
 
         ETPassword = view.findViewById(R.id.ETPasswordRCP);
         ETConfirmPassword = view.findViewById(R.id.ETConfirmPasswordRCP);
@@ -73,7 +72,9 @@ public class FragmentRestablecerCambiarPassword extends Fragment {
     }
 
     private void inicializarListeners() {
-        IVRegresarUnoAtras.setOnClickListener(view -> viewModel.updateEliminarFragment(true));
+        IVRegresarUnoAtras.setOnClickListener(view ->
+            ((FragmentNavigation) requireActivity()).navigateBack()
+        );
 
         ETPassword.setOnFocusChangeListener((view, hasFocus) -> {
             if(!hasFocus) viewModel.updatePassword(ETPassword.getText().toString());
