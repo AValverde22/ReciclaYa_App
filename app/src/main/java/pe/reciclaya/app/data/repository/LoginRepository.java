@@ -4,22 +4,26 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import pe.reciclaya.app.data.model.login.LoginRequest;
-import pe.reciclaya.app.data.model.login.LoginResponse;
+import pe.reciclaya.app.data.model.login.request.LoginRequest;
+import pe.reciclaya.app.data.model.login.response.LoginResponse;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
 import pe.reciclaya.app.data.local.AppPreferencesManager;
+import pe.reciclaya.app.domain.singleton.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginRepository {
     private final UserService apiService;
-    private final Context context;
+    private static AppPreferencesManager appPreferencesManager;
+    private static User user;
 
     public LoginRepository(Context context) {
         apiService = BackendClient.getUserService();
-        this.context = context;
+
+        appPreferencesManager = AppPreferencesManager.getInstance(context);
+        user = User.getInstance();
     }
 
     public void iniciarSesion(String email, String password, LoginCallback callback) {
@@ -34,7 +38,7 @@ public class LoginRepository {
                     if(loginResponse.getID() == -1) callback.onError("Usuario y/o contraseñas inválidos.");
                     else {
                         almacenarDatos(loginResponse);
-                        callback.onSuccess(loginResponse);
+                        callback.onSuccess(loginResponse.getRole());
                     }
                 }
                 else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
@@ -49,14 +53,24 @@ public class LoginRepository {
     }
 
     public interface LoginCallback {
-        void onSuccess(LoginResponse response);
+        void onSuccess(String role);
         void onError(String errorMessage);
     }
 
     private void almacenarDatos(LoginResponse response) {
-        AppPreferencesManager.putInt("id", response.getID(), context);
-        AppPreferencesManager.putString("fullName", response.getFullName(), context);
-        AppPreferencesManager.putString("email", response.getEmail(), context);
-        AppPreferencesManager.putString("role", response.getRole(), context);
+        int id = response.getID();
+        String fullName = response.getFullName();
+        String email = response.getEmail();
+        String role = response.getRole();
+
+        user.setID(id);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setRole(role);
+
+        appPreferencesManager.putInt("id", id);
+        appPreferencesManager.putString("fullName", fullName);
+        appPreferencesManager.putString("email", email);
+        appPreferencesManager.putString("role", role);
     }
 }

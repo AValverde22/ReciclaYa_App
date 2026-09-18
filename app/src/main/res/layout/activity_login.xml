@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/verde_claro"
-
             />
     </LinearLayout>
 
@@ -199,6 +198,7 @@
                     android:fontFamily="@font/gotham_medium"
 
                     android:gravity="end"
+                    android:onClick="irARestablecer"
 
                     android:text="@string/OlvidoContrasena"
                     android:textColor="@color/verde"

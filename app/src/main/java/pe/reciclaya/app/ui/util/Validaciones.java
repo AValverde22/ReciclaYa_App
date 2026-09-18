@@ -1,12 +1,14 @@
 package pe.reciclaya.app.ui.util;
 
 import android.util.Patterns;
+import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
 public class Validaciones {
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
+                    "(?=.*[A-Z])" +
                     "(?=.*[@#$^&+=])" +
                     "(?=\\S+$)" +
                     ".{8,}" +
@@ -51,5 +53,12 @@ public class Validaciones {
     public static String role(String role) {
         if(role == null) return "Debe de seleccionar un rol";
         else return null;
+    }
+
+    public static String codigo(String cod1, String cod2, String cod3, String cod4, String cod5, String cod6){
+        if(cod1.isBlank() || cod2.isBlank() || cod3.isBlank() || cod4.isBlank() || cod5.isBlank() || cod6.isBlank())
+            return "Los campos no pueden estar vacíos.";
+
+        return null;
     }
 }

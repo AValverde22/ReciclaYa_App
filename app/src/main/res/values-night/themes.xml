@@ -18,4 +18,10 @@
         <item name="colorControlNormal">@color/gris_intermedio</item>
         <item name="colorControlActivated">@color/verde</item>
     </style>
+
+    <style name="TabLayoutText" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/gothamnarrow_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>

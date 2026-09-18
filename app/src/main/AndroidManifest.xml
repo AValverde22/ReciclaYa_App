@@ -15,31 +15,42 @@
         android:theme="@style/Theme.ReciclaYa">
         <activity
             android:name=".ui.view.register.RegisterActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.view.login.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:theme="@style/Theme.App.Starting"
             android:name=".ui.view.splash.Splash"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.App.Starting"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".antiguo.reciclador.activities.RecicladorMainActivity"
+            android:name=".ui.view.main.factory_method.main.RecicladorMainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".antiguo.usuario.activities.UsuarioMainActivity"
+            android:name=".ui.view.main.factory_method.main.UsuarioMainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.view.tyc.TyCActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.restablecer.RestablecerActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>

@@ -5,21 +5,25 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import pe.reciclaya.app.data.local.AppPreferencesManager;
-import pe.reciclaya.app.data.model.register.RegisterRequestEmail;
-import pe.reciclaya.app.data.model.register.RegisterRequestUser;
+import pe.reciclaya.app.data.model.register.request.RegisterRequestEmail;
+import pe.reciclaya.app.data.model.register.request.RegisterRequestUser;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
+import pe.reciclaya.app.domain.singleton.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterRepository {
     private final UserService apiService;
-    private final Context context;
+    private static AppPreferencesManager appPreferencesManager;
+    private static User user;
 
     public RegisterRepository(Context context) {
         apiService = BackendClient.getUserService();
-        this.context = context;
+
+        appPreferencesManager = AppPreferencesManager.getInstance(context);
+        user = User.getInstance();
     }
 
     public void validarEmail(String email, RegisterCallback callback) {
@@ -30,7 +34,7 @@ public class RegisterRepository {
             public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     boolean existe = response.body();
-                    if(!existe) callback.onSuccess();
+                    if(!existe) callback.onSuccess(null);
                     else callback.onError("El correo ya se encuentra registrado.");
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
@@ -51,7 +55,7 @@ public class RegisterRepository {
                 if(response.isSuccessful() && response.body() != null) {
                     int id = response.body();
                     almacenarDatos(id, fullName, email, role);
-                    callback.onSuccess();
+                    callback.onSuccess(role);
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
 
@@ -63,14 +67,19 @@ public class RegisterRepository {
     }
 
     public interface RegisterCallback {
-        void onSuccess();
+        void onSuccess(String role);
         void onError(String errorMessage);
     }
 
     private void almacenarDatos(int id, String fullName, String email, String role) {
-        AppPreferencesManager.putInt("id", id, context);
-        AppPreferencesManager.putString("fullName", fullName, context);
-        AppPreferencesManager.putString("email", email, context);
-        AppPreferencesManager.putString("role", role, context);
+        user.setID(id);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setRole(role);
+
+        appPreferencesManager.putInt("id", id);
+        appPreferencesManager.putString("fullName", fullName);
+        appPreferencesManager.putString("email", email);
+        appPreferencesManager.putString("role", role);
     }
 }

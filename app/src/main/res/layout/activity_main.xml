@@ -1,23 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.MainActivity"
     android:background="@color/white"
-    >
+    android:orientation="vertical"
+    tools:context=".ui.view.main.">
 
-    <TextView
-        android:id="@+id/TVProximamenteMain"
+    <LinearLayout
+        android:id="@+id/LLLoadingMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gris_transparente"
+        android:elevation="2dp"
         android:gravity="center"
 
-        android:textColor="@color/black"
-        android:fontFamily="@font/gotham_bold"
-        android:textSize="20sp"
-        />
-</LinearLayout>
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/verde_claro"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/VPMain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/TLMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/transparente"
+
+            app:tabIndicator="@color/transparente"
+            app:tabTextAppearance="@style/TabLayoutText"
+            app:tabTextColor="@color/gris_intermedio"
+            app:tabSelectedTextColor="@color/verde"
+            app:tabIconTint="@color/icon_selector_color"
+            >
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/TIMapaMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/mapa"
+                android:text="@string/Mapa"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/TISolicitarMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/solicitar"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/TIHistorialMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/historial"
+            />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/TIPerfilMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/perfil"
+                android:text="@string/Perfil"
+                />
+        </com.google.android.material.tabs.TabLayout>
+    </LinearLayout>
+</FrameLayout>

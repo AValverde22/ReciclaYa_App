@@ -12,10 +12,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import pe.reciclaya.app.ui.util.EventObserver;
+import pe.reciclaya.app.ui.view.main.manager.MainManager;
+import pe.reciclaya.app.ui.view.restablecer.RestablecerActivity;
 import pe.reciclaya.app.ui.viewmodel.LoginViewModel;
 import pe.reciclaya.app.ui.view.register.RegisterActivity;
-import pe.reciclaya.app.antiguo.reciclador.activities.RecicladorMainActivity;
-import pe.reciclaya.app.antiguo.usuario.activities.UsuarioMainActivity;
 import pe.reciclaya.app.ui.util.Inicializaciones;
 
 import pe.reciclaya.app.R;
@@ -59,14 +60,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getRoleResponse().observe(this, role -> {
-            if(role.equals("Usuario"))
-                startActivity(new Intent(this, UsuarioMainActivity.class));
-            else
-                startActivity(new Intent(this, RecicladorMainActivity.class));
-
+        viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
+            startActivity(new Intent(this, MainManager.crearMainFactory(roleResponse)));
             finishAffinity();
-        });
+        }));
 
         viewModel.getError().observe(this, errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
@@ -99,4 +96,5 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void irARegistro(View view) { startActivity(new Intent(this, RegisterActivity.class)); }
+    public void irARestablecer(View view) { startActivity(new Intent(this, RestablecerActivity.class)); }
 }

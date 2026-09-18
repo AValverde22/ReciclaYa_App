@@ -10,9 +10,15 @@
     <color name="verde">#22C258</color>
     <color name="verde_claro">#47CC73</color>
 
+    <color name="verde_perfil">#F2FDF6</color>
+    <color name="verde_marco_perfil">#DCF7E6</color>
+
     <color name="transparente">#00000000</color>
     <color name="verde_transparente">#2222C258</color>
     <color name="gris_transparente">#14000000</color>
 
     <color name="rojo">#FF0000</color>
+    <color name="rojo_dos">#E64D4D</color>
+
+    <color name="dorado">#ECC488</color>
 </resources>
