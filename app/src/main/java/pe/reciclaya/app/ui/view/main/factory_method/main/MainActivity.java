@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.main.factory_method;
+package pe.reciclaya.app.ui.view.main.factory_method.main;
 
 import android.os.Bundle;
 

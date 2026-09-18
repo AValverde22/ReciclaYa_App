@@ -11,6 +11,7 @@
 
     <!-- Subtitulos -->
     <string name="CrearCuenta">Crear Cuenta</string>
+    <string name="MiPerfil">Mi Perfil</string>
 
     <!-- Subsubtitulos -->
     <string name="InfoPersonal">INFORMACIÓN PERSONAL</string>
@@ -19,6 +20,8 @@
     <string name="SeguridadDeLaCuenta">SEGURIDAD DE LA CUENTA</string>
     <string name="CualRol">¿CUÁL SERÁ TU ROL?</string>
     <string name="CambiarContrasena">Cambiar contraseña</string>
+    <string name="MiActividad">MI ACTIVIDAD</string>
+
 
     <!-- Mensajes -->
     <string name="MensajeBienvenida">Únete a la red de reciclaje local. \nConectamos personas con recicladores\npara un planeta más verde.</string>
@@ -30,6 +33,10 @@
 
     <string name="MensajePersona">Deseo publicar solicitudes de recolección para mis residuos.</string>
     <string name="MensajeReciclador">Busco recolectar materiales y contribuir a la economía circular.</string>
+
+    <!-- Opciones -->
+    <string name="Reciclador">Reciclador</string>
+    <string name="Usuario">Usuario</string>
 
     <!-- Inputs -->
     <string name="CorreoElectronico">Correo electrónico</string>
@@ -61,6 +68,11 @@
     <string name="Confirmar">Confirmar</string>
     <string name="Continuar">Continuar</string>
     <string name="EnviarCodigo">Enviar Código</string>
+    <string name="CerrarSesion">Cerrar Sesión</string>
+
+    <!-- TabItem -->
+    <string name="Mapa">Mapa</string>
+    <string name="Perfil">Perfil</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

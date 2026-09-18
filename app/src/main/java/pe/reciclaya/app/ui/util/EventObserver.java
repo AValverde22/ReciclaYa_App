@@ -11,10 +11,11 @@ public class EventObserver<T> implements Observer<Event<T>> {
     }
 
     @Override
-    public void onChanged(@Nullable Event<T> tEvent) {
-        if(tEvent != null && tEvent.getContentIfNotHandled() != null && onEventChanged != null) {
-            onEventChanged.onUnhandledContent(tEvent.getContentIfNotHandled());
-        }
+    public void onChanged(@Nullable Event<T> event) {
+        if (event == null || onEventChanged == null) return;
+
+        T content = event.getContentIfNotHandled();
+        if (content != null) onEventChanged.onUnhandledContent(content);
     }
 
     public interface OnEventChanged<T>{

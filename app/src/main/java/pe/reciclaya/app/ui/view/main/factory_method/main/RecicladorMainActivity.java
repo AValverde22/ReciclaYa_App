@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.main.factory_method;
+package pe.reciclaya.app.ui.view.main.factory_method.main;
 
 import pe.reciclaya.app.ui.view.main.abstract_factory.MainTabsFactory;
 import pe.reciclaya.app.ui.view.main.abstract_factory.RecicladorTabsFactory;

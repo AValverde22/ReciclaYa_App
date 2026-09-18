@@ -10,6 +10,7 @@ import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestReset;
 import pe.reciclaya.app.data.model.restablecer.response.RestablecerResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public interface UserService {
@@ -29,7 +30,7 @@ public interface UserService {
     @POST("user/compare")
     Call<Boolean> compareCode(@Body RestablecerRequestCompare requestModel);
 
-    @POST("user/reset")
+    @PATCH("user/reset")
     Call<RestablecerResponse> resetUser(@Body RestablecerRequestReset requestModel);
 
 }

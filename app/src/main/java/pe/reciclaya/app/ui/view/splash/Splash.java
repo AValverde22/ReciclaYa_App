@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.ui.util.EventObserver;
-import pe.reciclaya.app.ui.view.main.MainManager;
+import pe.reciclaya.app.ui.view.main.manager.MainManager;
 import pe.reciclaya.app.ui.viewmodel.SplashViewModel;
 
 public class Splash extends AppCompatActivity {
@@ -23,11 +23,9 @@ public class Splash extends AppCompatActivity {
     private void inicializarVM() {
         SplashViewModel viewModel = new ViewModelProvider(this).get(SplashViewModel.class);
 
-        viewModel.getDestinoConfirmado().observe(this, new EventObserver<>(destinoConfirmado -> {
-            if(destinoConfirmado) {
-                startActivity(new Intent(this, MainManager.crearMainFactory()));
-                finish();
-            }
+        viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
+            startActivity(new Intent(this, MainManager.crearMainFactory(roleResponse)));
+            finish();
         }));
     }
 }
