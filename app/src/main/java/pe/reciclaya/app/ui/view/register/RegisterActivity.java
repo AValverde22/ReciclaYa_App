@@ -11,14 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.R;
-import pe.reciclaya.app.antiguo.reciclador.activities.RecicladorMainActivity;
-import pe.reciclaya.app.antiguo.usuario.activities.UsuarioMainActivity;
+import pe.reciclaya.app.ui.util.EventObserver;
+import pe.reciclaya.app.ui.navigation.FragmentNavigation;
+import pe.reciclaya.app.ui.view.main.MainManager;
 import pe.reciclaya.app.ui.view.register.fragments.FragmentRegisterDatos;
 import pe.reciclaya.app.ui.view.register.fragments.FragmentRegisterSeleccion;
 import pe.reciclaya.app.ui.view.tyc.TyCActivity;
 import pe.reciclaya.app.ui.viewmodel.RegisterViewModel;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterNavigation {
+public class RegisterActivity extends AppCompatActivity implements FragmentNavigation {
 
     private LinearLayout LLLoading;
 
@@ -41,18 +42,16 @@ public class RegisterActivity extends AppCompatActivity implements RegisterNavig
             else LLLoading.setVisibility(View.GONE);
         });
 
-        viewModel.getError().observe(this, errorMessage ->
+        viewModel.getError().observe(this, new EventObserver<>(errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-        );
+        ));
 
-        viewModel.getTipo().observe(this, tipo -> {
-            if(tipo == null) return;
-
+        viewModel.getTipo().observe(this, new EventObserver<>(tipo ->
             startActivity(new Intent(this, TyCActivity.class)
-                    .putExtra("Tipo", tipo));
-        });
+                    .putExtra("Tipo", tipo))
+        ));
 
-        viewModel.irSiguiente().observe(this, irSiguiente -> {
+        viewModel.irSiguiente().observe(this, new EventObserver<>(irSiguiente -> {
             if(irSiguiente) {
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
@@ -60,16 +59,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterNavig
                         .addToBackStack(null)
                         .commit();
             }
-        });
+        }));
 
-        viewModel.getRoleResponse().observe(this, role -> {
-            if(role.equals("Usuario"))
-                startActivity(new Intent(this, UsuarioMainActivity.class));
-            else
-                startActivity(new Intent(this, RecicladorMainActivity.class));
-
-            finishAffinity();
-        });
+        viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
+            if(roleResponse) {
+                startActivity(new Intent(this, MainManager.crearMainFactory()));
+                finishAffinity();
+            }
+        }));
     }
 
     @Override

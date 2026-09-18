@@ -9,6 +9,7 @@ import pe.reciclaya.app.data.model.login.response.LoginResponse;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
 import pe.reciclaya.app.data.local.AppPreferencesManager;
+import pe.reciclaya.app.domain.singleton.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,10 +17,13 @@ import retrofit2.Response;
 public class LoginRepository {
     private final UserService apiService;
     private static AppPreferencesManager appPreferencesManager;
+    private static User user;
 
     public LoginRepository(Context context) {
         apiService = BackendClient.getUserService();
+
         appPreferencesManager = AppPreferencesManager.getInstance(context);
+        user = User.getInstance();
     }
 
     public void iniciarSesion(String email, String password, LoginCallback callback) {
@@ -34,7 +38,7 @@ public class LoginRepository {
                     if(loginResponse.getID() == -1) callback.onError("Usuario y/o contraseñas inválidos.");
                     else {
                         almacenarDatos(loginResponse);
-                        callback.onSuccess(loginResponse);
+                        callback.onSuccess();
                     }
                 }
                 else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
@@ -49,14 +53,24 @@ public class LoginRepository {
     }
 
     public interface LoginCallback {
-        void onSuccess(LoginResponse response);
+        void onSuccess();
         void onError(String errorMessage);
     }
 
     private void almacenarDatos(LoginResponse response) {
-        appPreferencesManager.putInt("id", response.getID());
-        appPreferencesManager.putString("fullName", response.getFullName());
-        appPreferencesManager.putString("email", response.getEmail());
-        appPreferencesManager.putString("role", response.getRole());
+        int id = response.getID();
+        String fullName = response.getFullName();
+        String email = response.getEmail();
+        String role = response.getRole();
+
+        user.setID(id);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setRole(role);
+
+        appPreferencesManager.putInt("id", id);
+        appPreferencesManager.putString("fullName", fullName);
+        appPreferencesManager.putString("email", email);
+        appPreferencesManager.putString("role", role);
     }
 }

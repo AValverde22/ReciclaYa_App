@@ -11,6 +11,7 @@ import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestReset;
 import pe.reciclaya.app.data.model.restablecer.response.RestablecerResponse;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
+import pe.reciclaya.app.domain.singleton.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,13 +19,16 @@ import retrofit2.Response;
 public class RestablecerRepository {
     private final UserService apiService;
     private static AppPreferencesManager appPreferencesManager;
+    private static User user;
 
     public RestablecerRepository(Context context) {
         apiService = BackendClient.getUserService();
+
         appPreferencesManager = AppPreferencesManager.getInstance(context);
+        user = User.getInstance();
     }
 
-    public void enviarCodigo(String email, RestablecerCallback callback) {
+    public void enviarCodigo(String email, ResetCallback callback) {
         RestablecerRequestRecover body = new RestablecerRequestRecover(email);
 
         apiService.recoverUser(body).enqueue(new Callback<>() {
@@ -41,7 +45,7 @@ public class RestablecerRepository {
         });
     }
 
-    public void compararCodigo(String email, int codigo, RestablecerCallback callback) {
+    public void compararCodigo(String email, int codigo, ResetCallback callback) {
         RestablecerRequestCompare body = new RestablecerRequestCompare(email, codigo);
 
         apiService.compareCode(body).enqueue(new Callback<>() {
@@ -69,7 +73,7 @@ public class RestablecerRepository {
             public void onResponse(@NonNull Call<RestablecerResponse> call, @NonNull  Response<RestablecerResponse> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     almacenarDatos(response.body());
-                    callback.onSuccess(response.body());
+                    callback.onSuccess();
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
 
@@ -80,20 +84,25 @@ public class RestablecerRepository {
         });
     }
 
-    public interface RestablecerCallback {
+    public interface ResetCallback {
         void onSuccess();
         void onError(String errorMessage);
     }
 
-    public interface ResetCallback {
-        void onSuccess(RestablecerResponse response);
-        void onError(String errorMessage);
-    }
-
     private void almacenarDatos(RestablecerResponse response) {
-        appPreferencesManager.putInt("id", response.getID());
-        appPreferencesManager.putString("fullName", response.getFullName());
-        appPreferencesManager.putString("email", response.getEmail());
-        appPreferencesManager.putString("role", response.getRole());
+        int id = response.getID();
+        String fullName = response.getFullName();
+        String email = response.getEmail();
+        String role = response.getRole();
+
+        user.setID(id);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setRole(role);
+
+        appPreferencesManager.putInt("id", id);
+        appPreferencesManager.putString("fullName", fullName);
+        appPreferencesManager.putString("email", email);
+        appPreferencesManager.putString("role", role);
     }
 }

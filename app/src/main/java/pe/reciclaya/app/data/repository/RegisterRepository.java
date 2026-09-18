@@ -9,6 +9,7 @@ import pe.reciclaya.app.data.model.register.request.RegisterRequestEmail;
 import pe.reciclaya.app.data.model.register.request.RegisterRequestUser;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
+import pe.reciclaya.app.domain.singleton.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,10 +17,13 @@ import retrofit2.Response;
 public class RegisterRepository {
     private final UserService apiService;
     private static AppPreferencesManager appPreferencesManager;
+    private static User user;
 
     public RegisterRepository(Context context) {
         apiService = BackendClient.getUserService();
+
         appPreferencesManager = AppPreferencesManager.getInstance(context);
+        user = User.getInstance();
     }
 
     public void validarEmail(String email, RegisterCallback callback) {
@@ -68,6 +72,11 @@ public class RegisterRepository {
     }
 
     private void almacenarDatos(int id, String fullName, String email, String role) {
+        user.setID(id);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setRole(role);
+
         appPreferencesManager.putInt("id", id);
         appPreferencesManager.putString("fullName", fullName);
         appPreferencesManager.putString("email", email);

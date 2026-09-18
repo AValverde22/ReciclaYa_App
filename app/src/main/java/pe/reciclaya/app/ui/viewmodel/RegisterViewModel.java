@@ -8,15 +8,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import pe.reciclaya.app.data.repository.RegisterRepository;
+import pe.reciclaya.app.ui.util.Event;
 import pe.reciclaya.app.ui.util.Validaciones;
 
 public class RegisterViewModel extends AndroidViewModel {
-    private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
-    private final MutableLiveData<Boolean> siguiente = new MutableLiveData<>(false);
-    private final MutableLiveData<String> error = new MutableLiveData<>();
-    private final MutableLiveData<Integer> tipo = new MutableLiveData<>();
+    private final MutableLiveData<Event<String>> error = new MutableLiveData<>();
+    private final MutableLiveData<Event<Integer>> tipo = new MutableLiveData<>();
+    private final MutableLiveData<Event<Boolean>> siguiente = new MutableLiveData<>();
+    private final MutableLiveData<Event<Boolean>> roleResponse = new MutableLiveData<>();
 
-    private final MutableLiveData<String> roleResponse = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
 
     private final MutableLiveData<String> fullNameError = new MutableLiveData<>();
     private final MutableLiveData<String> emailError = new MutableLiveData<>();
@@ -36,19 +37,19 @@ public class RegisterViewModel extends AndroidViewModel {
         registerRepository = new RegisterRepository(application.getApplicationContext());
     }
 
-    public LiveData<Boolean> getLoading() { return loading; }
-    public LiveData<Boolean> irSiguiente() { return siguiente; }
-    public LiveData<Integer> getTipo() { return tipo; }
-    public LiveData<String> getError() { return error; }
+    public LiveData<Event<Integer>> getTipo() { return tipo; }
+    public LiveData<Event<String>> getError() { return error; }
+    public LiveData<Event<Boolean>> irSiguiente() { return siguiente; }
+    public LiveData<Event<Boolean>> getRoleResponse() { return roleResponse; }
 
-    public LiveData<String> getRoleResponse() { return roleResponse; }
+    public LiveData<Boolean> getLoading() { return loading; }
 
     public LiveData<String> getFullNameError() { return fullNameError; }
     public LiveData<String> getEmailError() { return emailError; }
     public LiveData<String> getPasswordError() { return passwordError; }
     public LiveData<String> getConfirmPasswordError() { return confirmPasswordError; }
 
-    public void updateTipo(int t) { tipo.setValue(t); }
+    public void updateTipo(int t) { tipo.setValue(new Event<>(t)); }
 
     public void updateFullName(String fullName) { fullNameError.setValue(Validaciones.campoGenerico(fullName)); }
     public void updateEmail(String email) { emailError.setValue(Validaciones.email(email)); }
@@ -73,7 +74,7 @@ public class RegisterViewModel extends AndroidViewModel {
 
 
         if(Boolean.TRUE.equals(checkError.getValue())) {
-            error.setValue("Para seguir, debe de aceptar los términos y condiciones.");
+            error.setValue(new Event<>("Para seguir, debe de aceptar los términos y condiciones."));
             return;
         }
 
@@ -86,13 +87,13 @@ public class RegisterViewModel extends AndroidViewModel {
             @Override
             public void onSuccess() {
                 loading.postValue(false);
-                siguiente.postValue(true);
+                siguiente.postValue(new Event<>(true));
             }
 
             @Override
             public void onError(String errorMessage) {
                 loading.postValue(false);
-                error.postValue(errorMessage);
+                error.postValue(new Event<>(errorMessage));
             }
         });
     }
@@ -100,7 +101,7 @@ public class RegisterViewModel extends AndroidViewModel {
     public void registerUser() {
         roleError.setValue(Validaciones.role(role));
         if(roleError.getValue() != null) {
-            error.setValue(roleError.getValue());
+            error.setValue(new Event<>(roleError.getValue()));
             return;
         }
 
@@ -109,13 +110,13 @@ public class RegisterViewModel extends AndroidViewModel {
             @Override
             public void onSuccess() {
                 loading.postValue(false);
-                roleResponse.postValue(role);
+                roleResponse.postValue(new Event<>(true));
             }
 
             @Override
             public void onError(String errorMessage) {
                 loading.postValue(false);
-                error.postValue(errorMessage);
+                error.postValue(new Event<>(errorMessage));
             }
         });
     }

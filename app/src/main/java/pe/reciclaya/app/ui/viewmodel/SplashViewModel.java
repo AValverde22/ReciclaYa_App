@@ -8,22 +8,23 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import pe.reciclaya.app.data.repository.SplashRepository;
+import pe.reciclaya.app.ui.util.Event;
 
 public class SplashViewModel extends AndroidViewModel {
     private final SplashRepository splashRepository;
-    private final MutableLiveData<String> savedRole = new MutableLiveData<>();
+    private final MutableLiveData<Event<Boolean>> destino = new MutableLiveData<>();
 
     public SplashViewModel(@NonNull Application application) {
         super(application);
         this.splashRepository = new SplashRepository(application.getApplicationContext());
 
-        getPreviousRole();
+        getSavedRole();
     }
 
-    public LiveData<String> getSavedRole() { return savedRole; }
+    public LiveData<Event<Boolean>> getDestinoConfirmado() { return destino; }
 
-    private void getPreviousRole() {
-        String role = splashRepository.getSavedRole();
-        savedRole.setValue(role);
+    private void getSavedRole() {
+        splashRepository.getSavedUser();
+        destino.setValue(new Event<>(true));
     }
 }

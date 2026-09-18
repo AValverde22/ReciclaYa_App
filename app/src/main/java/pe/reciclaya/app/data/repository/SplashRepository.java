@@ -14,11 +14,10 @@ public class SplashRepository {
         user = User.getInstance();
     }
 
-    public String getSavedRole() {
+    public void getSavedUser() {
         int id = appPreferencesManager.getInt("id");
 
-        if(id == -1) return null;
-        else {
+        if(id != -1) {
             String fullName = appPreferencesManager.getString("fullName");
             String email = appPreferencesManager.getString("email");
             String role = appPreferencesManager.getString("role");
@@ -27,8 +26,6 @@ public class SplashRepository {
             user.setFullName(fullName);
             user.setEmail(email);
             user.setRole(role);
-
-            return role;
         }
     }
 }
