@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.SpannableString;
@@ -72,24 +73,25 @@ public class FragmentRegisterDatos extends Fragment {
 
     private void inicializarVM() {
         viewModel = new ViewModelProvider(requireActivity()).get(RegisterViewModel.class);
+        LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
-        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading ->
+        viewModel.getLoading().observe(lifecycleOwner, isLoading ->
             btnCrearCuenta.setEnabled(!isLoading)
         );
 
-        viewModel.getFullNameError().observe(getViewLifecycleOwner(), error ->
+        viewModel.getFullNameError().observe(lifecycleOwner, error ->
             ETFullName.setError(error)
         );
 
-        viewModel.getEmailError().observe(getViewLifecycleOwner(), error ->
+        viewModel.getEmailError().observe(lifecycleOwner, error ->
             ETEmail.setError(error)
         );
 
-        viewModel.getPasswordError().observe(getViewLifecycleOwner(), error ->
+        viewModel.getPasswordError().observe(lifecycleOwner, error ->
             ETPassword.setError(error)
         );
 
-        viewModel.getConfirmPasswordError().observe(getViewLifecycleOwner(), error ->
+        viewModel.getConfirmPasswordError().observe(lifecycleOwner, error ->
             ETConfirmPassword.setError(error)
         );
     }

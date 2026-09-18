@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.util.EventObserver;
 import pe.reciclaya.app.ui.view.main.MainManager;
-import pe.reciclaya.app.ui.navigation.FragmentNavigation;
+import pe.reciclaya.app.ui.util.FragmentNavigation;
 import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerCambiarPassword;
 import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerCompararCodigo;
 import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerEnviarCodigo;

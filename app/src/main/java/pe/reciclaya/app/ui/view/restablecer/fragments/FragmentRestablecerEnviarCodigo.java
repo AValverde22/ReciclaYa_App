@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -52,12 +53,13 @@ public class FragmentRestablecerEnviarCodigo extends Fragment {
 
     private void inicializarVM() {
         viewModel = new ViewModelProvider(requireActivity()).get(RestablecerViewModel.class);
+        LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
-        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading ->
+        viewModel.getLoading().observe(lifecycleOwner, isLoading ->
             btnEnviarCodigo.setEnabled(!isLoading)
         );
 
-        viewModel.getEmailError().observe(getViewLifecycleOwner(), error ->
+        viewModel.getEmailError().observe(lifecycleOwner, error ->
             ETEmail.setError(error)
         );
     }

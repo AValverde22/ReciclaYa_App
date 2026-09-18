@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -57,16 +58,17 @@ public class FragmentRestablecerCambiarPassword extends Fragment {
 
     private void inicializarVM() {
         viewModel = new ViewModelProvider(requireActivity()).get(RestablecerViewModel.class);
+        LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
-        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading ->
+        viewModel.getLoading().observe(lifecycleOwner, isLoading ->
             btnConfirmar.setEnabled(!isLoading)
         );
 
-        viewModel.getPasswordError().observe(getViewLifecycleOwner(), error ->
+        viewModel.getPasswordError().observe(lifecycleOwner, error ->
             ETPassword.setError(error)
         );
 
-        viewModel.getConfirmPasswordError().observe(getViewLifecycleOwner(), error ->
+        viewModel.getConfirmPasswordError().observe(lifecycleOwner, error ->
             ETConfirmPassword.setError(error)
         );
     }
