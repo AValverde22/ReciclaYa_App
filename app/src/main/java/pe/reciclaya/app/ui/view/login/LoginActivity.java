@@ -13,7 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.ui.util.EventObserver;
-import pe.reciclaya.app.ui.view.main.MainManager;
+import pe.reciclaya.app.ui.view.main.manager.MainManager;
+import pe.reciclaya.app.ui.view.restablecer.RestablecerActivity;
 import pe.reciclaya.app.ui.viewmodel.LoginViewModel;
 import pe.reciclaya.app.ui.view.register.RegisterActivity;
 import pe.reciclaya.app.ui.util.Inicializaciones;
@@ -60,10 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
-            if(roleResponse) {
-                startActivity(new Intent(this, MainManager.crearMainFactory()));
-                finishAffinity();
-            }
+            startActivity(new Intent(this, MainManager.crearMainFactory(roleResponse)));
+            finishAffinity();
         }));
 
         viewModel.getError().observe(this, errorMessage ->
@@ -97,4 +96,5 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void irARegistro(View view) { startActivity(new Intent(this, RegisterActivity.class)); }
+    public void irARestablecer(View view) { startActivity(new Intent(this, RestablecerActivity.class)); }
 }

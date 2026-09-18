@@ -1,12 +1,12 @@
-package pe.reciclaya.app.ui.view.main.factory_method;
+package pe.reciclaya.app.ui.view.main.factory_method.main;
 
 import pe.reciclaya.app.ui.view.main.abstract_factory.MainTabsFactory;
-import pe.reciclaya.app.ui.view.main.abstract_factory.RecicladorTabsFactory;
+import pe.reciclaya.app.ui.view.main.abstract_factory.UsuarioTabsFactory;
 
 public class UsuarioMainActivity extends MainActivity {
     @Override
     protected MainTabsFactory getMainTabFactory() {
-        return new RecicladorTabsFactory();
+        return new UsuarioTabsFactory();
     }
 
     @Override

@@ -38,7 +38,7 @@ public class LoginRepository {
                     if(loginResponse.getID() == -1) callback.onError("Usuario y/o contraseñas inválidos.");
                     else {
                         almacenarDatos(loginResponse);
-                        callback.onSuccess();
+                        callback.onSuccess(loginResponse.getRole());
                     }
                 }
                 else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
@@ -53,7 +53,7 @@ public class LoginRepository {
     }
 
     public interface LoginCallback {
-        void onSuccess();
+        void onSuccess(String role);
         void onError(String errorMessage);
     }
 

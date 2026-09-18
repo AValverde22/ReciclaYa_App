@@ -15,7 +15,7 @@ public class RegisterViewModel extends AndroidViewModel {
     private final MutableLiveData<Event<String>> error = new MutableLiveData<>();
     private final MutableLiveData<Event<Integer>> tipo = new MutableLiveData<>();
     private final MutableLiveData<Event<Boolean>> siguiente = new MutableLiveData<>();
-    private final MutableLiveData<Event<Boolean>> roleResponse = new MutableLiveData<>();
+    private final MutableLiveData<Event<String>> roleResponse = new MutableLiveData<>();
 
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
 
@@ -40,7 +40,7 @@ public class RegisterViewModel extends AndroidViewModel {
     public LiveData<Event<Integer>> getTipo() { return tipo; }
     public LiveData<Event<String>> getError() { return error; }
     public LiveData<Event<Boolean>> irSiguiente() { return siguiente; }
-    public LiveData<Event<Boolean>> getRoleResponse() { return roleResponse; }
+    public LiveData<Event<String>> getRoleResponse() { return roleResponse; }
 
     public LiveData<Boolean> getLoading() { return loading; }
 
@@ -85,7 +85,7 @@ public class RegisterViewModel extends AndroidViewModel {
         loading.setValue(true);
         registerRepository.validarEmail(email.trim(), new RegisterRepository.RegisterCallback() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String role) {
                 loading.postValue(false);
                 siguiente.postValue(new Event<>(true));
             }
@@ -108,9 +108,9 @@ public class RegisterViewModel extends AndroidViewModel {
         loading.setValue(true);
         registerRepository.registerUser(fullName, email, password, role, new RegisterRepository.RegisterCallback() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String role) {
                 loading.postValue(false);
-                roleResponse.postValue(new Event<>(true));
+                roleResponse.postValue(new Event<>(role));
             }
 
             @Override

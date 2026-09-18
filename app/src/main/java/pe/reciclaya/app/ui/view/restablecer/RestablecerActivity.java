@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.util.EventObserver;
-import pe.reciclaya.app.ui.view.main.MainManager;
+import pe.reciclaya.app.ui.view.main.manager.MainManager;
 import pe.reciclaya.app.ui.util.FragmentNavigation;
 import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerCambiarPassword;
 import pe.reciclaya.app.ui.view.restablecer.fragments.FragmentRestablecerCompararCodigo;
@@ -28,9 +28,12 @@ public class RestablecerActivity extends AppCompatActivity implements FragmentNa
 
         LLLoading = findViewById(R.id.LLLoadingRestablecer);
         inicializarVM();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.FLRestablecer, new FragmentRestablecerEnviarCodigo())
-                .commit();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.FLRestablecer, new FragmentRestablecerEnviarCodigo())
+                    .commit();
+        }
     }
 
     private void inicializarVM() {
@@ -49,7 +52,7 @@ public class RestablecerActivity extends AppCompatActivity implements FragmentNa
             if(irSiguiente) {
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.FLRegister, new FragmentRestablecerCompararCodigo())
+                        .replace(R.id.FLRestablecer, new FragmentRestablecerCompararCodigo())
                         .addToBackStack(null)
                         .commit();
             }
@@ -59,16 +62,14 @@ public class RestablecerActivity extends AppCompatActivity implements FragmentNa
             if(irSubSiguiente)
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.FLRegister, new FragmentRestablecerCambiarPassword())
+                        .replace(R.id.FLRestablecer, new FragmentRestablecerCambiarPassword())
                         .addToBackStack(null)
                         .commit();
         }));
 
         viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
-            if(roleResponse) {
-                startActivity(new Intent(this, MainManager.crearMainFactory()));
-                finishAffinity();
-            }
+            startActivity(new Intent(this, MainManager.crearMainFactory(roleResponse)));
+            finishAffinity();
         }));
     }
 

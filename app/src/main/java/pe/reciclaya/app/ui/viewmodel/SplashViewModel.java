@@ -12,7 +12,7 @@ import pe.reciclaya.app.ui.util.Event;
 
 public class SplashViewModel extends AndroidViewModel {
     private final SplashRepository splashRepository;
-    private final MutableLiveData<Event<Boolean>> destino = new MutableLiveData<>();
+    private final MutableLiveData<Event<String>> roleResponse = new MutableLiveData<>();
 
     public SplashViewModel(@NonNull Application application) {
         super(application);
@@ -21,10 +21,10 @@ public class SplashViewModel extends AndroidViewModel {
         getSavedRole();
     }
 
-    public LiveData<Event<Boolean>> getDestinoConfirmado() { return destino; }
+    public LiveData<Event<String>> getRoleResponse() { return roleResponse; }
 
     private void getSavedRole() {
-        splashRepository.getSavedUser();
-        destino.setValue(new Event<>(true));
+        String role = splashRepository.getSavedUser();
+        roleResponse.setValue(new Event<>(role));
     }
 }

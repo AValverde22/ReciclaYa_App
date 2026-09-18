@@ -14,18 +14,19 @@ public class SplashRepository {
         user = User.getInstance();
     }
 
-    public void getSavedUser() {
+    public String getSavedUser() {
         int id = appPreferencesManager.getInt("id");
+        if(id == -1) return "default";
 
-        if(id != -1) {
-            String fullName = appPreferencesManager.getString("fullName");
-            String email = appPreferencesManager.getString("email");
-            String role = appPreferencesManager.getString("role");
+        String fullName = appPreferencesManager.getString("fullName");
+        String email = appPreferencesManager.getString("email");
+        String role = appPreferencesManager.getString("role");
 
-            user.setID(id);
-            user.setFullName(fullName);
-            user.setEmail(email);
-            user.setRole(role);
-        }
+        user.setID(id);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setRole(role);
+
+        return role;
     }
 }

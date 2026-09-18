@@ -12,7 +12,7 @@ import pe.reciclaya.app.ui.util.Event;
 import pe.reciclaya.app.ui.util.Validaciones;
 
 public class LoginViewModel extends AndroidViewModel {
-    private final MutableLiveData<Event<Boolean>> roleResponse = new MutableLiveData<>();
+    private final MutableLiveData<Event<String>> roleResponse = new MutableLiveData<>();
 
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
     private final MutableLiveData<String> error = new MutableLiveData<>();
@@ -26,7 +26,7 @@ public class LoginViewModel extends AndroidViewModel {
         loginRepository = new LoginRepository(application.getApplicationContext());
     }
 
-    public LiveData<Event<Boolean>> getRoleResponse() { return roleResponse; }
+    public LiveData<Event<String>> getRoleResponse() { return roleResponse; }
 
     public LiveData<Boolean> getLoading() { return loading; }
     public LiveData<String> getError() { return error; }
@@ -45,9 +45,9 @@ public class LoginViewModel extends AndroidViewModel {
         loading.setValue(true);
         loginRepository.iniciarSesion(email.trim(), password.trim(), new LoginRepository.LoginCallback() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String role) {
                 loading.postValue(false);
-                roleResponse.postValue(new Event<>(true));
+                roleResponse.postValue(new Event<>(role));
             }
 
             @Override

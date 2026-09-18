@@ -1,6 +1,7 @@
 package pe.reciclaya.app.data.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -29,12 +30,13 @@ public class RestablecerRepository {
     }
 
     public void enviarCodigo(String email, ResetCallback callback) {
+        Log.i("xD", email);
         RestablecerRequestRecover body = new RestablecerRequestRecover(email);
 
         apiService.recoverUser(body).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if(response.isSuccessful()) callback.onSuccess();
+                if(response.isSuccessful()) callback.onSuccess(null);
                 else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
 
@@ -53,7 +55,7 @@ public class RestablecerRepository {
             public void onResponse(@NonNull Call<Boolean> call, @NonNull  Response<Boolean> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     boolean correcto = response.body();
-                    if(correcto) callback.onSuccess();
+                    if(correcto) callback.onSuccess(null);
                     else callback.onError("Código incorrecto");
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
@@ -73,7 +75,7 @@ public class RestablecerRepository {
             public void onResponse(@NonNull Call<RestablecerResponse> call, @NonNull  Response<RestablecerResponse> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     almacenarDatos(response.body());
-                    callback.onSuccess();
+                    callback.onSuccess(response.body().getRole());
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
 
@@ -85,7 +87,7 @@ public class RestablecerRepository {
     }
 
     public interface ResetCallback {
-        void onSuccess();
+        void onSuccess(String role);
         void onError(String errorMessage);
     }
 

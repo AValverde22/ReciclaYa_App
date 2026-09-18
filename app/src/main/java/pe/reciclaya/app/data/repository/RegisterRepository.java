@@ -34,7 +34,7 @@ public class RegisterRepository {
             public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     boolean existe = response.body();
-                    if(!existe) callback.onSuccess();
+                    if(!existe) callback.onSuccess(null);
                     else callback.onError("El correo ya se encuentra registrado.");
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
@@ -55,7 +55,7 @@ public class RegisterRepository {
                 if(response.isSuccessful() && response.body() != null) {
                     int id = response.body();
                     almacenarDatos(id, fullName, email, role);
-                    callback.onSuccess();
+                    callback.onSuccess(role);
                 } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
 
@@ -67,7 +67,7 @@ public class RegisterRepository {
     }
 
     public interface RegisterCallback {
-        void onSuccess();
+        void onSuccess(String role);
         void onError(String errorMessage);
     }
 

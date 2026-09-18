@@ -30,11 +30,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".antiguo.reciclador.activities.RecicladorMainActivity"
+            android:name=".ui.view.main.factory_method.main.RecicladorMainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".antiguo.usuario.activities.UsuarioMainActivity"
+            android:name=".ui.view.main.factory_method.main.UsuarioMainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -46,5 +46,4 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
-
 </manifest>

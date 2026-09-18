@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.util.EventObserver;
 import pe.reciclaya.app.ui.util.FragmentNavigation;
-import pe.reciclaya.app.ui.view.main.MainManager;
+import pe.reciclaya.app.ui.view.main.manager.MainManager;
 import pe.reciclaya.app.ui.view.register.fragments.FragmentRegisterDatos;
 import pe.reciclaya.app.ui.view.register.fragments.FragmentRegisterSeleccion;
 import pe.reciclaya.app.ui.view.tyc.TyCActivity;
@@ -30,9 +30,12 @@ public class RegisterActivity extends AppCompatActivity implements FragmentNavig
 
         LLLoading = findViewById(R.id.LLLoadingRegister);
         inicializarVM();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.FLRegister, new FragmentRegisterDatos())
-                .commit();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.FLRegister, new FragmentRegisterDatos())
+                    .commit();
+        }
     }
 
     private void inicializarVM() {
@@ -62,10 +65,8 @@ public class RegisterActivity extends AppCompatActivity implements FragmentNavig
         }));
 
         viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
-            if(roleResponse) {
-                startActivity(new Intent(this, MainManager.crearMainFactory()));
-                finishAffinity();
-            }
+            startActivity(new Intent(this, MainManager.crearMainFactory(roleResponse)));
+            finishAffinity();
         }));
     }
 
