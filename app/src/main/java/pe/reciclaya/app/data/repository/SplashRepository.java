@@ -3,18 +3,32 @@ package pe.reciclaya.app.data.repository;
 import android.content.Context;
 
 import pe.reciclaya.app.data.local.AppPreferencesManager;
+import pe.reciclaya.app.domain.singleton.User;
 
 public class SplashRepository {
-    private final Context context;
+    private static AppPreferencesManager appPreferencesManager;
+    private static User user;
 
     public SplashRepository(Context context) {
-        this.context = context;
+        appPreferencesManager = AppPreferencesManager.getInstance(context);
+        user = User.getInstance();
     }
 
     public String getSavedRole() {
-        int id = AppPreferencesManager.getInt("id", context);
+        int id = appPreferencesManager.getInt("id");
 
         if(id == -1) return null;
-        else return AppPreferencesManager.getString("role", context);
+        else {
+            String fullName = appPreferencesManager.getString("fullName");
+            String email = appPreferencesManager.getString("email");
+            String role = appPreferencesManager.getString("role");
+
+            user.setID(id);
+            user.setFullName(fullName);
+            user.setEmail(email);
+            user.setRole(role);
+
+            return role;
+        }
     }
 }

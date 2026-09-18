@@ -15,11 +15,11 @@ import retrofit2.Response;
 
 public class RegisterRepository {
     private final UserService apiService;
-    private final Context context;
+    private static AppPreferencesManager appPreferencesManager;
 
     public RegisterRepository(Context context) {
         apiService = BackendClient.getUserService();
-        this.context = context;
+        appPreferencesManager = AppPreferencesManager.getInstance(context);
     }
 
     public void validarEmail(String email, RegisterCallback callback) {
@@ -68,9 +68,9 @@ public class RegisterRepository {
     }
 
     private void almacenarDatos(int id, String fullName, String email, String role) {
-        AppPreferencesManager.putInt("id", id, context);
-        AppPreferencesManager.putString("fullName", fullName, context);
-        AppPreferencesManager.putString("email", email, context);
-        AppPreferencesManager.putString("role", role, context);
+        appPreferencesManager.putInt("id", id);
+        appPreferencesManager.putString("fullName", fullName);
+        appPreferencesManager.putString("email", email);
+        appPreferencesManager.putString("role", role);
     }
 }

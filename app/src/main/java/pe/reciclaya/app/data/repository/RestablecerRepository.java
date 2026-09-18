@@ -17,11 +17,11 @@ import retrofit2.Response;
 
 public class RestablecerRepository {
     private final UserService apiService;
-    private final Context context;
+    private static AppPreferencesManager appPreferencesManager;
 
     public RestablecerRepository(Context context) {
         apiService = BackendClient.getUserService();
-        this.context = context;
+        appPreferencesManager = AppPreferencesManager.getInstance(context);
     }
 
     public void enviarCodigo(String email, RestablecerCallback callback) {
@@ -91,9 +91,9 @@ public class RestablecerRepository {
     }
 
     private void almacenarDatos(RestablecerResponse response) {
-        AppPreferencesManager.putInt("id", response.getID(), context);
-        AppPreferencesManager.putString("fullName", response.getFullName(), context);
-        AppPreferencesManager.putString("email", response.getEmail(), context);
-        AppPreferencesManager.putString("role", response.getRole(), context);
+        appPreferencesManager.putInt("id", response.getID());
+        appPreferencesManager.putString("fullName", response.getFullName());
+        appPreferencesManager.putString("email", response.getEmail());
+        appPreferencesManager.putString("role", response.getRole());
     }
 }
