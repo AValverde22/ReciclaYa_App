@@ -1,333 +1,363 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".general.fragments.register.FRDatos">
+    android:orientation="vertical"
+    tools:context=".ui.view.register.fragments.FragmentRegisterDatos">
 
-    <TextView
-        android:id="@+id/TV1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-
-        android:fontFamily="@font/gothamnarrow_medium"
-        android:text="@string/InfoPersonal"
-        android:textColor="@color/gris"
-        android:textSize="13sp"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <LinearLayout
-        android:id="@+id/LL1"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:background="@drawable/linearlayout_transparente"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="15dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TV1">
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:id="@+id/IVRegresarFRD"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
 
-            android:layout_gravity="center"
-
-            android:background="@drawable/usuario"
-            android:backgroundTint="@color/gris"
-            android:scaleType="fitCenter" />
-
-        <EditText
-            android:id="@+id/ETFullNameFRD"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-
-            android:background="@color/transparente"
-            android:ems="10"
-
-            android:fontFamily="@font/gothamnarrow_medium"
-            android:hint="@string/NombreCompleto"
-            android:inputType="text"
-            android:paddingVertical="15dp"
-
-            android:textColor="@color/black"
-            android:textColorHint="@color/gris"
-
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LL2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:background="@drawable/linearlayout_transparente"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="15dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LL1">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-
-            android:layout_gravity="center"
-
-            android:background="@drawable/correo"
-            android:backgroundTint="@color/gris"
-            android:scaleType="fitCenter" />
-
-        <EditText
-            android:id="@+id/ETEmailFRD"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="10dp"
-            android:background="@color/transparente"
-
-            android:ems="10"
-            android:fontFamily="@font/gothamnarrow_medium"
-
-            android:hint="@string/CorreoElectronico"
-            android:inputType="textEmailAddress"
-            android:paddingVertical="15dp"
-
-            android:textColor="@color/black"
-            android:textColorHint="@color/gris"
-
-            android:textSize="14sp"
-            />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/TV3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-
-        android:fontFamily="@font/gothamnarrow_medium"
-        android:text="@string/SeguridadDeLaCuenta"
-        android:textColor="@color/gris"
-        android:textSize="13sp"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LL2"
-        />
-
-    <LinearLayout
-        android:id="@+id/LL3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:background="@drawable/linearlayout_transparente"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="15dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TV3">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-
-            android:layout_gravity="center"
-
-            android:background="@drawable/candado"
-            android:backgroundTint="@color/gris"
-            android:scaleType="fitCenter" />
-
-        <EditText
-            android:id="@+id/ETPasswordFRD"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="15dp"
-
-            android:background="@color/transparente"
-            android:ems="10"
-
-            android:fontFamily="@font/gothamnarrow_medium"
-            android:hint="@string/Contrasena"
-            android:inputType="textPassword"
-            android:paddingVertical="15dp"
-
-            android:textColor="@color/black"
-            android:textColorHint="@color/gris"
-
-            android:textSize="14sp"
-            />
-
-        <ImageView
-            android:id="@+id/IVOjoUnoRegister"
-            android:layout_width="22.5dp"
-            android:layout_height="22.5dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/desbloquear_password"
-            />
-    </LinearLayout>
+            android:layout_marginStart="30dp"
+            android:background="@drawable/flechaizquierda" />
 
-    <LinearLayout
-        android:id="@+id/LL4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="15dp"
-        android:background="@drawable/linearlayout_transparente"
-        android:paddingHorizontal="15dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LL3">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-
-            android:layout_gravity="center"
-
-            android:background="@drawable/candado"
-            android:backgroundTint="@color/gris"
-            android:scaleType="fitCenter" />
-
-        <EditText
-            android:id="@+id/ETConfirmPasswordFRD"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="15dp"
-
-            android:background="@color/transparente"
-            android:ems="10"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
             android:fontFamily="@font/gothamnarrow_medium"
-            android:hint="@string/ConfirmarContra"
-            android:inputType="textPassword"
-            android:paddingVertical="15dp"
 
+            android:gravity="center"
+            android:text="@string/CrearCuenta"
             android:textColor="@color/black"
-            android:textColorHint="@color/gris"
+            android:textSize="19sp" />
+    </FrameLayout>
 
-            android:textSize="14sp" />
-
-        <ImageView
-            android:id="@+id/IVOjoDosRegister"
-            android:layout_width="22.5dp"
-            android:layout_height="22.5dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/desbloquear_password"
-            />
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LL4">
+        android:layout_height="0.05dp" />
 
-        <CheckBox
-            android:id="@+id/CBFRD"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="0.9"
+        android:paddingHorizontal="30dp"
+        >
+
+        <TextView
+            android:id="@+id/TV1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
 
-            android:theme="@style/MyCheckBox"
-            android:scaleX="0.85"
-            android:scaleY="0.85"
-            />
+            android:fontFamily="@font/gothamnarrow_medium"
+            android:text="@string/InfoPersonal"
+            android:textColor="@color/gris"
+            android:textSize="13sp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/LL1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="15dp"
-            >
 
-            <TextView
-                android:id="@+id/TVTyCFRD"
-                android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/linearlayout_transparente"
+            android:paddingHorizontal="15dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TV1">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:layout_gravity="center"
+
+                android:background="@drawable/usuario"
+                android:backgroundTint="@color/gris"
+                android:scaleType="fitCenter" />
+
+            <EditText
+                android:id="@+id/ETFullNameFRD"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+
+                android:background="@color/transparente"
+                android:ems="10"
+
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:hint="@string/NombreCompleto"
+                android:inputType="text"
+                android:paddingVertical="15dp"
 
                 android:textColor="@color/black"
-                android:fontFamily="@font/gotham_medium"
-                android:textSize="13sp"
-                />
+                android:textColorHint="@color/gris"
+
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp"
+            android:background="@drawable/linearlayout_transparente"
+            android:paddingHorizontal="15dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LL1">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:layout_gravity="center"
+
+                android:background="@drawable/correo"
+                android:backgroundTint="@color/gris"
+                android:scaleType="fitCenter" />
+
+            <EditText
+                android:id="@+id/ETEmailFRD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="10dp"
+                android:background="@color/transparente"
+
+                android:ems="10"
+                android:fontFamily="@font/gothamnarrow_medium"
+
+                android:hint="@string/CorreoElectronico"
+                android:inputType="textEmailAddress"
+                android:paddingVertical="15dp"
+
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris"
+
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TV3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+
+            android:fontFamily="@font/gothamnarrow_medium"
+            android:text="@string/SeguridadDeLaCuenta"
+            android:textColor="@color/gris"
+            android:textSize="13sp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LL2" />
+
+        <LinearLayout
+            android:id="@+id/LL3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp"
+            android:background="@drawable/linearlayout_transparente"
+            android:paddingHorizontal="15dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TV3">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:layout_gravity="center"
+
+                android:background="@drawable/candado"
+                android:backgroundTint="@color/gris"
+                android:scaleType="fitCenter" />
+
+            <EditText
+                android:id="@+id/ETPasswordFRD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_weight="1"
+
+                android:background="@color/transparente"
+                android:ems="10"
+
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:hint="@string/Contrasena"
+                android:inputType="textPassword"
+                android:paddingVertical="15dp"
+
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris"
+
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/IVOjoUnoRegister"
+                android:layout_width="22.5dp"
+                android:layout_height="22.5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/desbloquear_password" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp"
+            android:background="@drawable/linearlayout_transparente"
+            android:paddingHorizontal="15dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LL3">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:layout_gravity="center"
+
+                android:background="@drawable/candado"
+                android:backgroundTint="@color/gris"
+                android:scaleType="fitCenter" />
+
+            <EditText
+                android:id="@+id/ETConfirmPasswordFRD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_weight="1"
+
+                android:background="@color/transparente"
+                android:ems="10"
+
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:hint="@string/ConfirmarContra"
+                android:inputType="textPassword"
+                android:paddingVertical="15dp"
+
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris"
+
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/IVOjoDosRegister"
+                android:layout_width="22.5dp"
+                android:layout_height="22.5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/desbloquear_password" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LL4">
+
+            <CheckBox
+                android:id="@+id/CBFRD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:scaleX="0.85"
+                android:scaleY="0.85"
+                android:theme="@style/MyCheckBox" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/TVTyCFRD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/gotham_medium"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:text="@string/MensajeTyC"
+                    android:textColor="@color/gris"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/BtnCrearCuentaFRD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/green_button_background"
+            android:text="@string/CrearCuenta"
+
+            android:textAllCaps="false"
+
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCC2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCC2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="2.5dp"
 
-                android:text="@string/MensajeTyC"
-                android:textColor="@color/gris"
                 android:fontFamily="@font/gothamnarrow_medium"
-                android:textSize="11sp"
-                />
+                android:text="@string/YaTienesUnaCuenta"
+                android:textColor="@color/gris"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/TVIniciarSesionFRD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2.5dp"
+
+                android:fontFamily="@font/gotham_medium"
+                android:text="@string/Iniciarssesion"
+                android:textColor="@color/verde"
+                android:textSize="14sp" />
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/BtnCrearCuentaFRD"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/green_button_background"
-        android:text="@string/CrearCuenta"
-
-        android:textAllCaps="false"
-
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutCC2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutCC2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2.5dp"
-
-            android:fontFamily="@font/gothamnarrow_medium"
-            android:text="@string/YaTienesUnaCuenta"
-            android:textColor="@color/gris"
-            android:textSize="14sp"
-            />
-
-        <TextView
-            android:id="@+id/TVIniciarSesionFRD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2.5dp"
-
-            android:fontFamily="@font/gotham_medium"
-            android:text="@string/Iniciarssesion"
-            android:textColor="@color/verde"
-            android:textSize="14sp"
-            />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
