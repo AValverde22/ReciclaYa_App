@@ -2,12 +2,11 @@ package pe.reciclaya.app.ui.view.main.abstract_factory;
 
 import androidx.fragment.app.Fragment;
 
-import pe.reciclaya.app.ui.view.main.factory_method.fragment_perfil.FactoryFragmentPerfil;
-import pe.reciclaya.app.ui.view.main.factory_method.fragment_perfil.FactoryFragmentPerfilReciclador;
-import pe.reciclaya.app.ui.view.main.factory_method.fragment_perfil.FragmentMainPerfil;
+import pe.reciclaya.app.ui.view.main.fragments.perfil.factory_method.FactoryFragmentPerfil;
+import pe.reciclaya.app.ui.view.main.fragments.perfil.factory_method.FactoryFragmentPerfilReciclador;
+import pe.reciclaya.app.ui.view.main.fragments.perfil.factory_method.FragmentMainPerfil;
 import pe.reciclaya.app.ui.view.main.fragments.reciclador.FragmentMainEncargosReciclador;
 import pe.reciclaya.app.ui.view.main.fragments.reciclador.FragmentMainMapaReciclador;
-import pe.reciclaya.app.ui.view.main.factory_method.fragment_perfil.FragmentMainPerfilReciclador;
 import pe.reciclaya.app.ui.view.main.fragments.reciclador.FragmentMainReciclar;
 
 public class RecicladorTabsFactory implements MainTabsFactory {

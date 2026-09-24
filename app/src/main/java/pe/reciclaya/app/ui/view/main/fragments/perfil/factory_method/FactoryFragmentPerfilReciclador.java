@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.main.factory_method.fragment_perfil;
+package pe.reciclaya.app.ui.view.main.fragments.perfil.factory_method;
 
 public class FactoryFragmentPerfilReciclador implements FactoryFragmentPerfil {
     @Override

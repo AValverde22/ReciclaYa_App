@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.main.adapter;
+package pe.reciclaya.app.ui.view.main.fragments.perfil.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

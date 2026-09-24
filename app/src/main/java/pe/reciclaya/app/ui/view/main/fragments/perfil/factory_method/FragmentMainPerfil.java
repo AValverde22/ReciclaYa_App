@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.view.main.factory_method.fragment_perfil;
+package pe.reciclaya.app.ui.view.main.fragments.perfil.factory_method;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.domain.model.MiActividad;
 import pe.reciclaya.app.ui.util.EventObserver;
-import pe.reciclaya.app.ui.view.main.adapter.MiActividadRecyclerViewAdapter;
+import pe.reciclaya.app.ui.view.main.fragments.perfil.adapter.MiActividadRecyclerViewAdapter;
 import pe.reciclaya.app.ui.view.splash.Splash;
 import pe.reciclaya.app.ui.viewmodel.main.PerfilViewModel;
 

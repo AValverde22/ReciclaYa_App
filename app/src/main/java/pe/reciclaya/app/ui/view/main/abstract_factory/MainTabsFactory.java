@@ -2,7 +2,7 @@ package pe.reciclaya.app.ui.view.main.abstract_factory;
 
 import androidx.fragment.app.Fragment;
 
-import pe.reciclaya.app.ui.view.main.factory_method.fragment_perfil.FragmentMainPerfil;
+import pe.reciclaya.app.ui.view.main.fragments.perfil.factory_method.FragmentMainPerfil;
 
 public interface MainTabsFactory {
     Fragment crearPrimerFragment();

@@ -33,12 +33,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.main.factory_method.main.RecicladorMainActivity"
+            android:name=".ui.view.main.factory_method.RecicladorMainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.main.factory_method.main.UsuarioMainActivity"
+            android:name=".ui.view.main.factory_method.UsuarioMainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
