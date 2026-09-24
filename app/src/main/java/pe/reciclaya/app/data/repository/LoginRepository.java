@@ -9,7 +9,7 @@ import pe.reciclaya.app.data.model.login.response.LoginResponse;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
 import pe.reciclaya.app.data.local.AppPreferencesManager;
-import pe.reciclaya.app.domain.singleton.User;
+import pe.reciclaya.app.domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -22,6 +22,8 @@
     <string name="CambiarContrasena">Cambiar contraseña</string>
     <string name="MiActividad">MI ACTIVIDAD</string>
 
+    <string name="TipoDeResiduo">Tipo de Residuo</string>
+    <string name="DetallesDeCarga">Detalles de carga</string>
 
     <!-- Mensajes -->
     <string name="MensajeBienvenida">Únete a la red de reciclaje local. \nConectamos personas con recicladores\npara un planeta más verde.</string>
@@ -37,6 +39,7 @@
     <!-- Opciones -->
     <string name="Reciclador">Reciclador</string>
     <string name="Usuario">Usuario</string>
+    <string name="Obligatorio">Obligatorio</string>
 
     <!-- Inputs -->
     <string name="CorreoElectronico">Correo electrónico</string>
@@ -51,6 +54,17 @@
 
     <string name="PersonaRecicla">Persona que recicla</string>
     <string name="RecicladorLocal">Reciclador Local</string>
+
+    <string name="CantidadEstimada">Cantidad estimada</string>
+
+    <string name="Dia">Día</string>
+    <string name="DiaEjemplo">23/04/2026</string>
+
+    <string name="Hora">Hora</string>
+    <string name="HoraEjemplo">20:38</string>
+
+    <string name="DireccionCompleta">Dirección completa</string>
+    <string name="DireccionEjemplo">Calle 123 #45-67, Ciudad</string>
 
     <!-- Redirigir -->
     <string name="AunNoCuenta">¿Aún no tienes una cuenta?</string>
@@ -69,6 +83,9 @@
     <string name="Continuar">Continuar</string>
     <string name="EnviarCodigo">Enviar Código</string>
     <string name="CerrarSesion">Cerrar Sesión</string>
+
+    <string name="PublicarSolicitud">Publicar Solicitud</string>
+    <string name="LimpiarCampos">Limpiar campos</string>
 
     <!-- TabItem -->
     <string name="Mapa">Mapa</string>

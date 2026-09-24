@@ -3,12 +3,457 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
 
-    tools:context=".ui.view.main.fragments.usuario.FragmentMainSolicitar">
+    tools:context=".ui.main.usuario.FragmentMainUsuarioSolicitar">
 
+    <LinearLayout
+        android:id="@+id/LLLoadingFMS"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gris_transparente"
+        android:elevation="2dp"
+        android:gravity="center"
 
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/verde_claro"
 
+            />
+    </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/SVFormularioFMS"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingVertical="20dp">
+
+            <LinearLayout
+                android:id="@+id/LL1FMS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/reciclaya_transparente" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+
+                    android:layout_weight="1"
+
+                    android:fontFamily="@font/gotham_bold"
+                    android:gravity="center_vertical"
+                    android:text="@string/TipoDeResiduo"
+                    android:textColor="@color/black"
+                    android:textSize="17.5sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linearlayout_verde_seleccion"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginHorizontal="10dp"
+
+                        android:fontFamily="@font/gotham_bold"
+                        android:text="@string/Obligatorio"
+                        android:textColor="@color/verde"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL2FMS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LL1FMS">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RVTipoResiduosMS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:paddingHorizontal="-7.5dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TV1FMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+
+                android:fontFamily="@font/gotham_bold"
+                android:text="@string/DetallesDeCarga"
+                android:textColor="@color/black"
+                android:textSize="17.5sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LL2FMS" />
+
+            <LinearLayout
+                android:id="@+id/LL3FMS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:background="@drawable/linearlayout_transparente"
+                android:orientation="vertical"
+
+                android:padding="20dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TV1FMS"
+                >
+
+                <TextView
+                    android:id="@+id/TV2FMS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/gotham_medium"
+                    android:text="@string/CantidadEstimada"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    />
+
+                <Spinner
+                    android:id="@+id/SpinnerFMS"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+
+                    android:background="@drawable/spinner_cantidad"
+                    android:dropDownVerticalOffset="40dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL4FMS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LL3FMS">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+
+                            android:background="@drawable/calendario" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+
+                            android:layout_weight="1"
+
+                            android:fontFamily="@font/gotham_medium"
+                            android:text="@string/Dia"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/linearlayout_transparente"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/TVFechaMS"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@color/transparente"
+                            android:fontFamily="@font/gothamnarrow_medium"
+
+                            android:hint="@string/DiaEjemplo"
+
+                            android:paddingHorizontal="20dp"
+                            android:paddingVertical="12.5dp"
+
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gris_intermedio"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+
+                    android:layout_weight="1"
+
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+
+                            android:background="@drawable/reloj" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+
+                            android:layout_weight="1"
+
+                            android:fontFamily="@font/gotham_medium"
+                            android:text="@string/Hora"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/linearlayout_transparente"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/TVHoraFMS"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@color/transparente"
+                            android:fontFamily="@font/gothamnarrow_medium"
+
+                            android:hint="@string/HoraEjemplo"
+
+                            android:paddingHorizontal="20dp"
+                            android:paddingVertical="12.5dp"
+
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gris_intermedio"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL5FMS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:orientation="vertical"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LL4FMS">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:text="@string/DireccionCompleta"
+                    android:textColor="@color/black"
+
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linearlayout_transparente"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/TVDireccionMS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:background="@color/transparente"
+                        android:fontFamily="@font/gothamnarrow_medium"
+
+                        android:hint="@string/DireccionEjemplo"
+
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="12.5dp"
+
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gris_intermedio"
+                        android:textSize="15sp"
+
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/BtnPublicarSolicitudFMS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button_final_green_background"
+                android:text="@string/PublicarSolicitud"
+
+                android:textAllCaps="false"
+
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/LL5FMS" />
+
+            <TextView
+                android:id="@+id/TVLimpiarCamposFMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+
+                android:fontFamily="@font/gotham_bold"
+                android:text="@string/LimpiarCampos"
+                android:textColor="@color/rojo_dos"
+                android:textSize="15sp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/BtnPublicarSolicitudFMS" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/FLMapaFMS"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapaMS"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CVCerrarMapaFMS"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+
+                app:cardBackgroundColor="@color/blanco_transparente"
+                app:cardElevation="1dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="@android:drawable/ic_menu_close_clear_cancel"
+
+                    android:backgroundTint="@color/gris" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/TVDireccionMapaFMS"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:layout_marginHorizontal="60dp"
+                android:layout_marginTop="12dp"
+
+                android:background="@color/blanco_transparente"
+                android:ellipsize="end"
+                android:fontFamily="@font/gothamnarrow_medium"
+
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+
+                android:textColor="@color/black"
+                android:textSize="15sp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </FrameLayout>

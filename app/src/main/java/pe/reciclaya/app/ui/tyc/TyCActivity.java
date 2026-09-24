@@ -1,0 +1,29 @@
+package pe.reciclaya.app.ui.tyc;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import pe.reciclaya.app.R;
+
+public abstract class TyCActivity extends AppCompatActivity {
+    protected TextView TVTitulo, TVMensaje;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tyc_activity);
+
+        inicializarComponentes();
+        inicializarContenido();
+    }
+
+    private void inicializarComponentes() {
+        TVTitulo = findViewById(R.id.TVTituloTyC);
+        TVMensaje = findViewById(R.id.TVMensajeTyC);
+    }
+
+    protected abstract void inicializarContenido();
+}

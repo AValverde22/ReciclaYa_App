@@ -1,0 +1,99 @@
+package pe.reciclaya.app.ui.auth.login;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import pe.reciclaya.app.ui.common.event.EventObserver;
+import pe.reciclaya.app.ui.main.navigation.MainManager;
+import pe.reciclaya.app.ui.auth.restablecer.RestablecerActivity;
+import pe.reciclaya.app.ui.auth.register.RegisterActivity;
+import pe.reciclaya.app.ui.common.util.Inicializaciones;
+
+import pe.reciclaya.app.R;
+
+public class LoginActivity extends AppCompatActivity {
+
+    private EditText ETEmail, ETPassword;
+    private Button BtnIniciarSesion;
+    private LinearLayout LLLoading;
+    private LoginViewModel viewModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        inicializarComponentes();
+        inicializarVM();
+        inicializarListeners();
+    }
+
+    private void inicializarComponentes() {
+        ETEmail = findViewById(R.id.ETEmailLogin);
+        ETPassword = findViewById(R.id.ETPasswordLogin);
+        BtnIniciarSesion = findViewById(R.id.BtnIniciarSesionLogin);
+        LLLoading = findViewById(R.id.LLLoadingLogin);
+
+        ImageView IVOjo = findViewById(R.id.IVOjoLogin);
+        Inicializaciones.mostrarPassword(ETPassword, IVOjo);
+    }
+
+    private void inicializarVM() {
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        viewModel.getLoading().observe(this, isLoading -> {
+            if(isLoading) {
+                LLLoading.setVisibility(View.VISIBLE);
+                BtnIniciarSesion.setEnabled(false);
+            } else {
+                LLLoading.setVisibility(View.GONE);
+                BtnIniciarSesion.setEnabled(true);
+            }
+        });
+
+        viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
+            startActivity(new Intent(this, MainManager.crearMainFactory(roleResponse)));
+            finishAffinity();
+        }));
+
+        viewModel.getError().observe(this, errorMessage ->
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        );
+
+        viewModel.getEmailError().observe(this, error ->
+                ETEmail.setError(error)
+        );
+
+        viewModel.getPasswordError().observe(this, error ->
+                ETPassword.setError(error)
+        );
+    }
+
+    private void inicializarListeners() {
+        ETEmail.setOnFocusChangeListener((view, hasFocus) -> {
+            if(!hasFocus) viewModel.updateEmail(ETEmail.getText().toString());
+        });
+
+        ETPassword.setOnFocusChangeListener((view, hasFocus) -> {
+            if(!hasFocus) viewModel.updatePassword(ETPassword.getText().toString());
+        });
+    }
+
+    public void iniciarSesion(View view) {
+        String email = ETEmail.getText().toString();
+        String password = ETPassword.getText().toString();
+
+        viewModel.iniciarSesion(email, password);
+    }
+
+    public void irARegistro(View view) { startActivity(new Intent(this, RegisterActivity.class)); }
+    public void irARestablecer(View view) { startActivity(new Intent(this, RestablecerActivity.class)); }
+}
