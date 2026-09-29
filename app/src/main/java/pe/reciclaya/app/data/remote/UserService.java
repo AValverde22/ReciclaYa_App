@@ -1,13 +1,13 @@
 package pe.reciclaya.app.data.remote;
 
-import pe.reciclaya.app.data.model.login.response.LoginResponse;
-import pe.reciclaya.app.data.model.register.request.RegisterRequestEmail;
-import pe.reciclaya.app.data.model.register.request.RegisterRequestUser;
-import pe.reciclaya.app.data.model.login.request.LoginRequest;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestCompare;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestRecover;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestReset;
-import pe.reciclaya.app.data.model.restablecer.response.RestablecerResponse;
+import pe.reciclaya.app.data.model.auth.login.response.LoginResponse;
+import pe.reciclaya.app.data.model.auth.register.request.RegisterRequestEmail;
+import pe.reciclaya.app.data.model.auth.register.request.RegisterRequestUser;
+import pe.reciclaya.app.data.model.auth.login.request.LoginRequest;
+import pe.reciclaya.app.data.model.auth.restablecer.request.RestablecerRequestCompare;
+import pe.reciclaya.app.data.model.auth.restablecer.request.RestablecerRequestRecover;
+import pe.reciclaya.app.data.model.auth.restablecer.request.RestablecerRequestReset;
+import pe.reciclaya.app.data.model.auth.restablecer.response.RestablecerResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.PATCH;

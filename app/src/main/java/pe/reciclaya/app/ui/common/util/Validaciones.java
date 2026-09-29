@@ -19,6 +19,10 @@ public class Validaciones {
         return null;
     }
 
+    public static boolean campoVacio(String campo) {
+        return campo.isBlank();
+    }
+
     public static String email(String email) {
         if(email.isBlank()) return "El campo no puede estar vacío";
 

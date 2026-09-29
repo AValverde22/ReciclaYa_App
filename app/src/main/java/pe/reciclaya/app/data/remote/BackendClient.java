@@ -8,6 +8,7 @@ public class BackendClient {
 
     private static final String BASE_URL = BuildConfig.BASE_URL;
     private static UserService userService;
+    private static SolicitudService solicitudService;
 
     private static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -17,6 +18,11 @@ public class BackendClient {
     public static UserService getUserService() {
         if(userService == null) userService = retrofit.create(UserService.class);
         return userService;
+    }
+
+    public static SolicitudService getSolicitudService() {
+        if(solicitudService == null) retrofit.create(SolicitudService.class);
+        return solicitudService;
     }
 
     public static <T> T buildService(Class<T> service) { return retrofit.create(service); }
