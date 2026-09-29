@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -127,9 +126,9 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
             TVHora.setError(error ? "" : null)
         ));
 
-        viewModel.getErrorDireccion().observe(lifecycleOwner, new EventObserver<>(error -> {
-            TVDireccion.setError(error ? "" : null);
-        }));
+        viewModel.getErrorDireccion().observe(lifecycleOwner, new EventObserver<>(error ->
+            TVDireccion.setError(error ? "" : null)
+        ));
     }
 
     private void inicializarTipoResiduoRA() {
@@ -312,5 +311,7 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
         TVHora.setText("");
         TVDireccion.setText("");
         TVDireccionMapa.setText("");
+
+        viewModel.limpiarCampos();
     }
 }

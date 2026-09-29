@@ -2,7 +2,7 @@ package pe.reciclaya.app.data.model.solicitud.crear.request;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CrearRequest {
+public class CrearSolicitudRequest {
     @SerializedName("type") private String tipoResiduo;
     @SerializedName("size") private String tamano;
     @SerializedName("day") private String dia;
@@ -12,9 +12,9 @@ public class CrearRequest {
     private double longitude;
     @SerializedName("user_id") int idUser;
 
-    public CrearRequest() {}
+    public CrearSolicitudRequest() {}
 
-    public CrearRequest(String tipoResiduo, String tamano, String dia, String hora, String direccion, double latitude, double longitude, int idUser) {
+    public CrearSolicitudRequest(String tipoResiduo, String tamano, String dia, String hora, String direccion, double latitude, double longitude, int idUser) {
         this.tipoResiduo = tipoResiduo;
         this.tamano = tamano;
         this.dia = dia;

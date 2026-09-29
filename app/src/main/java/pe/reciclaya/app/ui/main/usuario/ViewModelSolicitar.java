@@ -25,8 +25,7 @@ public class ViewModelSolicitar extends ViewModel {
     private String direccion;
     private LatLng latLng;
 
-    private SolicitudRepository solicitudRepository;
-
+    private final SolicitudRepository solicitudRepository;
 
     public ViewModelSolicitar() {
         solicitudRepository = new SolicitudRepository();
@@ -65,14 +64,20 @@ public class ViewModelSolicitar extends ViewModel {
     public void publicarSolicitud(String tamano) {
         if(!conforme()) return;
 
-        solicitudRepository.crearSolicitud(tipoResiduo, tamano, fecha, hora, direccion, latLng, new SolicitudRepository.SolicitudCallback() {
-            @Override
-            public void onSuccess(String successMessage) { error.setValue(new Event<>(successMessage)); }
+        solicitudRepository.crearSolicitud(tipoResiduo, tamano, fecha, hora, direccion, latLng,
+                new SolicitudRepository.SolicitudCallback() {
+                    @Override
+                    public void onSuccess(String successMessage) {
+                        // Debería de ser una nueva variable, no 'error', pero no hay problema
+                        error.setValue(new Event<>(successMessage));
+                    }
 
-            @Override
-            public void onError(String errorMessage) { error.setValue(new Event<>(errorMessage));}
-        });
-
+                    @Override
+                    public void onError(String errorMessage) {
+                        error.setValue(new Event<>(errorMessage));
+                    }
+                }
+        );
     }
 
     private boolean conforme() {
@@ -103,4 +108,11 @@ public class ViewModelSolicitar extends ViewModel {
         return conforme;
     }
 
+    public void limpiarCampos() {
+        tipoResiduo = null;
+        fecha = null;
+        hora = null;
+        direccion = null;
+        latLng = null;
+    }
 }
