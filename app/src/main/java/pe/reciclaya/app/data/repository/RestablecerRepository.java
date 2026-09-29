@@ -6,10 +6,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import pe.reciclaya.app.data.local.AppPreferencesManager;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestCompare;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestRecover;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestReset;
-import pe.reciclaya.app.data.model.restablecer.response.RestablecerResponse;
+import pe.reciclaya.app.data.model.auth.restablecer.request.RestablecerRequestCompare;
+import pe.reciclaya.app.data.model.auth.restablecer.request.RestablecerRequestRecover;
+import pe.reciclaya.app.data.model.auth.restablecer.request.RestablecerRequestReset;
+import pe.reciclaya.app.data.model.auth.restablecer.response.RestablecerResponse;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
 import pe.reciclaya.app.domain.User;

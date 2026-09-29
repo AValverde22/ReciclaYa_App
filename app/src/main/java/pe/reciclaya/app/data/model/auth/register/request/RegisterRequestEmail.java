@@ -1,4 +1,4 @@
-package pe.reciclaya.app.data.model.register.request;
+package pe.reciclaya.app.data.model.auth.register.request;
 
 public class RegisterRequestEmail {
     private String email;

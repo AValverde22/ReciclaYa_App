@@ -1,4 +1,4 @@
-package pe.reciclaya.app.data.model.login.request;
+package pe.reciclaya.app.data.model.auth.login.request;
 
 public class LoginRequest {
     private String email;

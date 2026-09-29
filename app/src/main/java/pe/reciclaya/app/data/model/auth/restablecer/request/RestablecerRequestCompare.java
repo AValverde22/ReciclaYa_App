@@ -1,4 +1,4 @@
-package pe.reciclaya.app.data.model.restablecer.request;
+package pe.reciclaya.app.data.model.auth.restablecer.request;
 
 public class RestablecerRequestCompare {
     private String email;
