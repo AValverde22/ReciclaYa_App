@@ -54,6 +54,7 @@ public abstract class Solicitud {
     public abstract boolean isBtnCancelarEnabled();
     public abstract boolean isBtnEditarEnabled();
     public abstract int getColorFondo();
+    public abstract int getColor();
 
     public String getNombreTipoResiduo() { return tipoResiduo.getNombre(); }
     public String getUrlFotoPerfil() { return urlFotoPerfil; }

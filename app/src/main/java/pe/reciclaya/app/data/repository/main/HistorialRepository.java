@@ -2,6 +2,7 @@ package pe.reciclaya.app.data.repository.main;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pe.reciclaya.app.data.model.solicitud.get.response.GetResponse;
@@ -32,6 +33,7 @@ public class HistorialRepository {
 
     public void getSolicitudes(HistorialCallback callback) {
         int id = user.getID();
+
         apiService.getSolicitudes(id).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<GetResponse>> call, @NonNull Response<List<GetResponse>> response) {
@@ -47,14 +49,12 @@ public class HistorialRepository {
         });
     }
 
-    private Solicitud[] createSolicitudesList(List<GetResponse> responses) {
-        int length = responses.size();
-        Solicitud[] solicitudes = new Solicitud[length];
+    private List<Solicitud> createSolicitudesList(List<GetResponse> responses) {
+        List<Solicitud> solicitudes = new ArrayList<>();
 
-        for(int i = 0; i < length; i++){
+        for(GetResponse response : responses){
             FactorySolicitud factorySolicitud;
             FactoryTipoResiduo factoryTipoResiduo;
-            GetResponse response = responses.get(i);
 
             switch(response.getEstado()) {
                 case "Disponible": factorySolicitud = new FactoryDisponible(); break;
@@ -68,7 +68,7 @@ public class HistorialRepository {
                 default: factoryTipoResiduo = new FactoryPapel(); break;
             }
 
-            solicitudes[i] = factorySolicitud.crear(
+            solicitudes.add(factorySolicitud.crear(
                     response.getSolicitudID(),
                     factoryTipoResiduo.crear(),
                     response.getTamano(),
@@ -82,14 +82,14 @@ public class HistorialRepository {
                     response.getNombreCompleto(),
                     response.getUrlFotoPerfil(),
                     response.getPuntuacion()
-            );
+            ));
         }
 
         return solicitudes;
     }
 
     public interface HistorialCallback {
-        void onSuccess(Solicitud[] solicitudes);
+        void onSuccess(List<Solicitud> solicitudes);
         void onError(String errorMessage);
     }
 }

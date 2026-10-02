@@ -10,7 +10,7 @@ public class CrearRequest {
     @SerializedName("address") private String direccion;
     private double latitude;
     private double longitude;
-    @SerializedName("user_id") int idUser;
+    @SerializedName("created_by") int idUser;
 
     public CrearRequest() {}
 

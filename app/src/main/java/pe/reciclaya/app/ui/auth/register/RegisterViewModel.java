@@ -13,7 +13,6 @@ import pe.reciclaya.app.ui.common.util.Validaciones;
 
 public class RegisterViewModel extends AndroidViewModel {
     private final MutableLiveData<Event<String>> error = new MutableLiveData<>();
-    private final MutableLiveData<Event<Integer>> tipo = new MutableLiveData<>();
     private final MutableLiveData<Event<Boolean>> siguiente = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> roleResponse = new MutableLiveData<>();
 
@@ -37,7 +36,6 @@ public class RegisterViewModel extends AndroidViewModel {
         registerRepository = new RegisterRepository(application.getApplicationContext());
     }
 
-    public LiveData<Event<Integer>> getTipo() { return tipo; }
     public LiveData<Event<String>> getError() { return error; }
     public LiveData<Event<Boolean>> irSiguiente() { return siguiente; }
     public LiveData<Event<String>> getRoleResponse() { return roleResponse; }
@@ -48,8 +46,6 @@ public class RegisterViewModel extends AndroidViewModel {
     public LiveData<String> getEmailError() { return emailError; }
     public LiveData<String> getPasswordError() { return passwordError; }
     public LiveData<String> getConfirmPasswordError() { return confirmPasswordError; }
-
-    public void updateTipo(int t) { tipo.setValue(new Event<>(t)); }
 
     public void updateFullName(String fullName) { fullNameError.setValue(Validaciones.campoGenerico(fullName)); }
     public void updateEmail(String email) { emailError.setValue(Validaciones.email(email)); }

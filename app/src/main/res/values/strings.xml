@@ -13,6 +13,8 @@
     <string name="CrearCuenta">Crear Cuenta</string>
     <string name="MiPerfil">Mi Perfil</string>
     <string name="Rating">Rating</string>
+    <string name="CrearSolicitud">Crear Solicitud</string>
+    <string name="HistorialSolicitudes">Historial de Solicitudes</string>
 
     <!-- Subsubtitulos -->
     <string name="InfoPersonal">INFORMACIÓN PERSONAL</string>

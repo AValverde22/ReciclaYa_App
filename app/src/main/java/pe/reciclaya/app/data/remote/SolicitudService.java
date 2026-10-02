@@ -9,11 +9,12 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface SolicitudService {
     @POST("solicitud")
     Call<Void> createSolicitud(@Body CrearRequest requestModel);
 
-    @GET("solicitud/{id}")
-    Call<List<GetResponse>> getSolicitudes(@Path("id") int id);
+    @GET("solicitud")
+    Call<List<GetResponse>> getSolicitudes(@Query("created_by") int userID);
 }

@@ -21,7 +21,7 @@ public class BackendClient {
     }
 
     public static SolicitudService getSolicitudService() {
-        if(solicitudService == null) retrofit.create(SolicitudService.class);
+        if(solicitudService == null) solicitudService = retrofit.create(SolicitudService.class);
         return solicitudService;
     }
 

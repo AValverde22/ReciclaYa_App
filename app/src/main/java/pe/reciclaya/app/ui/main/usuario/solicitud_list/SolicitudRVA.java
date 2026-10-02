@@ -18,15 +18,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.List;
+
 import pe.reciclaya.app.R;
 
 public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> {
-    private Solicitud[] solicitudes;
+    private List<Solicitud> solicitudes;
 
-    public SolicitudRVA(Solicitud[] solicitudes) { this.solicitudes = solicitudes; }
+    public SolicitudRVA(List<Solicitud> solicitudes) { this.solicitudes = solicitudes; }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setSolicitudes(Solicitud[] solicitudes) {
+    public void setSolicitudes(List<Solicitud> solicitudes) {
         this.solicitudes = solicitudes;
         notifyDataSetChanged();
     }
@@ -40,17 +42,17 @@ public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imprimir(solicitudes[position]);
+        holder.imprimir(solicitudes.get(position));
     }
 
     @Override
-    public int getItemCount() { return solicitudes.length; }
+    public int getItemCount() { return solicitudes.size(); }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final Context context;
 
         private final MaterialCardView MCVFondo;
-        private final ImageView IVTipoResiduo, IVFotoPerfil;
+        private final ImageView IVTipoResiduo, IVFotoPerfil, IVPin;
         private final TextView TVTipoResiduo, TVTamano, TVNombreUsuario, TVPuntuacion, TVAntiguedad, TVDireccion;
         private final Button BtnCancelar, BtnEditar;
         private final CardView CVDistancia;
@@ -64,6 +66,7 @@ public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> 
 
             IVTipoResiduo = itemView.findViewById(R.id.IVTipoResiduoIS);
             IVFotoPerfil = itemView.findViewById(R.id.IVFotoPerfilIS);
+            IVPin = itemView.findViewById(R.id.IVPinIS);
 
             TVTipoResiduo = itemView.findViewById(R.id.TVTipoResiduoIS);
             TVTamano = itemView.findViewById(R.id.TVTamanoIS);
@@ -80,18 +83,24 @@ public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> 
         }
 
         public void imprimir(Solicitud solicitud) {
-            MCVFondo.setCardBackgroundColor(solicitud.getColorFondo());
+            MCVFondo.setCardBackgroundColor(context.getColor(solicitud.getColorFondo()));
 
             IVTipoResiduo.setBackgroundResource(solicitud.getIconoTipoResiduo());
+            IVTipoResiduo.setBackgroundTintList(context.getColorStateList(solicitud.getColor()));
+            IVPin.setBackgroundTintList(context.getColorStateList(solicitud.getColor()));
 
             String urlFotoPerfil = solicitud.getUrlFotoPerfil();
             if(urlFotoPerfil != null) Glide.with(context).load(Uri.parse(urlFotoPerfil)).into(IVFotoPerfil);
 
             TVTipoResiduo.setText(solicitud.getNombreTipoResiduo());
+            TVTipoResiduo.setTextColor(context.getColor(solicitud.getColor()));
+
             TVTamano.setText(solicitud.getTamano());
             TVNombreUsuario.setText(solicitud.getNombreUsuario());
             TVAntiguedad.setText(solicitud.getAntiguedad());
+
             TVDireccion.setText(solicitud.getDireccion());
+            TVDireccion.setTextColor(context.getColor(solicitud.getColor()));
 
             BtnCancelar.setVisibility(solicitud.isBtnCancelarEnabled() ? View.VISIBLE : View.GONE);
             BtnEditar.setVisibility(solicitud.isBtnEditarEnabled() ? View.VISIBLE : View.GONE);

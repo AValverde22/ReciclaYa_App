@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -96,6 +97,9 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
         FLMapa = view.findViewById(R.id.FLMapaFMUS);
         CVCerrarMapa = view.findViewById(R.id.CVCerrarMapaFMUS);
         TVDireccionMapa = view.findViewById(R.id.TVDireccionMapaFMUS);
+
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapaFMUS);
+        if (supportMapFragment != null) supportMapFragment.getMapAsync(this);
     }
 
     private void inicializarVM() {
@@ -106,32 +110,39 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         ));
 
-        viewModel.getUbicacionSeleccionada().observe(lifecycleOwner, new EventObserver<>(latLng -> {
+        viewModel.getUbicacionSeleccionada().observe(lifecycleOwner, latLng -> {
             if(marker == null) marker = googleMap.addMarker(new MarkerOptions().position(latLng));
             if(marker != null) marker.setPosition(latLng);
 
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-        }));
+        });
 
-        viewModel.getDireccion().observe(lifecycleOwner, new EventObserver<>(direccion -> {
+        viewModel.getDireccion().observe(lifecycleOwner, direccion -> {
             if(marker != null) marker.setTitle(direccion);
 
             TVDireccion.setText(direccion);
             TVDireccionMapa.setText(direccion);
-        }));
+        });
 
-        viewModel.getErrorFecha().observe(lifecycleOwner, new EventObserver<>(error -> {
+        viewModel.getErrorFecha().observe(lifecycleOwner, error -> {
             TVFecha.setError(error ? "" : null);
             TVHora.setEnabled(!error);
-        }));
+        });
 
-        viewModel.getErrorHora().observe(lifecycleOwner, new EventObserver<>(error ->
+        viewModel.getErrorHora().observe(lifecycleOwner,error ->
             TVHora.setError(error ? "" : null)
-        ));
+        );
 
-        viewModel.getErrorDireccion().observe(lifecycleOwner, new EventObserver<>(error ->
+        viewModel.getErrorDireccion().observe(lifecycleOwner, error ->
             TVDireccion.setError(error ? "" : null)
-        ));
+        );
+
+        viewModel.getSuccess().observe(lifecycleOwner, new EventObserver<>(success -> {
+            if(success) {
+                actualizarError("Solicitud creada correctamente.");
+                limpiarCampos();
+            }
+        }));
     }
 
     private void inicializarTipoResiduoRA() {

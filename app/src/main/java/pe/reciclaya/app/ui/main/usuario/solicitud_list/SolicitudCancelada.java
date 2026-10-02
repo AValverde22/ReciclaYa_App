@@ -1,5 +1,6 @@
 package pe.reciclaya.app.ui.main.usuario.solicitud_list;
 
+import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduo;
 
 public class SolicitudCancelada extends Solicitud {
@@ -25,5 +26,6 @@ public class SolicitudCancelada extends Solicitud {
     @Override public String getAntiguedad() { return dia; }
     @Override public boolean isBtnCancelarEnabled() { return false; }
     @Override public boolean isBtnEditarEnabled() { return false; }
-    @Override public int getColorFondo() { return 0; }
+    @Override public int getColorFondo() { return R.color.marron_transparente; }
+    @Override public int getColor() { return R.color.marron; }
 }

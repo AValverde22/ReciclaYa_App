@@ -3,17 +3,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.usuario.FragmentMainUsuarioHistorial"
-    android:background="@color/white"
-    >
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RVFMHU"
+    android:background="@color/white">
+    <LinearLayout
+        android:id="@+id/LLLoadingFMHU"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gris_transparente"
+        android:elevation="2dp"
+        android:gravity="center"
 
-        android:paddingTop="10dp"
-        android:clipToPadding="false"
-        android:paddingBottom="125dp"
-    />
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/verde_claro"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="15dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/reciclaya_negro" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:fontFamily="@font/gotham_bold"
+
+                android:gravity="center"
+                android:text="@string/HistorialSolicitudes"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0.05dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RVFMHU"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:paddingTop="10dp"
+            android:clipToPadding="false"
+            android:paddingBottom="125dp"
+            />
+    </LinearLayout>
 </FrameLayout>

@@ -21,13 +21,13 @@ public class SolicitudRepository {
         user = User.getInstance();
     }
 
-    public void crearSolicitud(String tipo, String tamano, String dia, String hora, String direccion, LatLng geocodificacion, SolicitudCallback callback) {
-        CrearRequest body = new CrearRequest(tipo, tamano, dia, hora, direccion, geocodificacion.latitude, geocodificacion.longitude, user.getID());
+    public void crearSolicitud(String tipo, String tamano, String dia, String hora, String direccion, LatLng geolocalizacion, SolicitudCallback callback) {
+        CrearRequest body = new CrearRequest(tipo, tamano, dia, hora, direccion, geolocalizacion.latitude, geolocalizacion.longitude, user.getID());
 
         apiService.createSolicitud(body).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if(response.isSuccessful()) callback.onSuccess("Solicitud publicada correctamente.");
+                if(response.isSuccessful()) callback.onSuccess();
                 else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
             }
 
@@ -39,7 +39,7 @@ public class SolicitudRepository {
     }
 
     public interface SolicitudCallback {
-        void onSuccess(String successMessage);
+        void onSuccess();
         void onError(String errorMessage);
     }
 }

@@ -38,6 +38,7 @@ public abstract class MainActivity extends AppCompatActivity {
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(fragmentManager, getLifecycle(), getMainTabFactory());
 
         viewPager2.setAdapter(mainPagerAdapter);
+        viewPager2.setUserInputEnabled(false);
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) { tabLayout.selectTab(tabLayout.getTabAt(position)); }

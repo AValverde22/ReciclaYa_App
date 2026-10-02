@@ -1,5 +1,6 @@
 package pe.reciclaya.app.ui.auth.register.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,8 @@ import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.auth.register.RegisterViewModel;
 import pe.reciclaya.app.ui.common.navigation.BackNavigator;
 import pe.reciclaya.app.ui.common.util.Inicializaciones;
+import pe.reciclaya.app.ui.tyc.PoliticaDePrivacidad;
+import pe.reciclaya.app.ui.tyc.TerminosDeServicio;
 
 public class FragmentRegisterDatos extends Fragment {
     private ImageView IVRegresarUnoAtras;
@@ -142,14 +145,14 @@ public class FragmentRegisterDatos extends Fragment {
         content.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                viewModel.updateTipo(0);
+                startActivity(new Intent(requireActivity(), TerminosDeServicio.class));
             }
         }, 11, 31, 0);
 
         content.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                viewModel.updateTipo(1);
+                startActivity(new Intent(requireActivity(), PoliticaDePrivacidad.class));
             }
         }, 37, 59, 0);
 

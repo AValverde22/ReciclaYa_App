@@ -29,7 +29,7 @@ public class SolicitudDisponible extends Solicitud {
 
     @Override
     public String getAntiguedad() {
-        String[] splitDay = dia.split("-");
+        String[] splitDay = dia.split("/");
         String[] splitTime = hora.split(":");
 
         Calendar horaActual = Calendar.getInstance();
@@ -38,9 +38,9 @@ public class SolicitudDisponible extends Solicitud {
 
         Calendar horaAcordada = Calendar.getInstance();
         horaAcordada.set(
-                Integer.parseInt(splitDay[0]),
-                Integer.parseInt(splitDay[1]) - 1,
                 Integer.parseInt(splitDay[2]),
+                Integer.parseInt(splitDay[1]) - 1,
+                Integer.parseInt(splitDay[0]),
                 Integer.parseInt(splitTime[0]),
                 Integer.parseInt(splitTime[1])
         );
@@ -55,10 +55,11 @@ public class SolicitudDisponible extends Solicitud {
         int minutes = Math.round((antiguedad - hora) * 60);
 
         // Hace X h Y min
-        return "Hace " + ((hora > 0) ? hora + " h " : "") + ((minutes > 0) ? minutes + " min" : "");
+        return "En " + ((hora > 0) ? hora + " h " : "") + ((minutes > 0) ? minutes + " min" : "");
     }
 
     @Override public boolean isBtnCancelarEnabled() { return true; }
     @Override public boolean isBtnEditarEnabled() { return true; }
     @Override public int getColorFondo() { return R.color.verde_transparente; }
+    @Override public int getColor() { return R.color.verde; }
 }

@@ -16,7 +16,6 @@ import pe.reciclaya.app.ui.auth.register.fragments.FragmentRegisterSeleccion;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.common.navigation.BackNavigator;
 import pe.reciclaya.app.ui.main.navigation.MainManager;
-import pe.reciclaya.app.ui.tyc.TyCActivity;
 
 public class RegisterActivity extends AppCompatActivity implements BackNavigator {
 
@@ -46,11 +45,6 @@ public class RegisterActivity extends AppCompatActivity implements BackNavigator
 
         viewModel.getError().observe(this, new EventObserver<>(errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-        ));
-
-        viewModel.getTipo().observe(this, new EventObserver<>(tipo ->
-            startActivity(new Intent(this, TyCActivity.class)
-                    .putExtra("Tipo", tipo))
         ));
 
         viewModel.irSiguiente().observe(this, new EventObserver<>(irSiguiente -> {

@@ -64,6 +64,12 @@ public class TipoResiduoRVA extends RecyclerView.Adapter<TipoResiduoRVA.ViewHold
         listener.onTipoResiduoSelected(null);
     }
 
+    public void setPosSeleccionada(int posSeleccionada) {
+        notifyItemChanged(this.posSeleccionada);
+        this.posSeleccionada = posSeleccionada;
+        notifyItemChanged(posSeleccionada);
+    }
+
     public interface onTipoResiduoSelectedListener {
         void onTipoResiduoSelected(String tipoResiduo);
     }
