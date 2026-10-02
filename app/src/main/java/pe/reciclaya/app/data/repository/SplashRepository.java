@@ -3,7 +3,7 @@ package pe.reciclaya.app.data.repository;
 import android.content.Context;
 
 import pe.reciclaya.app.data.local.AppPreferencesManager;
-import pe.reciclaya.app.domain.User;
+import pe.reciclaya.app.domain.model.User;
 
 public class SplashRepository {
     private static AppPreferencesManager appPreferencesManager;

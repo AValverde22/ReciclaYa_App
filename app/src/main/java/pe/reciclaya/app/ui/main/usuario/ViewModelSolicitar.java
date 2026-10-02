@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import pe.reciclaya.app.data.repository.main.SolicitudRepository;
+import pe.reciclaya.app.data.repository.main.SolicitudRepository2;
 import pe.reciclaya.app.ui.common.event.Event;
 
 
@@ -27,10 +27,10 @@ public class ViewModelSolicitar extends ViewModel {
     private String direccion;
     private LatLng latLng;
 
-    private final SolicitudRepository solicitudRepository;
+    private final SolicitudRepository2 solicitudRepository2;
 
     public ViewModelSolicitar() {
-        solicitudRepository = new SolicitudRepository();
+        solicitudRepository2 = new SolicitudRepository2();
     }
 
 
@@ -69,8 +69,8 @@ public class ViewModelSolicitar extends ViewModel {
     public void publicarSolicitud(String tamano) {
         if(!conforme()) return;
 
-        solicitudRepository.crearSolicitud(tipoResiduo, tamano, fecha, hora, direccion, latLng,
-                new SolicitudRepository.SolicitudCallback() {
+        solicitudRepository2.crearSolicitud(tipoResiduo, tamano, fecha, hora, direccion, latLng,
+                new SolicitudRepository2.SolicitudCallback() {
                     @Override
                     public void onSuccess() {
                         success.postValue(new Event<>(true));
@@ -82,6 +82,23 @@ public class ViewModelSolicitar extends ViewModel {
                     }
                 }
         );
+    }
+
+    public void actualizarSolicitud(String tamano, int solicitudID) {
+        if(!conforme()) return;
+
+        solicitudRepository2.actualizarSolicitud(solicitudID, tipoResiduo, tamano, fecha, hora, direccion, latLng,
+                new SolicitudRepository2.SolicitudCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
     }
 
     private boolean conforme() {

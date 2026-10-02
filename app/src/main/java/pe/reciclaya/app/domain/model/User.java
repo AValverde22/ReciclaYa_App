@@ -1,4 +1,4 @@
-package pe.reciclaya.app.domain;
+package pe.reciclaya.app.domain.model;
 
 public class User {
     private static User user;

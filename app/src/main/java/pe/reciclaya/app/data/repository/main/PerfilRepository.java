@@ -3,7 +3,7 @@ package pe.reciclaya.app.data.repository.main;
 import android.content.Context;
 
 import pe.reciclaya.app.data.local.AppPreferencesManager;
-import pe.reciclaya.app.domain.User;
+import pe.reciclaya.app.domain.model.User;
 
 public class PerfilRepository {
     private static AppPreferencesManager appPreferencesManager;

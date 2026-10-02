@@ -9,6 +9,8 @@
     <string name="TerminosDeServicio">TÉRMINOS DE SERVICIO DE USO DE LA APLICACIÓN MÓVIL RECICLAYA</string>
     <string name="PoliticaDePrivacidad">POLÍTICA DE PRIVACIDAD DE RECICLAYA</string>
 
+    <string name="EliminarSolicitud">¿Seguro que desea eliminar esta solicitud?</string>
+
     <!-- Subtitulos -->
     <string name="CrearCuenta">Crear Cuenta</string>
     <string name="MiPerfil">Mi Perfil</string>
@@ -35,6 +37,7 @@
     <string name="MensajeVerificarCodigo">Ingrese el código de seguridad que le \nllegó a su correo electrónico.</string>
     <string name="MensajeOlvido">Ingrese su correo electrónico y se le \nenviará un código de verificación. Siga \nlas instrucciones que llegue en su correo \ncon el que se ha registrado.</string>
     <string name="MensajeCambiarContrasena">Digite su cambio de contraseña en los \napartados.</string>
+    <string name="MensajeEliminarSolicitud">Una vez cancele, no hay manera de regresar.</string>
 
     <string name="MensajePersona">Deseo publicar solicitudes de recolección para mis residuos.</string>
     <string name="MensajeReciclador">Busco recolectar materiales y contribuir a la economía circular.</string>

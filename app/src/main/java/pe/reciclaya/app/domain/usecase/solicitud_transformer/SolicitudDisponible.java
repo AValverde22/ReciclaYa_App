@@ -1,8 +1,9 @@
-package pe.reciclaya.app.ui.main.usuario.solicitud_list;
+package pe.reciclaya.app.domain.usecase.solicitud_transformer;
 
 import java.util.Calendar;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.domain.model.Solicitud;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduo;
 
 public class SolicitudDisponible extends Solicitud {

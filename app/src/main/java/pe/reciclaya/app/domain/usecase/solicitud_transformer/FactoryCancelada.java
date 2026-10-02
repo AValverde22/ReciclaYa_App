@@ -1,8 +1,9 @@
-package pe.reciclaya.app.ui.main.usuario.solicitud_list;
+package pe.reciclaya.app.domain.usecase.solicitud_transformer;
 
+import pe.reciclaya.app.domain.model.Solicitud;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduo;
 
-public class FactoryDisponible implements FactorySolicitud {
+public class FactoryCancelada implements FactorySolicitud {
     @Override
     public Solicitud crear(int id,
                            TipoResiduo tipoResiduo,
@@ -18,7 +19,7 @@ public class FactoryDisponible implements FactorySolicitud {
                            String urlFotoPerfil,
                            float puntuacion
     ) {
-        return new SolicitudDisponible(
+        return new SolicitudCancelada(
                 id,
                 tipoResiduo,
                 tamano,

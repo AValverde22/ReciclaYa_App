@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.main.usuario.solicitud_list;
+package pe.reciclaya.app.domain.model;
 
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduo;
 

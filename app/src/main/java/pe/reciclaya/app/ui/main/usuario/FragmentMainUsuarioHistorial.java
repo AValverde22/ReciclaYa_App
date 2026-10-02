@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.common.event.EventObserver;
-import pe.reciclaya.app.ui.main.usuario.solicitud_list.Solicitud;
 import pe.reciclaya.app.ui.main.usuario.solicitud_list.SolicitudRVA;
 
 public class FragmentMainUsuarioHistorial extends Fragment {

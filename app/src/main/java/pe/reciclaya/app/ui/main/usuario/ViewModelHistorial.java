@@ -8,7 +8,6 @@ import java.util.List;
 
 import pe.reciclaya.app.data.repository.main.HistorialRepository;
 import pe.reciclaya.app.ui.common.event.Event;
-import pe.reciclaya.app.ui.main.usuario.solicitud_list.Solicitud;
 
 public class ViewModelHistorial extends ViewModel {
     private final MutableLiveData<List<Solicitud>> solicitudes = new MutableLiveData<>();

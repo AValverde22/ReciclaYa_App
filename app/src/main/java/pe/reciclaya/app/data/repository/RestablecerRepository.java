@@ -12,7 +12,7 @@ import pe.reciclaya.app.data.model.auth.restablecer.request.RestablecerRequestRe
 import pe.reciclaya.app.data.model.auth.restablecer.response.RestablecerResponse;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
-import pe.reciclaya.app.domain.User;
+import pe.reciclaya.app.domain.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
