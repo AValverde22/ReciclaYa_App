@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import pe.reciclaya.app.data.model.solicitud.crear.request.CrearSolicitudRequest;
+import pe.reciclaya.app.data.model.solicitud.crear.request.CrearRequest;
 import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.SolicitudService;
 import pe.reciclaya.app.domain.User;
@@ -21,8 +21,8 @@ public class SolicitudRepository {
         user = User.getInstance();
     }
 
-    public void crearSolicitud(String tipo, String tamano, String dia, String hora, String direccion, LatLng coordenadas, SolicitudCallback callback) {
-        CrearSolicitudRequest body = new CrearSolicitudRequest(tipo, tamano, dia, hora, direccion, coordenadas.latitude, coordenadas.longitude, user.getID());
+    public void crearSolicitud(String tipo, String tamano, String dia, String hora, String direccion, LatLng geocodificacion, SolicitudCallback callback) {
+        CrearRequest body = new CrearRequest(tipo, tamano, dia, hora, direccion, geocodificacion.latitude, geocodificacion.longitude, user.getID());
 
         apiService.createSolicitud(body).enqueue(new Callback<>() {
             @Override

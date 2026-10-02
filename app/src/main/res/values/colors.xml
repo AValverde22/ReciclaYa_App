@@ -22,4 +22,7 @@
     <color name="rojo_dos">#E64D4D</color>
 
     <color name="dorado">#ECC488</color>
+
+    <color name="marron">#B85814</color>
+    <color name="marron_claro">#FFB356</color>
 </resources>

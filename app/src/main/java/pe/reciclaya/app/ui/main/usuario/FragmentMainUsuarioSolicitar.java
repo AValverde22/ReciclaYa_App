@@ -44,8 +44,11 @@ import java.util.Locale;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.common.event.EventObserver;
+import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.Papel;
+import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.Plastico;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduo;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduoRVA;
+import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.Vidrio;
 
 public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMyLocationButtonClickListener {
     private RecyclerView RVTipoResiduo;
@@ -133,9 +136,9 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
 
     private void inicializarTipoResiduoRA() {
         TipoResiduo[] tipoResiduos = {
-                new TipoResiduo("Plástico", R.drawable.plastico),
-                new TipoResiduo("Vidrio", R.drawable.vidrio),
-                new TipoResiduo("Papel", R.drawable.papel)
+                new Plastico(),
+                new Vidrio(),
+                new Papel()
         };
 
         tipoResiduoRVA = new TipoResiduoRVA(tipoResiduos, tipoResiduo -> viewModel.updateTipoResiduo(tipoResiduo));

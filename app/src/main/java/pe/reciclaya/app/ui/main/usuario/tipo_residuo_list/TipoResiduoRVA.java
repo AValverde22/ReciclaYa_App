@@ -49,7 +49,7 @@ public class TipoResiduoRVA extends RecyclerView.Adapter<TipoResiduoRVA.ViewHold
             if(posAnterior != -1) notifyItemChanged(posAnterior);
 
             if(posSeleccionada == -1) listener.onTipoResiduoSelected(null);
-            else listener.onTipoResiduoSelected(tipoResiduos[posSeleccionada].getTipo());
+            else listener.onTipoResiduoSelected(tipoResiduos[posSeleccionada].getNombre());
         });
     }
 
@@ -93,7 +93,7 @@ public class TipoResiduoRVA extends RecyclerView.Adapter<TipoResiduoRVA.ViewHold
             IVIcono.setBackgroundResource(tipoResiduo.getIcono());
             IVIcono.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.black, null)));
 
-            TVTipo.setText(tipoResiduo.getTipo());
+            TVTipo.setText(tipoResiduo.getNombre());
             TVTipo.setTextColor(context.getResources().getColor(R.color.black, null));
         }
 
@@ -104,7 +104,7 @@ public class TipoResiduoRVA extends RecyclerView.Adapter<TipoResiduoRVA.ViewHold
             IVIcono.setBackgroundResource(tipoResiduo.getIcono());
             IVIcono.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.white, null)));
 
-            TVTipo.setText(tipoResiduo.getTipo());
+            TVTipo.setText(tipoResiduo.getNombre());
             TVTipo.setTextColor(context.getResources().getColor(R.color.verde, null));
         }
     }

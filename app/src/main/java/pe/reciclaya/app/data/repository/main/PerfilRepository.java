@@ -16,7 +16,7 @@ public class PerfilRepository {
 
     public String getFullName() { return user.getFullName(); }
     public String getEmail() { return user.getEmail(); }
-    public String getRole() { return user.getRoleString(); }
+    public String getRole() { return user.getRole(); }
 
     public void cerrarSesion() {
         appPreferencesManager.putInt("id", -1);

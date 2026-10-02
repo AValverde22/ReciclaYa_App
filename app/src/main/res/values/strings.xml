@@ -12,6 +12,7 @@
     <!-- Subtitulos -->
     <string name="CrearCuenta">Crear Cuenta</string>
     <string name="MiPerfil">Mi Perfil</string>
+    <string name="Rating">Rating</string>
 
     <!-- Subsubtitulos -->
     <string name="InfoPersonal">INFORMACIÓN PERSONAL</string>
@@ -40,6 +41,8 @@
     <string name="Reciclador">Reciclador</string>
     <string name="Usuario">Usuario</string>
     <string name="Obligatorio">Obligatorio</string>
+    <string name="Plastico">Plástico</string>
+    <string name="Tamano">Extragrande</string>
 
     <!-- Inputs -->
     <string name="CorreoElectronico">Correo electrónico</string>
@@ -51,6 +54,7 @@
     <string name="ContrasenaEjemplo">••••••••</string>
 
     <string name="NombreCompleto">Nombre completo</string>
+    <string name="NombrePendiente">Pendiente…</string>
 
     <string name="PersonaRecicla">Persona que recicla</string>
     <string name="RecicladorLocal">Reciclador Local</string>
@@ -83,9 +87,16 @@
     <string name="Continuar">Continuar</string>
     <string name="EnviarCodigo">Enviar Código</string>
     <string name="CerrarSesion">Cerrar Sesión</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="Editar">Editar</string>
+    <string name="Regresar">Regresar</string>
+    <string name="Aceptar">Aceptar</string>
+    <string name="Aplicar">Aplicar</string>
+    <string name="Reset">Reset</string>
 
     <string name="PublicarSolicitud">Publicar Solicitud</string>
     <string name="LimpiarCampos">Limpiar campos</string>
+    <string name="ActualizarSolicitud">Actualizar Solicitud</string>
 
     <!-- TabItem -->
     <string name="Mapa">Mapa</string>
