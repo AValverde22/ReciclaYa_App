@@ -3,7 +3,12 @@ package pe.reciclaya.app.ui.main.usuario.solicitud_list;
 import java.util.ArrayList;
 import java.util.List;
 
+import pe.reciclaya.app.domain.model.solicitud.Estado;
 import pe.reciclaya.app.domain.model.solicitud.Solicitud;
+import pe.reciclaya.app.domain.model.solicitud.SolicitudActualizada;
+import pe.reciclaya.app.domain.model.solicitud.SolicitudNueva;
+import pe.reciclaya.app.domain.model.solicitud.Tamano;
+import pe.reciclaya.app.domain.model.solicitud.TipoResiduo;
 import pe.reciclaya.app.domain.model.user.UserSolicitud;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.FactoryTipoResiduo;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduoMapper;
@@ -40,11 +45,24 @@ public class SolicitudItemMapper {
         );
     }
 
-    public static List<SolicitudItem> mapSolicitudesItem(List<Solicitud> solicitudes) {
+    public static List<SolicitudItem> allToUI(List<Solicitud> solicitudes) {
         List<SolicitudItem> solicitudItemList = new ArrayList<>();
         for(Solicitud solicitud : solicitudes)
             solicitudItemList.add(toUI(solicitud));
 
         return solicitudItemList;
+    }
+
+    public static SolicitudActualizada toDomain(SolicitudItem solicitudItem) {
+        return new SolicitudActualizada(
+                solicitudItem.getSolicitudID(),
+                TipoResiduo.fromString(solicitudItem.getTipoResiduoString()),
+                Tamano.fromString(solicitudItem.getTamano()),
+                solicitudItem.getDia(),
+                solicitudItem.getHora(),
+                solicitudItem.getDireccion(),
+                solicitudItem.getLatitude(),
+                solicitudItem.getLongitude()
+        );
     }
 }

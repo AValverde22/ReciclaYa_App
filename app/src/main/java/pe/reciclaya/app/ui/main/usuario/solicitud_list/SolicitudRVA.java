@@ -46,7 +46,7 @@ public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imprimir(solicitudes.get(position), listener, position);
+        holder.imprimir(solicitudes.get(position), listener);
     }
 
     @Override
@@ -58,8 +58,8 @@ public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> 
     }
 
     public interface OnSolicitudActionListener {
-        void onEditRequested(SolicitudItem solicitudItem, int pos);
-        void onCancelRequested(SolicitudItem solicitudItem, int pos);
+        void onEditRequested(SolicitudItem solicitudItem);
+        void onCancelRequested(int id);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -96,7 +96,7 @@ public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> 
             LLPuntuacion = itemView.findViewById(R.id.LLPuntuacionIS);
         }
 
-        public void imprimir(SolicitudItem solicitud, OnSolicitudActionListener listener, int pos) {
+        public void imprimir(SolicitudItem solicitud, OnSolicitudActionListener listener) {
             MCVFondo.setCardBackgroundColor(context.getColor(solicitud.getColorFondo()));
 
             IVTipoResiduo.setBackgroundResource(solicitud.getIconoTipoResiduo());
@@ -124,24 +124,13 @@ public class SolicitudRVA extends RecyclerView.Adapter<SolicitudRVA.ViewHolder> 
 
             TVPuntuacion.setText(String.valueOf(solicitud.getPuntuacion()));
 
-            BtnEditar.setOnClickListener(view -> {
-                listener.onEditRequested(solicitud, pos);
-                /*BSDSolicitud bsdSolicitud = new BSDSolicitud(solicitud, new BSDSolicitud.UpdateCallback() {
-                    @Override
-                    public void onUpdateSuccess() {
-                        // ACA QUIERO QUE EL RECYCLER VIEW ACTUALICE LA POSICIÓN
-                    }
-                });
-                bsdSolicitud.show(((FragmentActivity) context).getSupportFragmentManager(), "");
+            BtnEditar.setOnClickListener(view ->
+                    listener.onEditRequested(solicitud)
+            );
 
-                 */
-            });
-
-            BtnCancelar.setOnClickListener(view -> {
-                listener.onCancelRequested(solicitud, pos);
-                // DE ALGUNA MANERA LLAMA AL RECYCLER VIEW PARA ACTUALIZAR EL ESTADO A "CANCELADO" DE
-                // solicitud.getStatus();
-            });
+            BtnCancelar.setOnClickListener(view ->
+                    listener.onCancelRequested(solicitud.getSolicitudID())
+            );
         }
     }
 }

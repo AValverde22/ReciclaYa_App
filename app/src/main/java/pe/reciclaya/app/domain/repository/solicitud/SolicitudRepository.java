@@ -3,6 +3,7 @@ package pe.reciclaya.app.domain.repository.solicitud;
 import java.util.List;
 
 import pe.reciclaya.app.domain.model.solicitud.Solicitud;
+import pe.reciclaya.app.domain.model.solicitud.SolicitudActualizada;
 import pe.reciclaya.app.domain.model.solicitud.SolicitudNueva;
 import pe.reciclaya.app.domain.repository.RepositoryCallback;
 
@@ -12,4 +13,9 @@ public interface SolicitudRepository {
 
     void getSolicitudes(int id, RepositoryCallback<List<Solicitud>> callback);
 
+    void updateSolicitud(SolicitudActualizada solicitudActualizada,
+                         RepositoryCallback<Void> callback);
+
+    void cancelSolicitud(int solicitudID,
+                         RepositoryCallback<Void> callback);
 }

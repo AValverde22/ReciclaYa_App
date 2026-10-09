@@ -1,6 +1,7 @@
 package pe.reciclaya.app.ui.main.usuario.solicitud_list;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.domain.model.solicitud.Estado;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduoItem;
 
 public class SolicitudCancelada extends SolicitudItem {
@@ -22,6 +23,7 @@ public class SolicitudCancelada extends SolicitudItem {
         super(id, tipoResiduo, tamano, dia, hora, direccion, latitude, longitude, userID, nombreCompleto, urlFotoPerfil, puntuacion);
     }
 
+    @Override public String getEstado() { return Estado.CANCELADA.getEstado(); }
     @Override public String getAntiguedad() { return dia + " " + horaString; }
     @Override public boolean isBtnCancelarEnabled() { return false; }
     @Override public boolean isBtnEditarEnabled() { return false; }

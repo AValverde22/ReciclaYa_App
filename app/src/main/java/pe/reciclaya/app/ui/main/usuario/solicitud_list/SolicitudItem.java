@@ -3,19 +3,20 @@ package pe.reciclaya.app.ui.main.usuario.solicitud_list;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduoItem;
 
 public abstract class SolicitudItem {
-    private final TipoResiduoItem tipoResiduo;
     private final String nombreUsuario;
     private final String urlFotoPerfil;
-    private final String tamano;
-    private final String direccion;
-    private final double latitude;
-    private final double longitude;
     private final float puntuacion;
     private final int userID;
     private final int id;
 
+    private TipoResiduoItem tipoResiduo;
+    private String tamano;
+    private String direccion;
+    private double latitude;
+    private double longitude;
     protected String dia;
     protected String hora;
+
     protected String horaString;
 
     public SolicitudItem(int id,
@@ -49,6 +50,7 @@ public abstract class SolicitudItem {
         setHoraString();
     }
 
+    public abstract String getEstado();
     public abstract String getAntiguedad();
     public abstract boolean isBtnCancelarEnabled();
     public abstract boolean isBtnEditarEnabled();
@@ -71,6 +73,15 @@ public abstract class SolicitudItem {
     public int getSolicitudID() { return id; }
     public int getUserID() { return userID; }
 
+    public String getTipoResiduoString() { return tipoResiduo.getNombre(); }
+
+    public void setTipoResiduo(TipoResiduoItem tipoResiduo) { this.tipoResiduo = tipoResiduo; }
+    public void setTamano(String tamano) { this.tamano = tamano; }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+    public void setDia(String dia) { this.dia = dia; }
+    public void setHora(String hora) { this.hora = hora; }
     private void setHoraString() {
         String[] splitHora = hora.split(":");
         int h = Integer.parseInt(splitHora[0]);

@@ -24,6 +24,9 @@ public class ViewModelHistorial extends AndroidViewModel {
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> error = new MutableLiveData<>();
 
+    private final MutableLiveData<Event<Boolean>> updated = new MutableLiveData<>();
+    private final MutableLiveData<Event<Boolean>> canceled = new MutableLiveData<>();
+
     private final SolicitudRepository solicitudRepository;
     private final UserRepository userRepository;
 
@@ -38,7 +41,30 @@ public class ViewModelHistorial extends AndroidViewModel {
     public LiveData<Boolean> getLoading() { return loading; }
     public LiveData<Event<String>> getError() { return error; }
 
+    public LiveData<Event<Boolean>> getUpdated() { return updated; }
+    public LiveData<Event<Boolean>> getCanceled() { return canceled; }
+
     public void updateSolicitudes() { getSolicitudesFromRepository(); }
+
+    public void cancelSolicitud(int solicitudID) {
+        loading.setValue(true);
+
+        solicitudRepository.cancelSolicitud(
+                solicitudID,
+                new RepositoryCallback<>() {
+                    @Override
+                    public void onSuccess(Void data) {
+                        canceled.postValue(new Event<>(true));
+                        loading.postValue(false);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        error.postValue(new Event<>(errorMessage));
+                        loading.postValue(false);
+                    }
+        });
+    }
 
     private void getSolicitudesFromRepository() {
         loading.setValue(true);
@@ -47,7 +73,7 @@ public class ViewModelHistorial extends AndroidViewModel {
         solicitudRepository.getSolicitudes(id, new RepositoryCallback<>() {
             @Override
             public void onSuccess(List<Solicitud> solicitudesDomain) {
-                solicitudes.postValue(SolicitudItemMapper.mapSolicitudesItem(solicitudesDomain));
+                solicitudes.postValue(SolicitudItemMapper.allToUI(solicitudesDomain));
                 loading.postValue(false);
             }
 
