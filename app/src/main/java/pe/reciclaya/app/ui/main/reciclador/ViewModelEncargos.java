@@ -1,4 +1,4 @@
-package pe.reciclaya.app.ui.main.usuario;
+package pe.reciclaya.app.ui.main.reciclador;
 
 import android.app.Application;
 
@@ -19,18 +19,15 @@ import pe.reciclaya.app.ui.common.event.Event;
 import pe.reciclaya.app.ui.main.solicitud_list.SolicitudItem;
 import pe.reciclaya.app.ui.main.solicitud_list.SolicitudItemMapper;
 
-public class ViewModelHistorial extends AndroidViewModel {
+public class ViewModelEncargos extends AndroidViewModel {
     private final MutableLiveData<List<SolicitudItem>> solicitudes = new MutableLiveData<>();
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> error = new MutableLiveData<>();
 
-    private final MutableLiveData<Event<Boolean>> updated = new MutableLiveData<>();
-    private final MutableLiveData<Event<Boolean>> canceled = new MutableLiveData<>();
-
     private final SolicitudRepository solicitudRepository;
     private final UserRepository userRepository;
 
-    public ViewModelHistorial(@NonNull Application application) {
+    public ViewModelEncargos(@NonNull Application application) {
         super(application);
 
         solicitudRepository = new SolicitudRepositoryImp();
@@ -41,36 +38,13 @@ public class ViewModelHistorial extends AndroidViewModel {
     public LiveData<Boolean> getLoading() { return loading; }
     public LiveData<Event<String>> getError() { return error; }
 
-    public LiveData<Event<Boolean>> getUpdated() { return updated; }
-    public LiveData<Event<Boolean>> getCanceled() { return canceled; }
-
     public void updateSolicitudes() { getSolicitudesFromRepository(); }
-
-    public void cancelSolicitud(int solicitudID) {
-        loading.setValue(true);
-
-        solicitudRepository.cancelSolicitud(
-                solicitudID,
-                new RepositoryCallback<>() {
-                    @Override
-                    public void onSuccess(Void data) {
-                        canceled.postValue(new Event<>(true));
-                        loading.postValue(false);
-                    }
-
-                    @Override
-                    public void onError(String errorMessage) {
-                        error.postValue(new Event<>(errorMessage));
-                        loading.postValue(false);
-                    }
-        });
-    }
 
     private void getSolicitudesFromRepository() {
         loading.setValue(true);
 
         int id = userRepository.getID();
-        solicitudRepository.getSolicitudesCreadas(id, new RepositoryCallback<>() {
+        solicitudRepository.getSolicitudesAceptadas(id, new RepositoryCallback<>() {
             @Override
             public void onSuccess(List<Solicitud> solicitudesDomain) {
                 solicitudes.postValue(SolicitudItemMapper.allToUI(solicitudesDomain));

@@ -20,16 +20,16 @@ import java.util.ArrayList;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.common.event.EventObserver;
-import pe.reciclaya.app.ui.main.usuario.bottom_sheet_dialog.BSDSolicitud;
-import pe.reciclaya.app.ui.main.usuario.solicitud_list.SolicitudItem;
-import pe.reciclaya.app.ui.main.usuario.solicitud_list.SolicitudRVA;
+import pe.reciclaya.app.ui.main.solicitud_list.SolicitudRVAUsuario;
+import pe.reciclaya.app.ui.main.bottom_sheet_dialog.BSDSolicitud;
+import pe.reciclaya.app.ui.main.solicitud_list.SolicitudItem;
 
 public class FragmentMainUsuarioHistorial extends Fragment {
     private RecyclerView RV;
     private LinearLayout LLLoading;
 
     private ViewModelHistorial viewModel;
-    private SolicitudRVA solicitudRVA;
+    private SolicitudRVAUsuario solicitudRVAUsuario;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,9 +51,9 @@ public class FragmentMainUsuarioHistorial extends Fragment {
     }
 
     private void inicializarSolicitudRA() {
-        solicitudRVA = new SolicitudRVA(
+        solicitudRVAUsuario = new SolicitudRVAUsuario(
                 new ArrayList<>(),
-                new SolicitudRVA.OnSolicitudActionListener() {
+                new SolicitudRVAUsuario.OnSolicitudActionListener() {
                     @Override
                     public void onEditRequested(SolicitudItem solicitud) {
                         BSDSolicitud bsdSolicitud = new BSDSolicitud(
@@ -71,7 +71,7 @@ public class FragmentMainUsuarioHistorial extends Fragment {
         );
 
         RV.setLayoutManager(new LinearLayoutManager(requireContext()));
-        RV.setAdapter(solicitudRVA);
+        RV.setAdapter(solicitudRVAUsuario);
     }
 
     private void inicializarVM() {
@@ -79,7 +79,7 @@ public class FragmentMainUsuarioHistorial extends Fragment {
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
         viewModel.getSolicitudes().observe(lifecycleOwner, solicitudes ->
-                solicitudRVA.setSolicitudes(solicitudes)
+                solicitudRVAUsuario.setSolicitudes(solicitudes)
         );
 
         viewModel.getError().observe(lifecycleOwner, new EventObserver<>(errorMessage ->

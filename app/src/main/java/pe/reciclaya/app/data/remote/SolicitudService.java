@@ -18,11 +18,26 @@ public interface SolicitudService {
     Call<Void> createSolicitud(@Body SolicitudRequest requestModel);
 
     @GET("solicitud")
-    Call<List<SolicitudResponse>> getSolicitudes(@Query("user_id") Integer userID);
+    Call<List<SolicitudResponse>> getSolicitudesCreadas(@Query("user_id") Integer userID);
+
+    @GET("solicitud/reciclador")
+    Call<List<SolicitudResponse>> getSolicitudesAceptadas(@Query("user_id") Integer userID);
+
+    @GET("solicitud/disponibles")
+    Call<List<SolicitudResponse>> getSolicitudesDisponibles(
+            @Query("type") String tipoResiduo,
+            @Query("day") String fecha,
+            @Query("time") String hora,
+            @Query("score") String score
+    );
 
     @PATCH("solicitud/{id}")
     Call<Void> updateSolicitud(@Path("id") int solicitudID, @Body UpdateRequest requestModel);
 
     @PATCH("solicitud/{id}/cancel")
     Call<Void> cancelSolicitud(@Path("id") int solicitudID);
+
+    @PATCH("solicitud/{id}/accept")
+    Call<Boolean> acceptSolicitud(@Path("id") int solicitudID,
+                                  @Query("user_id") int userID);
 }

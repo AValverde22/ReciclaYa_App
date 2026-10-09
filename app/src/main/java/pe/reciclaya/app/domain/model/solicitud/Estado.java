@@ -3,7 +3,8 @@ package pe.reciclaya.app.domain.model.solicitud;
 public enum Estado {
     DISPONIBLE("Disponible"),
     FINALIZADA("Finalizada"),
-    CANCELADA("Cancelada");
+    CANCELADA("Cancelada"),
+    PENDIENTE("Pendiente");
 
     private final String estado;
 

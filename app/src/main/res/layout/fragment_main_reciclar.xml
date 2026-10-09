@@ -1,14 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.reciclador.FragmentMainRecicladorReciclar">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/LLLoadingFMR"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/gris_transparente"
+        android:elevation="2dp"
+        android:gravity="center"
+
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/verde_claro" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="15dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/reciclaya_negro" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:fontFamily="@font/gotham_bold"
+
+                android:gravity="center"
+                android:text="@string/SolicitudesDisponibles"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0.05dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginEnd="5dp"
+
+                android:fontFamily="@font/gotham_medium"
+                android:text="@string/CercaDeTi"
+                android:textAllCaps="true"
+                android:textColor="@color/gris_intermedio"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/IVFiltroFMR"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:background="@drawable/filtro"
+                android:backgroundTint="@color/gris_intermedio" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+
+                    android:layout_marginEnd="5dp">
+
+                    <ImageView
+                        android:id="@+id/IVRefreshFMR"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+
+                        android:background="@android:drawable/ic_popup_sync"
+                        android:backgroundTint="@color/gris_intermedio" />
+
+
+                    <ProgressBar
+                        android:id="@+id/PBFMR"
+
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+
+                        android:indeterminateTint="@color/verde_claro"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/LLCantidadSolicitudesFMR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linearlayout_verde"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/TVCantidadSolicitudesFMR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="5dp"
+
+                        android:fontFamily="@font/gotham_medium"
+                        android:text="@string/CeroSolicitudes"
+                        android:textColor="@color/verde"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/CLSinResultadosFMR"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/sin_resultados"
+
+                    app:layout_constraintBottom_toTopOf="@+id/textView11"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:text="@string/MensajeNoHayResultados"
+                    android:textAlignment="center"
+                    android:textColor="@color/gris_intermedio"
+                    android:textSize="15sp"
+
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
+
+                <Button
+                    android:id="@+id/BtnResetFiltrosFMR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="80dp"
+                    android:background="@drawable/button_final_green_border"
+                    android:fontFamily="@font/gotham_medium"
+
+                    android:paddingHorizontal="50dp"
+
+                    android:text="@string/Reset"
+                    android:textAllCaps="false"
+                    android:textColor="@color/verde"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RVFMR"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:clipToPadding="false"
+                android:paddingTop="10dp"
+                android:paddingBottom="125dp" />
+        </FrameLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

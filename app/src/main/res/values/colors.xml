@@ -23,10 +23,11 @@
     <color name="rojo">#FF0000</color>
     <color name="rojo_dos">#E64D4D</color>
 
+    <color name="dorado">#ECC488</color>
+    <color name="dorado_dos">#F3C63F</color>
+
     <color name="marron">#B85814</color>
     <color name="marron_claro">#FFB356</color>
-
-    <color name="dorado">#ECC488</color>
 
     <color name="azul">#156295</color>
 </resources>

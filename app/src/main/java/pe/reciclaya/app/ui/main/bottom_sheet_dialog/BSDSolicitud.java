@@ -1,24 +1,16 @@
-package pe.reciclaya.app.ui.main.usuario;
+package pe.reciclaya.app.ui.main.bottom_sheet_dialog;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +21,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +38,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -45,65 +49,96 @@ import java.util.Locale;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.common.event.EventObserver;
+import pe.reciclaya.app.ui.main.solicitud_list.SolicitudItem;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.Papel;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.Plastico;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.TipoResiduoItem;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.TipoResiduoRVA;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.Vidrio;
 
-public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMyLocationButtonClickListener {
+public class BSDSolicitud extends BottomSheetDialogFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMyLocationButtonClickListener {
     private RecyclerView RVTipoResiduo;
     private Spinner spinner;
-    private TextView TVFecha, TVHora, TVDireccion, TVLimpiarCampos;
-    private Button BtnPublicarSolicitud;
+    private TextView TVFecha, TVHora, TVDireccion;
+    private Button BtnActualizarSolicitud, BtnCancelar;
 
     private FrameLayout FLMapa;
     private CardView CVCerrarMapa;
     private TextView TVDireccionMapa;
 
+    private LatLng ubicacionPendiente;
     private GoogleMap googleMap;
     private Marker marker;
 
     private TipoResiduoRVA tipoResiduoRVA;
-    private ViewModelSolicitar viewModel;
+    private ViewModelActualizar viewModel;
 
+    private final SolicitudItem solicitud;
+    private TipoResiduoItem[] tipoResiduos;
+    private String[] tamanos;
+
+    private final UpdateCallback callback;
+    private BottomSheetBehavior<FrameLayout> behavior;
+
+    public BSDSolicitud(SolicitudItem solicitud, UpdateCallback callback) {
+        this.solicitud = solicitud;
+        this.callback = callback;
+    }
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main_solicitar, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.bs_solicitud, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         inicializarComponentes(view);
         inicializarVM();
         inicializarTipoResiduoRA();
         inicializarSpinner();
         inicializarListeners();
+        inicializarPreSeleccion();
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setOnShowListener(dialogInterface -> {
+            if (getView() != null) {
+                View parent = (View) getView().getParent();
+                parent.setBackground(new ColorDrawable(Color.TRANSPARENT));
+            }
+        });
+
+        return dialog;
     }
 
     private void inicializarComponentes(View view) {
-        RVTipoResiduo = view.findViewById(R.id.RVTipoResiduoFMUS);
-        spinner = view.findViewById(R.id.SpinnerFMUS);
+        RVTipoResiduo = view.findViewById(R.id.RVTipoResiduoBSDS);
+        spinner = view.findViewById(R.id.SpinnerBSDS);
 
-        TVFecha = view.findViewById(R.id.TVFechaFMUS);
-        TVHora = view.findViewById(R.id.TVHoraFMUS);
-        TVDireccion = view.findViewById(R.id.TVDireccionFMUS);
+        TVFecha = view.findViewById(R.id.TVFechaBSDS);
+        TVHora = view.findViewById(R.id.TVHoraBSDS);
+        TVDireccion = view.findViewById(R.id.TVDireccionBSDS);
 
-        BtnPublicarSolicitud = view .findViewById(R.id.BtnPublicarSolicitudFMUS);
-        TVLimpiarCampos = view.findViewById(R.id.TVLimpiarCamposFMUS);
+        BtnActualizarSolicitud = view.findViewById(R.id.BtnActualizarSolicitudBSDS);
+        BtnCancelar = view.findViewById(R.id.BtnCancelarBSDS);
 
-        FLMapa = view.findViewById(R.id.FLMapaFMUS);
-        CVCerrarMapa = view.findViewById(R.id.CVCerrarMapaFMUS);
-        TVDireccionMapa = view.findViewById(R.id.TVDireccionMapaFMUS);
+        FLMapa = view.findViewById(R.id.FLMapaBSDS);
+        CVCerrarMapa = view.findViewById(R.id.CVCerrarMapaBSDS);
+        TVDireccionMapa = view.findViewById(R.id.TVDireccionMapaBSDS);
 
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapaFMUS);
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapaBSDS);
         if (supportMapFragment != null) supportMapFragment.getMapAsync(this);
+
+        if (getDialog() instanceof BottomSheetDialog)
+            behavior = ((BottomSheetDialog) getDialog()).getBehavior();
     }
 
     private void inicializarVM() {
-        viewModel = new ViewModelProvider(this).get(ViewModelSolicitar.class);
+        viewModel = new ViewModelProvider(this).get(ViewModelActualizar.class);
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
         viewModel.getError().observe(lifecycleOwner, new EventObserver<>(error ->
@@ -111,25 +146,29 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
         ));
 
         viewModel.getUbicacionSeleccionada().observe(lifecycleOwner, latLng -> {
-            if(marker == null) marker = googleMap.addMarker(new MarkerOptions().position(latLng));
-            if(marker != null) marker.setPosition(latLng);
+            ubicacionPendiente = latLng;
 
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+            if(googleMap != null) {
+                if(marker == null) marker = googleMap.addMarker(new MarkerOptions().position(latLng));
+                if(marker != null) marker.setPosition(latLng);
+
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+            }
         });
 
-        viewModel.getDireccion().observe(lifecycleOwner, direccion -> {
+        viewModel.getDireccion().observe(lifecycleOwner,direccion -> {
             if(marker != null) marker.setTitle(direccion);
 
             TVDireccion.setText(direccion);
             TVDireccionMapa.setText(direccion);
         });
 
-        viewModel.getErrorFecha().observe(lifecycleOwner, error -> {
+        viewModel.getErrorFecha().observe(lifecycleOwner,error -> {
             TVFecha.setError(error ? "" : null);
             TVHora.setEnabled(!error);
         });
 
-        viewModel.getErrorHora().observe(lifecycleOwner,error ->
+        viewModel.getErrorHora().observe(lifecycleOwner, error ->
                 TVHora.setError(error ? "" : null)
         );
 
@@ -137,16 +176,16 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
                 TVDireccion.setError(error ? "" : null)
         );
 
-        viewModel.getSuccess().observe(lifecycleOwner, new EventObserver<>(success -> {
-            if(success) {
-                actualizarError("Solicitud creada correctamente.");
-                limpiarCampos();
+        viewModel.getUpdated().observe(lifecycleOwner, new EventObserver<>(updated -> {
+            if(updated) {
+                callback.onUpdateSuccess();
+                dismiss();
             }
         }));
     }
 
     private void inicializarTipoResiduoRA() {
-        TipoResiduoItem[] tipoResiduos = {
+        tipoResiduos = new TipoResiduoItem[]{
                 new Plastico(),
                 new Vidrio(),
                 new Papel()
@@ -163,11 +202,38 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
     }
 
     private void inicializarSpinner() {
-        String[] tamanos = {"Extrapequeña", "Pequeña", "Mediana", "Grande", "Extragrande"};
+        tamanos = new String[]{"Extrapequeña", "Pequeña", "Mediana", "Grande", "Extragrande"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_selected, tamanos);
         arrayAdapter.setDropDownViewResource(R.layout.spinner_item);
 
         spinner.setAdapter(arrayAdapter);
+    }
+
+    private void inicializarPreSeleccion() {
+        for(int i = 0; i < tipoResiduos.length; i++) {
+            if(tipoResiduos[i].getNombre().equalsIgnoreCase(solicitud.getNombreTipoResiduo())){
+                tipoResiduoRVA.setPosSeleccionada(i);
+                viewModel.updateTipoResiduo(tipoResiduos[i].getNombre());
+            }
+        }
+
+        for(int i = 0; i < tamanos.length; i++) {
+            if(tamanos[i].equalsIgnoreCase(solicitud.getTamano())) {
+                spinner.setSelection(i);
+                viewModel.updateTamano(spinner.getAdapter().getItem(i).toString());
+            }
+        }
+
+        TVFecha.setText(solicitud.getDia());
+        TVHora.setText(solicitud.getHora());
+        TVDireccion.setText(solicitud.getDireccion());
+
+        viewModel.updateFecha(solicitud.getDia());
+        viewModel.updateHora(solicitud.getHora());
+        viewModel.updateDireccion(solicitud.getDireccion());
+        viewModel.updateUbicacionSeleccionada(
+                new LatLng(solicitud.getLatitude(), solicitud.getLongitude())
+        );
     }
 
     private void inicializarListeners() {
@@ -178,11 +244,20 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
             if(TVFecha.getError() == null) mostrarSelectorHora();
         });
 
-        TVDireccion.setOnClickListener(view -> FLMapa.setVisibility(View.VISIBLE));
-        CVCerrarMapa.setOnClickListener(view -> FLMapa.setVisibility(View.GONE));
+        TVDireccion.setOnClickListener(view -> {
+            if(behavior != null) behavior.setDraggable(false);
+            FLMapa.setVisibility(View.VISIBLE);
+        });
+        CVCerrarMapa.setOnClickListener(view -> {
+            if(behavior != null) behavior.setDraggable(true);
+            FLMapa.setVisibility(View.GONE);
+        });
 
-        BtnPublicarSolicitud.setOnClickListener(view -> publicarSolicitud());
-        TVLimpiarCampos.setOnClickListener(view -> limpiarCampos());
+        BtnActualizarSolicitud.setOnClickListener(view ->
+                viewModel.updateSolicitud(spinner.getSelectedItem().toString(), solicitud)
+        );
+
+        BtnCancelar.setOnClickListener(view -> dismiss());
     }
 
     private void mostrarSelectorFecha() {
@@ -219,15 +294,15 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.googleMap = googleMap;
 
+        if(ubicacionPendiente != null) viewModel.updateUbicacionSeleccionada(ubicacionPendiente);
+
         googleMap.setOnMapClickListener(this);
         googleMap.getUiSettings().setCompassEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
+        googleMap.getUiSettings().setScrollGesturesEnabled(true);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
 
         googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-            @Nullable
-            @Override
-            public View getInfoContents(@NonNull Marker marker) { return null; }
-
             @Override
             public View getInfoWindow(@NonNull Marker marker) {
                 View view = View.inflate(requireContext(), R.layout.custom_info_window_layout, null);
@@ -235,6 +310,10 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
                 TVTitulo.setText(marker.getTitle());
                 return view;
             }
+
+            @Nullable
+            @Override
+            public View getInfoContents(@NonNull Marker marker) { return null; }
         });
 
         if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -312,25 +391,7 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
 
     private void actualizarError(String error) { viewModel.updateError(error); }
 
-    private void publicarSolicitud() {
-        String tamano = spinner.getSelectedItem().toString();
-        viewModel.publicarSolicitud(tamano);
-    }
-
-    private void limpiarCampos() {
-        tipoResiduoRVA.eliminarSeleccion();
-        spinner.setSelection(0);
-
-        TVFecha.setText("");
-        TVHora.setText("");
-        TVDireccion.setText("");
-        TVDireccionMapa.setText("");
-
-        if(marker != null) {
-            marker.remove();
-            marker = null;
-        }
-
-        viewModel.limpiarCampos();
+    public interface UpdateCallback {
+        void onUpdateSuccess();
     }
 }
