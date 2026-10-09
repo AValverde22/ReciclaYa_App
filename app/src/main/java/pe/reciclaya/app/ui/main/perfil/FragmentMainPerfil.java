@@ -1,10 +1,12 @@
 package pe.reciclaya.app.ui.main.perfil;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.GestionarPuntos;
@@ -27,6 +31,7 @@ import pe.reciclaya.app.ui.splash.Splash;
 
 public class FragmentMainPerfil extends Fragment {
     private TextView TVNombre, TVCorreo, TVRol;
+    private ImageView IVFotoPerfil;
     private LinearLayout LLCerrarSesion;
     private RecyclerView RV;
     protected MiActividad[] misActividades;
@@ -52,6 +57,7 @@ public class FragmentMainPerfil extends Fragment {
         TVNombre = view.findViewById(R.id.TVNombreFMP);
         TVCorreo = view.findViewById(R.id.TVCorreoFMP);
         TVRol = view.findViewById(R.id.TVRolFMP);
+        IVFotoPerfil = view.findViewById(R.id.IVFotoPerfilFMP);
 
         LLCerrarSesion = view.findViewById(R.id.LLCerrarSesionFMP);
         RV = view.findViewById(R.id.RVFMP);
@@ -72,6 +78,11 @@ public class FragmentMainPerfil extends Fragment {
         viewModel.getRole().observe(lifecycleOwner, role ->
                 TVRol.setText(role.getRole())
         );
+
+        viewModel.getURLFotoPerfil().observe(lifecycleOwner, urlFotoPerfil -> {
+            if(urlFotoPerfil != null && !urlFotoPerfil.isBlank())
+                Glide.with(requireContext()).load(Uri.parse(urlFotoPerfil)).into(IVFotoPerfil);
+        });
 
         viewModel.getCerrarSesion().observe(lifecycleOwner,
                 new EventObserver<>(cerrarSesion -> {

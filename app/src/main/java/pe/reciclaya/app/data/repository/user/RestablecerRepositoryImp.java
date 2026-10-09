@@ -14,7 +14,7 @@ import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.UserService;
 import pe.reciclaya.app.domain.model.user.User;
 import pe.reciclaya.app.domain.model.user.UserRole;
-import pe.reciclaya.app.domain.repository.user.RepositoryCallback;
+import pe.reciclaya.app.domain.repository.RepositoryCallback;
 import pe.reciclaya.app.domain.repository.user.RestablecerRepository;
 import retrofit2.Call;
 import retrofit2.Callback;

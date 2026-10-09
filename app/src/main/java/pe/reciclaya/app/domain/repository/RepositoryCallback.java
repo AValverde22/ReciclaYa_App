@@ -1,4 +1,4 @@
-package pe.reciclaya.app.domain.repository.user;
+package pe.reciclaya.app.domain.repository;
 
 public interface RepositoryCallback<T> {
     void onSuccess(T data);
