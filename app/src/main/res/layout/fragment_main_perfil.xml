@@ -106,9 +106,12 @@
                     app:cardElevation="0dp">
 
                     <ImageView
+                        android:id="@+id/IVFotoPerfilFMP"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:src="@tools:sample/avatars" />
+                        android:background="@drawable/foto_en_blanco"
+                        android:scaleType="fitCenter"
+                        />
 
                 </androidx.cardview.widget.CardView>
 

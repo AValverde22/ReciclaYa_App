@@ -18,6 +18,7 @@ public class PerfilViewModel extends AndroidViewModel {
     private final MutableLiveData<String> fullName = new MutableLiveData<>();
     private final MutableLiveData<String> email = new MutableLiveData<>();
     private final MutableLiveData<UserRole> role = new MutableLiveData<>();
+    private final MutableLiveData<String> urlFotoPerfil = new MutableLiveData<>();
 
     private final UserRepository userRepository;
 
@@ -31,11 +32,13 @@ public class PerfilViewModel extends AndroidViewModel {
     public LiveData<String> getFullName() { return fullName; }
     public LiveData<String> getEmail() { return email; }
     public LiveData<UserRole> getRole() { return role; }
+    public LiveData<String> getURLFotoPerfil() { return urlFotoPerfil; }
 
     private void obtenerInformacionPerfil() {
         fullName.setValue(userRepository.getFullName());
         email.setValue(userRepository.getEmail());
         role.setValue(userRepository.getRole());
+        urlFotoPerfil.setValue(userRepository.getProfilePhotoURL());
     }
 
     public void cerrarSesion() {

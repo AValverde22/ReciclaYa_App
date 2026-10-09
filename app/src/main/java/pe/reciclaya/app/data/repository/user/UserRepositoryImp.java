@@ -16,6 +16,7 @@ public class UserRepositoryImp implements UserRepository {
         user = User.getInstance();
     }
 
+    @Override public int getID() {return user.getID(); }
     @Override public String getFullName() { return user.getFullName(); }
     @Override public String getEmail() { return user.getEmail(); }
     @Override public UserRole getRole() { return user.getRole(); }

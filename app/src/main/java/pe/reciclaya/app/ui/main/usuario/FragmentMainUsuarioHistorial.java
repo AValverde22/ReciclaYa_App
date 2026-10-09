@@ -2,65 +2,94 @@ package pe.reciclaya.app.ui.main.usuario;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.common.event.EventObserver;
+import pe.reciclaya.app.ui.main.usuario.solicitud_list.SolicitudItem;
+import pe.reciclaya.app.ui.main.usuario.solicitud_list.SolicitudRVA;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentMainUsuarioHistorial#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentMainUsuarioHistorial extends Fragment {
+    private RecyclerView RV;
+    private LinearLayout LLLoading;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentMainUsuarioHistorial() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMainHistorial.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentMainUsuarioHistorial newInstance(String param1, String param2) {
-        FragmentMainUsuarioHistorial fragment = new FragmentMainUsuarioHistorial();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ViewModelHistorial viewModel;
+    private SolicitudRVA solicitudRVA;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main_historial_usuario, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        inicializarComponentes(view);
+        inicializarSolicitudRA();
+        inicializarVM();
+    }
+
+    private void inicializarComponentes(View view) {
+        RV = view.findViewById(R.id.RVFMHU);
+        LLLoading = view.findViewById(R.id.LLLoadingFMHU);
+    }
+
+    private void inicializarSolicitudRA() {
+        solicitudRVA = new SolicitudRVA(
+                new ArrayList<>(),
+                new SolicitudRVA.OnSolicitudActionListener() {
+                    @Override
+                    public void onEditRequested(SolicitudItem solicitud, int pos) {
+
+                    }
+
+                    @Override
+                    public void onCancelRequested(SolicitudItem solicitud, int pos) {
+
+                    }
+                }
+        );
+
+        RV.setLayoutManager(new LinearLayoutManager(requireContext()));
+        RV.setAdapter(solicitudRVA);
+    }
+
+    private void inicializarVM() {
+        viewModel = new ViewModelProvider(this).get(ViewModelHistorial.class);
+        LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
+
+        viewModel.getSolicitudes().observe(lifecycleOwner, solicitudes ->
+                solicitudRVA.setSolicitudes(solicitudes)
+        );
+
+        viewModel.getError().observe(lifecycleOwner, new EventObserver<>(errorMessage ->
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+        ));
+
+        viewModel.getLoading().observe(lifecycleOwner, loading -> {
+            if(loading) LLLoading.setVisibility(View.VISIBLE);
+            else LLLoading.setVisibility(View.GONE);
+        });
+    }
+
+    @Override
+    public void onResume() {
+        viewModel.updateSolicitudes();
+        super.onResume();
     }
 }

@@ -16,9 +16,17 @@
     <color name="transparente">#00000000</color>
     <color name="verde_transparente">#2222C258</color>
     <color name="gris_transparente">#14000000</color>
+    <color name="marron_transparente">#D9C76F31</color>
+    <color name="azul_transparente">#DC156295</color>
+    <color name="blanco_transparente">#80FFFFFF</color>
 
     <color name="rojo">#FF0000</color>
     <color name="rojo_dos">#E64D4D</color>
 
+    <color name="marron">#B85814</color>
+    <color name="marron_claro">#FFB356</color>
+
     <color name="dorado">#ECC488</color>
+
+    <color name="azul">#156295</color>
 </resources>

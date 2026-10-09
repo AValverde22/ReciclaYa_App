@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BackendClient {
     private static final String BASE_URL = BuildConfig.BASE_URL;
     private static UserService userService;
+    private static SolicitudService solicitudService;
 
     private static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -16,5 +17,10 @@ public class BackendClient {
     public static synchronized UserService getUserService() {
         if(userService == null) userService = retrofit.create(UserService.class);
         return userService;
+    }
+
+    public static synchronized SolicitudService getSolicitudService() {
+        if(solicitudService == null) solicitudService = retrofit.create(SolicitudService.class);
+        return solicitudService;
     }
 }

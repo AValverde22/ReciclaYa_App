@@ -13,7 +13,7 @@ import pe.reciclaya.app.data.local.AppPreferencesManager;
 import pe.reciclaya.app.domain.model.user.User;
 import pe.reciclaya.app.domain.model.user.UserRole;
 import pe.reciclaya.app.domain.repository.user.LoginRepository;
-import pe.reciclaya.app.domain.repository.user.RepositoryCallback;
+import pe.reciclaya.app.domain.repository.RepositoryCallback;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

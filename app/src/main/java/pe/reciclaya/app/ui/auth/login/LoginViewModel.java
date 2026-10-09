@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import pe.reciclaya.app.data.repository.user.LoginRepositoryImp;
 import pe.reciclaya.app.domain.model.user.UserRole;
 import pe.reciclaya.app.domain.repository.user.LoginRepository;
-import pe.reciclaya.app.domain.repository.user.RepositoryCallback;
+import pe.reciclaya.app.domain.repository.RepositoryCallback;
 import pe.reciclaya.app.ui.common.event.Event;
 import pe.reciclaya.app.ui.common.util.Validaciones;
 
