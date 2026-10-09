@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.main.fragments.usuario.FragmentMainMapaUsuario">
+    tools:context=".ui.main.usuario.FragmentMainUsuarioMapa">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
