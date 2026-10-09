@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.common.event.EventObserver;
+import pe.reciclaya.app.ui.main.usuario.bottom_sheet_dialog.BSDSolicitud;
 import pe.reciclaya.app.ui.main.usuario.solicitud_list.SolicitudItem;
 import pe.reciclaya.app.ui.main.usuario.solicitud_list.SolicitudRVA;
 
@@ -54,13 +55,17 @@ public class FragmentMainUsuarioHistorial extends Fragment {
                 new ArrayList<>(),
                 new SolicitudRVA.OnSolicitudActionListener() {
                     @Override
-                    public void onEditRequested(SolicitudItem solicitud, int pos) {
-
+                    public void onEditRequested(SolicitudItem solicitud) {
+                        BSDSolicitud bsdSolicitud = new BSDSolicitud(
+                                solicitud,
+                                () -> viewModel.updateSolicitudes()
+                        );
+                        bsdSolicitud.show(getChildFragmentManager(), null);
                     }
 
                     @Override
-                    public void onCancelRequested(SolicitudItem solicitud, int pos) {
-
+                    public void onCancelRequested(int id) {
+                        viewModel.cancelSolicitud(id);
                     }
                 }
         );
@@ -80,6 +85,20 @@ public class FragmentMainUsuarioHistorial extends Fragment {
         viewModel.getError().observe(lifecycleOwner, new EventObserver<>(errorMessage ->
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         ));
+
+        viewModel.getUpdated().observe(lifecycleOwner, new EventObserver<>(updated -> {
+            if(updated) {
+                Toast.makeText(requireContext(), "Solicitud actualizada correctamente", Toast.LENGTH_SHORT).show();
+                viewModel.updateSolicitudes();
+            }
+        }));
+
+        viewModel.getCanceled().observe(lifecycleOwner, new EventObserver<>(canceled -> {
+            if(canceled) {
+                Toast.makeText(requireContext(), "Solicitud cancelada correctamente", Toast.LENGTH_SHORT).show();
+                viewModel.updateSolicitudes();
+            }
+        }));
 
         viewModel.getLoading().observe(lifecycleOwner, loading -> {
             if(loading) LLLoading.setVisibility(View.VISIBLE);

@@ -1,6 +1,7 @@
 package pe.reciclaya.app.domain.model.solicitud;
 
-public class SolicitudNueva {
+public class SolicitudActualizada {
+    private final int id;
     private final TipoResiduo tipoResiduo;
     private final Tamano tamano;
     private final String fecha;
@@ -8,18 +9,18 @@ public class SolicitudNueva {
     private final String direccion;
     private final double latitude;
     private final double longitude;
-    private final int userID;
 
-    public SolicitudNueva(
+    public SolicitudActualizada(
+            int id,
             TipoResiduo tipoResiduo,
             Tamano tamano,
             String fecha,
             String hora,
             String direccion,
             double latitude,
-            double longitude,
-            int userID
+            double longitude
     ) {
+        this.id = id;
         this.tipoResiduo = tipoResiduo;
         this.tamano = tamano;
         this.fecha = fecha;
@@ -27,9 +28,9 @@ public class SolicitudNueva {
         this.direccion = direccion;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.userID = userID;
     }
 
+    public int getID() { return id; }
     public TipoResiduo getTipoResiduo() { return tipoResiduo; }
     public Tamano getTamano() { return tamano; }
     public String getFecha() { return fecha; }
@@ -37,8 +38,8 @@ public class SolicitudNueva {
     public String getDireccion() { return direccion; }
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
-    public int getUserID() { return userID; }
 
     public String getTipoResiduoString() { return tipoResiduo.getTipoResiduo(); }
     public String getTamanoString() { return tamano.getTamano(); }
 }
+

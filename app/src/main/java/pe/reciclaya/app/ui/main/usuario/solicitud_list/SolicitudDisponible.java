@@ -3,6 +3,7 @@ package pe.reciclaya.app.ui.main.usuario.solicitud_list;
 import java.util.Calendar;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.domain.model.solicitud.Estado;
 import pe.reciclaya.app.ui.main.usuario.tipo_residuo_list.TipoResiduoItem;
 
 public class SolicitudDisponible extends SolicitudItem {
@@ -55,6 +56,7 @@ public class SolicitudDisponible extends SolicitudItem {
         return "En " + ((hora > 0) ? hora + " h " : "") + ((minutes > 0) ? minutes + " min" : "");
     }
 
+    @Override public String getEstado() { return Estado.DISPONIBLE.getEstado(); }
     @Override public boolean isBtnCancelarEnabled() { return true; }
     @Override public boolean isBtnEditarEnabled() { return true; }
     @Override public int getColorFondo() { return R.color.verde_transparente; }

@@ -10,6 +10,7 @@ import pe.reciclaya.app.data.remote.BackendClient;
 import pe.reciclaya.app.data.remote.SolicitudService;
 import pe.reciclaya.app.domain.model.solicitud.Solicitud;
 import pe.reciclaya.app.data.mapper.SolicitudMapper;
+import pe.reciclaya.app.domain.model.solicitud.SolicitudActualizada;
 import pe.reciclaya.app.domain.model.solicitud.SolicitudNueva;
 import pe.reciclaya.app.domain.repository.RepositoryCallback;
 import pe.reciclaya.app.domain.repository.solicitud.SolicitudRepository;
@@ -59,5 +60,39 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
         });
     }
 
+    @Override
+    public void updateSolicitud(SolicitudActualizada solicitudActualizada, RepositoryCallback<Void> callback) {
+        apiService.updateSolicitud(
+                solicitudActualizada.getID(),
+                SolicitudMapper.toRequest(solicitudActualizada)
+        ).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if(response.isSuccessful()) callback.onSuccess(null);
+                else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onError("Error en la red, compruebe su conexión");
+            }
+        });
+    }
+
+    @Override
+    public void cancelSolicitud(int solicitudID, RepositoryCallback<Void> callback) {
+        apiService.cancelSolicitud(solicitudID).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if(response.isSuccessful()) callback.onSuccess(null);
+                else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onError("Error en la red, compruebe su conexión");
+
+            }
+        });
+    }
 }

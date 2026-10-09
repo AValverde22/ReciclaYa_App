@@ -91,6 +91,7 @@
     <string name="PublicarSolicitud">Publicar Solicitud</string>
     <string name="Cancelar">Cancelar</string>
     <string name="Editar">Editar</string>
+    <string name="ActualizarSolicitud">Actualizar Solicitud</string>
 
     <string name="LimpiarCampos">Limpiar campos</string>
 

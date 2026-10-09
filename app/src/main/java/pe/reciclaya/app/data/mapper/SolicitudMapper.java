@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.reciclaya.app.data.model.solicitud.request.SolicitudRequest;
+import pe.reciclaya.app.data.model.solicitud.request.UpdateRequest;
 import pe.reciclaya.app.data.model.solicitud.response.SolicitudResponse;
 import pe.reciclaya.app.domain.model.solicitud.Estado;
 import pe.reciclaya.app.domain.model.solicitud.Solicitud;
+import pe.reciclaya.app.domain.model.solicitud.SolicitudActualizada;
 import pe.reciclaya.app.domain.model.solicitud.SolicitudNueva;
 import pe.reciclaya.app.domain.model.solicitud.Tamano;
 import pe.reciclaya.app.domain.model.solicitud.TipoResiduo;
@@ -46,7 +48,19 @@ public class SolicitudMapper {
                 nuevaSolicitud.getDireccion(),
                 nuevaSolicitud.getLatitude(),
                 nuevaSolicitud.getLongitude(),
-                nuevaSolicitud.getUserId()
+                nuevaSolicitud.getUserID()
+        );
+    }
+
+    public static UpdateRequest toRequest(SolicitudActualizada solicitudActualizada) {
+        return new UpdateRequest(
+                solicitudActualizada.getTipoResiduoString(),
+                solicitudActualizada.getTamanoString(),
+                solicitudActualizada.getFecha(),
+                solicitudActualizada.getHora(),
+                solicitudActualizada.getDireccion(),
+                solicitudActualizada.getLatitude(),
+                solicitudActualizada.getLongitude()
         );
     }
 }
