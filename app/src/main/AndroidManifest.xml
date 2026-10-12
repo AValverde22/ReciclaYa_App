@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -13,16 +15,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReciclaYa">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/MAPS_API" />
         <activity
-            android:name=".ui.view.register.RegisterActivity"
+            android:name=".ui.auth.register.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.view.login.LoginActivity"
+            android:name=".ui.auth.login.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.view.splash.Splash"
+            android:name=".ui.splash.Splash"
             android:exported="true"
             android:theme="@style/Theme.App.Starting"
             android:screenOrientation="portrait">
@@ -33,22 +38,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.main.factory_method.main.RecicladorMainActivity"
+            android:name=".ui.main.MainActivityReciclador"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.main.factory_method.main.UsuarioMainActivity"
+            android:name=".ui.main.MainActivityUsuario"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.tyc.TyCActivity"
+            android:name=".ui.tyc.TyCActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.restablecer.RestablecerActivity"
+            android:name=".ui.auth.restablecer.RestablecerActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />

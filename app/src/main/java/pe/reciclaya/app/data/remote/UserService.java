@@ -1,13 +1,13 @@
 package pe.reciclaya.app.data.remote;
 
-import pe.reciclaya.app.data.model.login.response.LoginResponse;
-import pe.reciclaya.app.data.model.register.request.RegisterRequestEmail;
-import pe.reciclaya.app.data.model.register.request.RegisterRequestUser;
-import pe.reciclaya.app.data.model.login.request.LoginRequest;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestCompare;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestRecover;
-import pe.reciclaya.app.data.model.restablecer.request.RestablecerRequestReset;
-import pe.reciclaya.app.data.model.restablecer.response.RestablecerResponse;
+import pe.reciclaya.app.data.model.user.response.UserResponse;
+import pe.reciclaya.app.data.model.user.request.register.RegisterRequestEmail;
+import pe.reciclaya.app.data.model.user.request.register.RegisterRequestUser;
+import pe.reciclaya.app.data.model.user.request.login.LoginRequest;
+import pe.reciclaya.app.data.model.user.request.restablecer.RestablecerRequestCompare;
+import pe.reciclaya.app.data.model.user.request.restablecer.RestablecerRequestRecover;
+import pe.reciclaya.app.data.model.user.request.restablecer.RestablecerRequestReset;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.PATCH;
@@ -22,7 +22,7 @@ public interface UserService {
     Call<Integer> registerUser(@Body RegisterRequestUser requestModel);
 
     @POST("user/login")
-    Call<LoginResponse> loginUser(@Body LoginRequest requestModel);
+    Call<UserResponse> loginUser(@Body LoginRequest requestModel);
 
     @POST("user/recover")
     Call<Void> recoverUser(@Body RestablecerRequestRecover requestModel);
@@ -31,6 +31,5 @@ public interface UserService {
     Call<Boolean> compareCode(@Body RestablecerRequestCompare requestModel);
 
     @PATCH("user/reset")
-    Call<RestablecerResponse> resetUser(@Body RestablecerRequestReset requestModel);
-
+    Call<UserResponse> resetUser(@Body RestablecerRequestReset requestModel);
 }
