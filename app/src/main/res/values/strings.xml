@@ -12,6 +12,11 @@
     <!-- Subtitulos -->
     <string name="CrearCuenta">Crear Cuenta</string>
     <string name="MiPerfil">Mi Perfil</string>
+    <string name="HistorialSolicitudes">Historial de Solicitudes</string>
+    <string name="CrearSolicitud">Crear Solicitud</string>
+    <string name="HistorialEncargos">Historial de Encargos</string>
+    <string name="SolicitudesDisponibles">Solicitudes Disponibles</string>
+    <string name="Rating">Rating</string>
 
     <!-- Subsubtitulos -->
     <string name="InfoPersonal">INFORMACIÓN PERSONAL</string>
@@ -21,7 +26,10 @@
     <string name="CualRol">¿CUÁL SERÁ TU ROL?</string>
     <string name="CambiarContrasena">Cambiar contraseña</string>
     <string name="MiActividad">MI ACTIVIDAD</string>
+    <string name="CercaDeTi">Cerca de ti</string>
 
+    <string name="TipoDeResiduo">Tipo de Residuo</string>
+    <string name="DetallesDeCarga">Detalles de carga</string>
 
     <!-- Mensajes -->
     <string name="MensajeBienvenida">Únete a la red de reciclaje local. \nConectamos personas con recicladores\npara un planeta más verde.</string>
@@ -30,6 +38,7 @@
     <string name="MensajeVerificarCodigo">Ingrese el código de seguridad que le \nllegó a su correo electrónico.</string>
     <string name="MensajeOlvido">Ingrese su correo electrónico y se le \nenviará un código de verificación. Siga \nlas instrucciones que llegue en su correo \ncon el que se ha registrado.</string>
     <string name="MensajeCambiarContrasena">Digite su cambio de contraseña en los \napartados.</string>
+    <string name="MensajeNoHayResultados">Vaya… Parece que no tienes solicitudes\nactualmente. Intente más tarde o amplie\nla búsqueda de filtros.</string>
 
     <string name="MensajePersona">Deseo publicar solicitudes de recolección para mis residuos.</string>
     <string name="MensajeReciclador">Busco recolectar materiales y contribuir a la economía circular.</string>
@@ -37,6 +46,10 @@
     <!-- Opciones -->
     <string name="Reciclador">Reciclador</string>
     <string name="Usuario">Usuario</string>
+    <string name="Obligatorio">Obligatorio</string>
+    <string name="Plastico">Plástico</string>
+    <string name="Tamano">Extragrande</string>
+    <string name="CeroSolicitudes">0 Solicitudes</string>
 
     <!-- Inputs -->
     <string name="CorreoElectronico">Correo electrónico</string>
@@ -48,6 +61,18 @@
     <string name="ContrasenaEjemplo">••••••••</string>
 
     <string name="NombreCompleto">Nombre completo</string>
+    <string name="NombrePendiente">Pendiente…</string>
+
+    <string name="CantidadEstimada">Cantidad estimada</string>
+
+    <string name="Dia">Día</string>
+    <string name="DiaEjemplo">23/04/2026</string>
+
+    <string name="Hora">Hora</string>
+    <string name="HoraEjemplo">20:38</string>
+
+    <string name="DireccionCompleta">Dirección completa</string>
+    <string name="DireccionEjemplo">Calle 123 #45-67, Ciudad</string>
 
     <string name="PersonaRecicla">Persona que recicla</string>
     <string name="RecicladorLocal">Reciclador Local</string>
@@ -69,6 +94,15 @@
     <string name="Continuar">Continuar</string>
     <string name="EnviarCodigo">Enviar Código</string>
     <string name="CerrarSesion">Cerrar Sesión</string>
+    <string name="PublicarSolicitud">Publicar Solicitud</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="Editar">Editar</string>
+    <string name="ActualizarSolicitud">Actualizar Solicitud</string>
+    <string name="Reset">Reset</string>
+    <string name="Aceptar">Aceptar</string>
+    <string name="Aplicar">Aplicar</string>
+
+    <string name="LimpiarCampos">Limpiar campos</string>
 
     <!-- TabItem -->
     <string name="Mapa">Mapa</string>

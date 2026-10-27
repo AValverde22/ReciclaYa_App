@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:background="@drawable/linearlayout_bs"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="50dp"
+        android:layout_height="4dp"
+
+        app:cardElevation="0dp"
+        app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="@color/gris_claro"
+
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginVertical="15dp"
+        android:layout_marginStart="25dp"
+
+        android:fontFamily="@font/gotham_bold"
+        android:gravity="center_vertical"
+        android:text="@string/TipoDeResiduo"
+        android:textColor="@color/black"
+        android:textSize="17.5sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RVTipoResiduoBSDF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginBottom="25dp"
+        android:paddingHorizontal="-7.5dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+
+        app:cardBackgroundColor="@color/gris_claro"
+        app:cardElevation="0dp">
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="25dp"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+
+                    android:background="@drawable/calendario" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+
+                    android:layout_weight="1"
+
+                    android:fontFamily="@font/gotham_medium"
+                    android:text="@string/Dia"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/linearlayout_transparente"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/TVFechaBSDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+
+                    android:hint="@string/DiaEjemplo"
+
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="12.5dp"
+
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gris_intermedio"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+
+                    android:background="@drawable/reloj" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+
+                    android:layout_weight="1"
+
+                    android:fontFamily="@font/gotham_medium"
+                    android:text="@string/Hora"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/linearlayout_transparente"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/TVHoraBSDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@color/transparente"
+                    android:fontFamily="@font/gothamnarrow_medium"
+
+                    android:hint="@string/HoraEjemplo"
+
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="12.5dp"
+
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gris_intermedio"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+
+        app:cardBackgroundColor="@color/gris_claro"
+        app:cardElevation="0dp">
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginVertical="15dp"
+            android:layout_marginStart="25dp"
+
+            android:fontFamily="@font/gotham_bold"
+            android:gravity="center_vertical"
+            android:text="@string/Rating"
+            android:textColor="@color/black"
+            android:textSize="17.5sp" />
+
+        <RatingBar
+            android:id="@+id/RBBSDF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_gravity="center_horizontal"
+            android:progressTint="@color/dorado_dos"
+            android:progressBackgroundTint="@color/gris_claro"
+
+            android:layout_marginBottom="25dp"
+            android:numStars="5"
+            android:stepSize=".5"
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="25dp"
+
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/BtnResetFiltrosBSDF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingHorizontal="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/button_final_green_border"
+
+                android:textAllCaps="false"
+
+                android:fontFamily="@font/gotham_medium"
+                android:textColor="@color/verde"
+                android:textSize="15sp"
+                android:text="@string/Reset"
+            />
+
+            <Button
+                android:id="@+id/BtnAplicarFiltrosBSDF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingHorizontal="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/button_final_green_background"
+
+                android:textAllCaps="false"
+
+                android:fontFamily="@font/gotham_medium"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:text="@string/Aplicar"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
