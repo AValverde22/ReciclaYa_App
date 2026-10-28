@@ -22,8 +22,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.main.tabs.MainTabsAbstractFactory;
 import pe.reciclaya.app.ui.main.tabs.MainPagerAdapter;
+import pe.reciclaya.app.ui.main.navigation.ProfileNavigator;
 
-public abstract class MainActivity extends AppCompatActivity {
+public abstract class MainActivity extends AppCompatActivity implements ProfileNavigator {
     private LinearLayout LLLoading;
     protected TabLayout tabLayout;
     private ViewPager2 viewPager2;
@@ -75,6 +76,11 @@ public abstract class MainActivity extends AppCompatActivity {
     }
 
     protected abstract MainTabsAbstractFactory getMainTabFactory();
+
+    @Override public void openRequestHistory() {
+        // Both role factories place Historial/Encargos in the third tab.
+        viewPager2.setCurrentItem(2, false);
+    }
 
     public void mostrarLLoading(boolean mostrar) {
         if(mostrar) LLLoading.setVisibility(View.VISIBLE);

@@ -8,6 +8,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.ArrayList;
+import pe.reciclaya.app.domain.model.recojo.LocationFix;
+import pe.reciclaya.app.ui.main.solicitud_list.SolicitudDistanceMapper;
 
 import pe.reciclaya.app.data.repository.solicitud.SolicitudRepositoryImp;
 import pe.reciclaya.app.data.repository.user.UserRepositoryImp;
@@ -30,6 +33,15 @@ public class ViewModelReciclar extends AndroidViewModel {
 
     private final SolicitudRepository solicitudRepository;
     private final UserRepository userRepository;
+    private List<Solicitud> distanceSource;
+    private LocationFix pickupLocation;
+    private long locationNow;
+
+    public void updatePickupLocation(LocationFix location,long now) {
+        boolean same=pickupLocation==null?location==null:location!=null && pickupLocation.elapsedMillis==location.elapsedMillis;
+        pickupLocation=location; locationNow=now;
+        if (!same && distanceSource!=null) solicitudesItem.setValue(SolicitudDistanceMapper.toUI(distanceSource,pickupLocation,locationNow));
+    }
 
     public ViewModelReciclar(@NonNull Application application) {
         super(application);
@@ -58,7 +70,8 @@ public class ViewModelReciclar extends AndroidViewModel {
             @Override
             public void onSuccess(List<Solicitud> solicitudes) {
                 loading.postValue(false);
-                solicitudesItem.postValue(SolicitudItemMapper.allToUI(solicitudes));
+                distanceSource=new ArrayList<>(solicitudes);
+                solicitudesItem.postValue(SolicitudDistanceMapper.toUI(distanceSource,pickupLocation,locationNow));
             }
 
             @Override

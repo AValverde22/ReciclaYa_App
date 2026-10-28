@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#F4F8F1">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <FrameLayout android:id="@+id/mapaRecojo" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <Button android:id="@+id/centrarRecojo" style="@style/RecojoActionButton" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end" android:layout_margin="12dp" android:text="Mi ubicación" android:textSize="14sp" android:visibility="gone" />
+    </FrameLayout>
+    <ScrollView android:layout_width="match_parent" android:layout_height="240dp" android:fillViewport="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:orientation="vertical">
+            <TextView android:id="@+id/detalleRecojo" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/gotham_bold" android:text="Consultando reciclaje activo…" android:textColor="#183F27" android:textSize="16sp" />
+            <TextView android:id="@+id/estadoRecojo" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/gotham_medium" android:paddingTop="8dp" android:textColor="#4D554F" android:accessibilityLiveRegion="polite" />
+            <Button android:id="@+id/ubicacionRecojo" style="@style/RecojoSecondaryButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Activar ubicación precisa" android:visibility="gone" />
+            <Button android:id="@+id/navegarRecojo" style="@style/RecojoSecondaryButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Abrir navegación" android:visibility="gone" />
+            <Button android:id="@+id/terminarRecojo" style="@style/RecojoActionButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="¿Terminar reciclaje?" android:enabled="false" android:visibility="gone" />
+            <Button android:id="@+id/calificarRecojo" style="@style/RecojoActionButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calificar a la otra persona" android:visibility="gone" />
+            <Button android:id="@+id/cancelarRecojo" style="@style/RecojoCancelButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Cancelar recojo" android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
