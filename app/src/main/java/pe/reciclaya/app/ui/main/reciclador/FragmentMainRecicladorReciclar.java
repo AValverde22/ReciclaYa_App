@@ -24,6 +24,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.main.recojo.RecojoViewModel;
+import pe.reciclaya.app.ui.main.recojo.RecojoViewModels;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.main.bottom_sheet_dialog.BSDFiltro;
 import pe.reciclaya.app.ui.main.bottom_sheet_dialog.ViewModelFiltro;
@@ -43,6 +45,8 @@ public class FragmentMainRecicladorReciclar extends Fragment {
     private ViewModelFiltro viewModelFiltro;
     private SolicitudRVAReciclador solicitudRVAReciclador;
 
+    private RecojoViewModel recojo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main_reciclar, container, false);
@@ -52,10 +56,15 @@ public class FragmentMainRecicladorReciclar extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        recojo = RecojoViewModels.obtain(requireActivity());
         inicializarComponentes(view);
         inicializarSolicitudRA();
         inicializarVM();
         inicializarListeners();
+        recojo.getState().observe(getViewLifecycleOwner(), state -> {
+            solicitudRVAReciclador.setBlocked(state.blocked);
+            viewModel.updatePickupLocation(state.location,state.nowMillis);
+        });
     }
 
     private void inicializarComponentes(View view) {
@@ -72,7 +81,7 @@ public class FragmentMainRecicladorReciclar extends Fragment {
     private void inicializarSolicitudRA() {
         solicitudRVAReciclador = new SolicitudRVAReciclador(
                 new ArrayList<>(),
-                id -> viewModel.acceptSolicitud(id)
+                id -> { if (!recojo.blocked()) { solicitudRVAReciclador.setBlocked(true); viewModel.acceptSolicitud(id); } }
         );
 
         RV.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -103,10 +112,11 @@ public class FragmentMainRecicladorReciclar extends Fragment {
         });
 
         viewModel.getError().observe(lifecycleOwner, new EventObserver<>(errorMessage ->
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                showAcceptError(errorMessage)
         ));
 
         viewModel.getAccepted().observe(lifecycleOwner, new EventObserver<>(accepted -> {
+            recojo.invalidate();
             if(accepted) {
                 Toast.makeText(requireContext(), "Solicitud aceptada correctamente", Toast.LENGTH_SHORT).show();
             }
@@ -117,6 +127,11 @@ public class FragmentMainRecicladorReciclar extends Fragment {
             PB.setVisibility(loading ? View.VISIBLE : View.GONE);
             IVRefresh.setVisibility(loading ? View.GONE : View.VISIBLE);
         });
+    }
+
+    private void showAcceptError(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+        recojo.refresh();
     }
 
     private void inicializarListeners() {
@@ -131,7 +146,7 @@ public class FragmentMainRecicladorReciclar extends Fragment {
 
     @Override
     public void onResume() {
-        viewModel.getSolicitudesDisponibles();
         super.onResume();
+        viewModel.getSolicitudesDisponibles();
     }
 }

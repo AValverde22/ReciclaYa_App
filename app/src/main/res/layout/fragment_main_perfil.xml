@@ -117,7 +117,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
 
                     android:layout_marginStart="20dp"
@@ -127,8 +127,7 @@
                     <TextView
                         android:id="@+id/TVNombreFMP"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.3"
+                        android:layout_height="wrap_content"
 
                         android:fontFamily="@font/gotham_bold"
                         android:text="@string/NombreCompleto"
@@ -138,8 +137,8 @@
                     <TextView
                         android:id="@+id/TVCorreoFMP"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
 
                         android:ellipsize="end"
                         android:fontFamily="@font/gothamnarrow_medium"
@@ -150,8 +149,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
 
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -200,6 +199,30 @@
                                 android:textColor="@color/dorado"
                                 android:textSize="11sp" />
                         </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/estrella" />
+
+                        <TextView
+                            android:id="@+id/TVScoreFMP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/gotham_bold"
+                            android:text="@string/perfil_puntuacion_pendiente"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

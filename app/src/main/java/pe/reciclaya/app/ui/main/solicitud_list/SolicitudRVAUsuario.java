@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +22,9 @@ import java.util.List;
 import pe.reciclaya.app.R;
 
 public class SolicitudRVAUsuario extends RecyclerView.Adapter<SolicitudRVAUsuario.ViewHolder> {
+    private boolean blocked = true;
+    @SuppressLint("NotifyDataSetChanged")
+    public void setBlocked(boolean value) { if (blocked != value) { blocked = value; notifyDataSetChanged(); } }
     private List<SolicitudItem> solicitudes;
     private OnSolicitudActionListener listener;
 
@@ -50,7 +52,7 @@ public class SolicitudRVAUsuario extends RecyclerView.Adapter<SolicitudRVAUsuari
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imprimir(solicitudes.get(position), listener);
+        holder.imprimir(solicitudes.get(position), listener, blocked);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class SolicitudRVAUsuario extends RecyclerView.Adapter<SolicitudRVAUsuari
         private final ImageView IVTipoResiduo, IVFotoPerfil, IVPin;
         private final TextView TVTipoResiduo, TVTamano, TVNombreUsuario, TVPuntuacion, TVAntiguedad, TVDireccion;
         private final Button BtnCancelar, BtnEditar;
-        private final CardView CVDistancia;
+        private final TextView TVEstado;
         private final LinearLayout LLPuntuacion;
 
         public ViewHolder(@NonNull View itemView) {
@@ -91,11 +93,11 @@ public class SolicitudRVAUsuario extends RecyclerView.Adapter<SolicitudRVAUsuari
             BtnCancelar = itemView.findViewById(R.id.BtnCancelarISU);
             BtnEditar = itemView.findViewById(R.id.BtnEditarISU);
 
-            CVDistancia = itemView.findViewById(R.id.CVDistanciaISU);
+            TVEstado = itemView.findViewById(R.id.TVEstadoISU);
             LLPuntuacion = itemView.findViewById(R.id.LLPuntuacionISU);
         }
 
-        public void imprimir(SolicitudItem solicitud, OnSolicitudActionListener listener) {
+        public void imprimir(SolicitudItem solicitud, OnSolicitudActionListener listener, boolean blocked) {
             MCVFondo.setCardBackgroundColor(context.getColor(solicitud.getColorFondo()));
 
             IVTipoResiduo.setBackgroundResource(solicitud.getIconoTipoResiduo());
@@ -118,11 +120,15 @@ public class SolicitudRVAUsuario extends RecyclerView.Adapter<SolicitudRVAUsuari
             BtnCancelar.setVisibility(solicitud.isBtnCancelarEnabled() ? View.VISIBLE : View.GONE);
             BtnEditar.setVisibility(solicitud.isBtnEditarEnabled() ? View.VISIBLE : View.GONE);
 
-            CVDistancia.setVisibility(solicitud.isBtnCancelarEnabled() ? View.GONE : View.VISIBLE);
+            TVEstado.setText(solicitud.getEstado());
+            TVEstado.setVisibility("Disponible".equals(solicitud.getEstado()) ? View.GONE : View.VISIBLE);
+            TVEstado.setTextColor(context.getColor(solicitud.getColor()));
             LLPuntuacion.setVisibility(solicitud.isBtnEditarEnabled() ? View.GONE : View.VISIBLE);
 
             TVPuntuacion.setText(String.valueOf(solicitud.getPuntuacion()));
 
+            BtnEditar.setEnabled(!blocked);
+            BtnCancelar.setEnabled(!blocked);
             BtnEditar.setOnClickListener(view ->
                     listener.onEditRequested(solicitud)
             );

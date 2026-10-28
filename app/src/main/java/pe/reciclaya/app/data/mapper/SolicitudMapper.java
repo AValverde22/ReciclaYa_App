@@ -27,7 +27,8 @@ public class SolicitudMapper {
                 solicitud.getDireccion(),
                 solicitud.getLatitude(),
                 solicitud.getLongitude(),
-                UserSolicitudMapper.toDomain(solicitud.getUser())
+                UserSolicitudMapper.toDomain(solicitud.getUser()),
+                solicitud.getClosedAt()
         );
     }
 

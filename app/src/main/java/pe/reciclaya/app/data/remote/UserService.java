@@ -12,8 +12,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import pe.reciclaya.app.data.model.user.response.UserScoreResponse;
 
 public interface UserService {
+    @GET("user/{id}/score")
+    Call<UserScoreResponse> getScore(@Path("id") int userId);
 
     @POST("user/validate")
     Call<Boolean> validateEmail(@Body RegisterRequestEmail requestModel);
