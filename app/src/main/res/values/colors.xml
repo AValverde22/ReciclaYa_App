@@ -30,4 +30,6 @@
     <color name="marron_claro">#FFB356</color>
 
     <color name="azul">#156295</color>
+    <color name="ambar">#9A5700</color>
+    <color name="ambar_fondo">#FFF3D6</color>
 </resources>

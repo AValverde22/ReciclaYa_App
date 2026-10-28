@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.main.recojo.RecojoViewModel;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.main.solicitud_list.SolicitudRVAUsuario;
 import pe.reciclaya.app.ui.main.bottom_sheet_dialog.BSDSolicitud;
@@ -31,6 +32,8 @@ public class FragmentMainUsuarioHistorial extends Fragment {
     private ViewModelHistorial viewModel;
     private SolicitudRVAUsuario solicitudRVAUsuario;
 
+    private RecojoViewModel recojo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main_historial_usuario, container, false);
@@ -40,9 +43,11 @@ public class FragmentMainUsuarioHistorial extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        recojo = new ViewModelProvider(requireActivity()).get(RecojoViewModel.class);
         inicializarComponentes(view);
         inicializarSolicitudRA();
         inicializarVM();
+        recojo.state.observe(getViewLifecycleOwner(), state -> solicitudRVAUsuario.setBlocked(recojo.blocked()));
     }
 
     private void inicializarComponentes(View view) {
@@ -56,6 +61,7 @@ public class FragmentMainUsuarioHistorial extends Fragment {
                 new SolicitudRVAUsuario.OnSolicitudActionListener() {
                     @Override
                     public void onEditRequested(SolicitudItem solicitud) {
+                        if (recojo.blocked()) return;
                         BSDSolicitud bsdSolicitud = new BSDSolicitud(
                                 solicitud,
                                 () -> viewModel.updateSolicitudes()
@@ -65,7 +71,10 @@ public class FragmentMainUsuarioHistorial extends Fragment {
 
                     @Override
                     public void onCancelRequested(int id) {
-                        viewModel.cancelSolicitud(id);
+                        if (recojo.blocked()) return;
+                        new androidx.appcompat.app.AlertDialog.Builder(requireContext()).setTitle("¿Cancelar solicitud?")
+                            .setMessage("Esta acción cancelará la solicitud de recojo.")
+                            .setNegativeButton("No", null).setPositiveButton("Sí", (dialog, which) -> viewModel.cancelSolicitud(id)).show();
                     }
                 }
         );
