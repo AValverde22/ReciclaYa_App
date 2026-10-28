@@ -124,6 +124,11 @@
                         />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="end">
                 <androidx.cardview.widget.CardView
                     android:id="@+id/CVDistanciaISR"
                     android:layout_width="wrap_content"
@@ -142,11 +147,22 @@
                         android:layout_marginVertical="2.5dp"
 
                         android:fontFamily="@font/gotham_bold"
-                        android:text="0.8 km"
+                        android:text="@string/distancia_sin_ubicacion"
                         android:textColor="@color/black"
                         android:textSize="10sp" />
 
                 </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/TVEstadoISR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_bold"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone"
+                    tools:text="Finalizada" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

@@ -24,7 +24,7 @@ public class SolicitudCancelada extends SolicitudItem {
     }
 
     @Override public String getEstado() { return Estado.CANCELADA.getEstado(); }
-    @Override public String getAntiguedad() { return dia + " " + horaString; }
+    @Override public String getAntiguedad() { return getFechaCierreTexto(); }
     @Override public boolean isBtnCancelarEnabled() { return false; }
     @Override public boolean isBtnEditarEnabled() { return false; }
     @Override public int getColorFondo() { return R.color.marron_transparente; }

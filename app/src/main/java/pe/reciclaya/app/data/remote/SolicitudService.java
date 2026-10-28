@@ -14,6 +14,23 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface SolicitudService {
+    @GET("solicitud/activa")
+    Call<pe.reciclaya.app.data.model.solicitud.response.RecojoActivo> getActiva(@Query("user_id") int userID);
+
+    @PATCH("solicitud/{id}/ubicacion")
+    Call<com.google.gson.JsonObject> ubicacion(@Path("id") int id, @Query("user_id") int userID, @Body com.google.gson.JsonObject body);
+
+    @POST("solicitud/{id}/confirmar")
+    Call<com.google.gson.JsonObject> confirmar(@Path("id") int id, @Query("user_id") int userID);
+
+    @POST("solicitud/{id}/cancelar-recojo")
+    Call<com.google.gson.JsonObject> cancelarRecojo(@Path("id") int id, @Query("user_id") int userID);
+
+    @POST("solicitud/{id}/calificacion")
+    Call<com.google.gson.JsonObject> calificar(@Path("id") int id, @Body com.google.gson.JsonObject body);
+
+    @GET("solicitud/{id}/ruta")
+    Call<pe.reciclaya.app.data.model.solicitud.response.RecojoActivo.Ruta> ruta(@Path("id") int id, @Query("user_id") int userID);
     @POST("solicitud")
     Call<Void> createSolicitud(@Body SolicitudRequest requestModel);
 
@@ -32,10 +49,10 @@ public interface SolicitudService {
     );
 
     @PATCH("solicitud/{id}")
-    Call<Void> updateSolicitud(@Path("id") int solicitudID, @Body UpdateRequest requestModel);
+    Call<Void> updateSolicitud(@Path("id") int solicitudID, @Query("user_id") int userID, @Body UpdateRequest requestModel);
 
     @PATCH("solicitud/{id}/cancel")
-    Call<Void> cancelSolicitud(@Path("id") int solicitudID);
+    Call<Void> cancelSolicitud(@Path("id") int solicitudID, @Query("user_id") int userID);
 
     @PATCH("solicitud/{id}/accept")
     Call<Boolean> acceptSolicitud(@Path("id") int solicitudID,
