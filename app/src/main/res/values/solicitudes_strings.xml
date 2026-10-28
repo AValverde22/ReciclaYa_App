@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="distancia_sin_ubicacion">— km</string>
+    <string name="distancia_ubicacion_pendiente">Esperando ubicación actual. Activa el GPS y permite la ubicación precisa.</string>
+    <string name="distancia_solicitud_descripcion">Distancia aproximada en línea recta al punto de recojo: %1$s</string>
+    <string name="mapa_ultima_actualizacion">Reciclador en camino.\nÚltima actualización: %1$s</string>
+    <string name="mapa_actualizacion_no_disponible">Reciclador en camino.\nÚltima actualización no disponible.</string>
+</resources>

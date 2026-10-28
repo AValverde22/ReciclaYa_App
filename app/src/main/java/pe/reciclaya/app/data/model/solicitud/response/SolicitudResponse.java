@@ -14,6 +14,7 @@ public class SolicitudResponse {
     private double latitude;
     private double longitude;
     @SerializedName("status") private String estado;
+    @SerializedName("closed_at") private String closedAt;
     private UserSolicitudResponse user;
 
     public SolicitudResponse() {}
@@ -49,6 +50,7 @@ public class SolicitudResponse {
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
     public String getEstado() { return estado; }
+    public String getClosedAt() { return closedAt; }
     public UserSolicitudResponse getUser() { return user; }
 
     public void setSolicitudID(int solicitudID) { this.solicitudID = solicitudID; }

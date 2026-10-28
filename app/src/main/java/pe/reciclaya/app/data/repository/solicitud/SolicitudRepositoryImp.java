@@ -34,7 +34,7 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if(response.isSuccessful()) callback.onSuccess(null);
-                else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+                else callback.onError(serverMessage(response));
             }
 
             @Override
@@ -51,7 +51,7 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
             public void onResponse(@NonNull Call<List<SolicitudResponse>> call, @NonNull Response<List<SolicitudResponse>> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(SolicitudMapper.allToDomain(response.body()));
-                } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+                } else callback.onError(serverMessage(response));
             }
 
             @Override
@@ -68,7 +68,7 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
             public void onResponse(@NonNull  Call<List<SolicitudResponse>> call, @NonNull  Response<List<SolicitudResponse>> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(SolicitudMapper.allToDomain(response.body()));
-                } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+                } else callback.onError(serverMessage(response));
             }
 
             @Override
@@ -90,7 +90,7 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
             public void onResponse(@NonNull  Call<List<SolicitudResponse>> call, @NonNull  Response<List<SolicitudResponse>> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(SolicitudMapper.allToDomain(response.body()));
-                } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+                } else callback.onError(serverMessage(response));
             }
 
             @Override
@@ -100,16 +100,24 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
         });
     }
 
+    private static String serverMessage(retrofit2.Response<?> response) {
+        try {
+            if (response.errorBody() != null) return new org.json.JSONObject(response.errorBody().string()).optString("message", "No se pudo procesar la solicitud.");
+        } catch (Exception ignored) { }
+        return "No se pudo procesar la solicitud. Vuelva a intentarlo.";
+    }
+
     @Override
     public void updateSolicitud(SolicitudActualizada solicitudActualizada, RepositoryCallback<Void> callback) {
         apiService.updateSolicitud(
                 solicitudActualizada.getID(),
+                pe.reciclaya.app.domain.model.user.User.getInstance().getID(),
                 SolicitudMapper.toRequest(solicitudActualizada)
         ).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if(response.isSuccessful()) callback.onSuccess(null);
-                else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+                else callback.onError(serverMessage(response));
             }
 
             @Override
@@ -121,11 +129,11 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
 
     @Override
     public void cancelSolicitud(int solicitudID, RepositoryCallback<Void> callback) {
-        apiService.cancelSolicitud(solicitudID).enqueue(new Callback<>() {
+        apiService.cancelSolicitud(solicitudID, pe.reciclaya.app.domain.model.user.User.getInstance().getID()).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if(response.isSuccessful()) callback.onSuccess(null);
-                else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+                else callback.onError(serverMessage(response));
             }
 
             @Override
@@ -144,7 +152,7 @@ public class SolicitudRepositoryImp implements SolicitudRepository {
                     boolean aceptado = response.body();
                     if(aceptado) callback.onSuccess(null);
                     else callback.onError("La solicitud ya no se encuentra disponible.");
-                } else callback.onError("Error en el servidor, vuelva a intentarlo más tarde.");
+                } else callback.onError(serverMessage(response));
             }
 
             @Override

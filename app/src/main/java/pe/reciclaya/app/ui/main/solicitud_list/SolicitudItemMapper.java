@@ -2,6 +2,7 @@ package pe.reciclaya.app.ui.main.solicitud_list;
 
 import java.util.ArrayList;
 import java.util.List;
+import pe.reciclaya.app.domain.service.SolicitudHistoryOrder;
 
 import pe.reciclaya.app.domain.model.solicitud.Solicitud;
 import pe.reciclaya.app.domain.model.solicitud.SolicitudActualizada;
@@ -19,6 +20,7 @@ public class SolicitudItemMapper {
 
         switch(solicitud.getEstado()) {
             case CANCELADA: factorySolicitud = new FactoryCancelada(); break;
+            case PENDIENTE: factorySolicitud = new FactoryPendiente(); break;
             case DISPONIBLE: factorySolicitud = new FactoryDisponible(); break;
             default: factorySolicitud = new FactoryFinalizada(); break;
         }
@@ -26,7 +28,7 @@ public class SolicitudItemMapper {
         FactoryTipoResiduo factoryTipoResiduo = TipoResiduoMapper.mapTipoResiduo(solicitud.getTipoResiduo());
         UserSolicitud user = solicitud.getUser();
 
-        return factorySolicitud.crear(
+        SolicitudItem item = factorySolicitud.crear(
                 solicitud.getID(),
                 factoryTipoResiduo.crear(),
                 solicitud.getTamanoString(),
@@ -41,6 +43,8 @@ public class SolicitudItemMapper {
                 (user == null) ? "" : user.getProfilePhotoURL(),
                 (user == null) ? 0f : user.getScore()
         );
+        item.setClosedAt(solicitud.getClosedAt());
+        return item;
     }
 
     public static List<SolicitudItem> allToUI(List<Solicitud> solicitudes) {
@@ -49,6 +53,10 @@ public class SolicitudItemMapper {
             solicitudItemList.add(toUI(solicitud));
 
         return solicitudItemList;
+    }
+
+    public static List<SolicitudItem> allToUIRecentFirst(List<Solicitud> solicitudes) {
+        return allToUI(SolicitudHistoryOrder.recentFirst(solicitudes));
     }
 
     public static SolicitudActualizada toDomain(SolicitudItem solicitudItem) {

@@ -10,12 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pe.reciclaya.app.R;
+import java.util.function.Consumer;
 
 public class MiActividadRVA extends RecyclerView.Adapter<MiActividadRVA.ViewHolder> {
     private final MiActividad[] actividades;
+    private final Consumer<MiActividad> onClick;
 
-    public MiActividadRVA(MiActividad[] actividades) {
+    public MiActividadRVA(MiActividad[] actividades, Consumer<MiActividad> onClick) {
         this.actividades = actividades;
+        this.onClick = onClick;
     }
 
     @NonNull
@@ -28,6 +31,9 @@ public class MiActividadRVA extends RecyclerView.Adapter<MiActividadRVA.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imprimir(actividades[position]);
+        MiActividad actividad = actividades[position];
+        holder.itemView.setOnClickListener(actividad instanceof HistorialSolicitudes
+                ? view -> onClick.accept(actividad) : null);
     }
 
     @Override

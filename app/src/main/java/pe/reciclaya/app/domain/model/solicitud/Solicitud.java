@@ -13,6 +13,7 @@ public class Solicitud {
     private final double latitude;
     private final double longitude;
     private final UserSolicitud user;
+    private final String closedAt;
 
     public Solicitud(
             int id,
@@ -26,6 +27,12 @@ public class Solicitud {
             double longitude,
             UserSolicitud user
     ) {
+        this(id, tipoResiduo, tamano, estado, fecha, hora, direccion, latitude, longitude, user, null);
+    }
+
+    public Solicitud(int id, TipoResiduo tipoResiduo, Tamano tamano, Estado estado,
+                     String fecha, String hora, String direccion, double latitude, double longitude,
+                     UserSolicitud user, String closedAt) {
         this.id = id;
         this.tipoResiduo = tipoResiduo;
         this.tamano = tamano;
@@ -36,6 +43,7 @@ public class Solicitud {
         this.latitude = latitude;
         this.longitude = longitude;
         this.user = user;
+        this.closedAt = closedAt;
     }
 
     public int getID() { return id; }
@@ -57,5 +65,6 @@ public class Solicitud {
     public String getTipoResiduoString() { return tipoResiduo.getTipoResiduo(); }
     public String getTamanoString() { return tamano.getTamano(); }
     public String getEstadoString() { return estado.getEstado(); }
+    public String getClosedAt() { return closedAt; }
 
 }

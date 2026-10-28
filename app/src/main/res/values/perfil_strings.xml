@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="perfil_puntuacion">%1$.1f</string>
+    <string name="perfil_puntuacion_pendiente">—</string>
+    <string name="perfil_puntuacion_accesible">Puntuación: %1$.1f de 5</string>
+</resources>

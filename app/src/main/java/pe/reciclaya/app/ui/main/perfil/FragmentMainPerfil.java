@@ -28,9 +28,10 @@ import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.MiActividad;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.MiActividadRVA;
 import pe.reciclaya.app.ui.splash.Splash;
+import pe.reciclaya.app.ui.main.navigation.ProfileNavigator;
 
 public class FragmentMainPerfil extends Fragment {
-    private TextView TVNombre, TVCorreo, TVRol;
+    private TextView TVNombre, TVCorreo, TVRol, TVScore;
     private ImageView IVFotoPerfil;
     private LinearLayout LLCerrarSesion;
     private RecyclerView RV;
@@ -57,6 +58,7 @@ public class FragmentMainPerfil extends Fragment {
         TVNombre = view.findViewById(R.id.TVNombreFMP);
         TVCorreo = view.findViewById(R.id.TVCorreoFMP);
         TVRol = view.findViewById(R.id.TVRolFMP);
+        TVScore = view.findViewById(R.id.TVScoreFMP);
         IVFotoPerfil = view.findViewById(R.id.IVFotoPerfilFMP);
 
         LLCerrarSesion = view.findViewById(R.id.LLCerrarSesionFMP);
@@ -78,6 +80,11 @@ public class FragmentMainPerfil extends Fragment {
         viewModel.getRole().observe(lifecycleOwner, role ->
                 TVRol.setText(role.getRole())
         );
+
+        viewModel.getScore().observe(lifecycleOwner, score -> {
+            TVScore.setText(getString(R.string.perfil_puntuacion, score));
+            TVScore.setContentDescription(getString(R.string.perfil_puntuacion_accesible, score));
+        });
 
         viewModel.getURLFotoPerfil().observe(lifecycleOwner, urlFotoPerfil -> {
             if(urlFotoPerfil != null && !urlFotoPerfil.isBlank())
@@ -101,7 +108,11 @@ public class FragmentMainPerfil extends Fragment {
                 new InformacionPersonal()
             };
 
-        MiActividadRVA miActividadRecyclerViewAdapter = new MiActividadRVA(misActividades);
+        MiActividadRVA miActividadRecyclerViewAdapter = new MiActividadRVA(misActividades, actividad -> {
+            if (requireActivity() instanceof ProfileNavigator) {
+                ((ProfileNavigator) requireActivity()).openRequestHistory();
+            }
+        });
         RV.setLayoutManager(
                 new LinearLayoutManager(getContext()) {
                     @Override
@@ -114,5 +125,10 @@ public class FragmentMainPerfil extends Fragment {
 
     private void inicializarListeners() {
         LLCerrarSesion.setOnClickListener(view -> viewModel.cerrarSesion() );
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        viewModel.refreshScore();
     }
 }
