@@ -1,6 +1,10 @@
 package pe.reciclaya.app.ui.main.solicitud_list;
 
 import pe.reciclaya.app.ui.main.tipo_residuo_list.TipoResiduoItem;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public abstract class SolicitudItem {
     private final String nombreUsuario;
@@ -18,6 +22,18 @@ public abstract class SolicitudItem {
     protected String hora;
 
     protected String horaString;
+    private String closedAt;
+
+    public void setClosedAt(String value) { closedAt = value; }
+    public String getFechaCierreTexto() {
+        if (closedAt != null) {
+            try {
+                return OffsetDateTime.parse(closedAt).atZoneSameInstant(ZoneId.of("America/Lima"))
+                    .format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm"));
+            } catch (DateTimeParseException ignored) { }
+        }
+        return "Fecha de cierre no registrada";
+    }
 
     public SolicitudItem(int id,
                      TipoResiduoItem tipoResiduo,

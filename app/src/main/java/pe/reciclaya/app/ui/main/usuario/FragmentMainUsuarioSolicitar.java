@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.main.recojo.RecojoViewModel;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.Papel;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.Plastico;
@@ -67,6 +68,8 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
     private TipoResiduoRVA tipoResiduoRVA;
     private ViewModelSolicitar viewModel;
 
+    private RecojoViewModel recojo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main_solicitar, container, false);
@@ -76,11 +79,17 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        recojo = new ViewModelProvider(requireActivity()).get(RecojoViewModel.class);
         inicializarComponentes(view);
         inicializarVM();
         inicializarTipoResiduoRA();
         inicializarSpinner();
         inicializarListeners();
+        BtnPublicarSolicitud.setEnabled(false);
+        recojo.state.observe(getViewLifecycleOwner(), state -> {
+            BtnPublicarSolicitud.setEnabled(!recojo.blocked());
+            BtnPublicarSolicitud.setText(state == null ? "Verificando reciclaje activo…" : recojo.blocked() ? "Finaliza tu reciclaje en Mapa" : "Publicar solicitud");
+        });
     }
 
     private void inicializarComponentes(View view) {
@@ -111,6 +120,7 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
         ));
 
         viewModel.getUbicacionSeleccionada().observe(lifecycleOwner, latLng -> {
+            if (googleMap == null) return;
             if(marker == null) marker = googleMap.addMarker(new MarkerOptions().position(latLng));
             if(marker != null) marker.setPosition(latLng);
 
@@ -313,6 +323,7 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
     private void actualizarError(String error) { viewModel.updateError(error); }
 
     private void publicarSolicitud() {
+        if (recojo.blocked()) return;
         String tamano = spinner.getSelectedItem().toString();
         viewModel.publicarSolicitud(tamano);
     }

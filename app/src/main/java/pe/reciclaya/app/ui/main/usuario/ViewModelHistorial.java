@@ -73,7 +73,7 @@ public class ViewModelHistorial extends AndroidViewModel {
         solicitudRepository.getSolicitudesCreadas(id, new RepositoryCallback<>() {
             @Override
             public void onSuccess(List<Solicitud> solicitudesDomain) {
-                solicitudes.postValue(SolicitudItemMapper.allToUI(solicitudesDomain));
+                solicitudes.postValue(SolicitudItemMapper.allToUIRecentFirst(solicitudesDomain));
                 loading.postValue(false);
             }
 

@@ -47,7 +47,7 @@ public class ViewModelEncargos extends AndroidViewModel {
         solicitudRepository.getSolicitudesAceptadas(id, new RepositoryCallback<>() {
             @Override
             public void onSuccess(List<Solicitud> solicitudesDomain) {
-                solicitudes.postValue(SolicitudItemMapper.allToUI(solicitudesDomain));
+                solicitudes.postValue(SolicitudItemMapper.allToUIRecentFirst(solicitudesDomain));
                 loading.postValue(false);
             }
 
