@@ -23,6 +23,7 @@ import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.main.tabs.MainTabsAbstractFactory;
 import pe.reciclaya.app.ui.main.tabs.MainPagerAdapter;
 import pe.reciclaya.app.ui.main.navigation.ProfileNavigator;
+import pe.reciclaya.app.ui.main.seguridad.SeguridadCuentaActivity;
 
 public abstract class MainActivity extends AppCompatActivity implements ProfileNavigator {
     private LinearLayout LLLoading;
@@ -80,6 +81,10 @@ public abstract class MainActivity extends AppCompatActivity implements ProfileN
     @Override public void openRequestHistory() {
         // Both role factories place Historial/Encargos in the third tab.
         viewPager2.setCurrentItem(2, false);
+    }
+
+    @Override public void openAccountSecurity() {
+        startActivity(new Intent(this, SeguridadCuentaActivity.class));
     }
 
     public void mostrarLLoading(boolean mostrar) {

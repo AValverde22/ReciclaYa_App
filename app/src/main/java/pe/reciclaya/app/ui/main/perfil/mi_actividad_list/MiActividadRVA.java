@@ -32,8 +32,8 @@ public class MiActividadRVA extends RecyclerView.Adapter<MiActividadRVA.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imprimir(actividades[position]);
         MiActividad actividad = actividades[position];
-        holder.itemView.setOnClickListener(actividad instanceof HistorialSolicitudes
-                ? view -> onClick.accept(actividad) : null);
+        boolean navegable = actividad instanceof HistorialSolicitudes || actividad instanceof SeguridadCuenta;
+        holder.itemView.setOnClickListener(navegable ? view -> onClick.accept(actividad) : null);
     }
 
     @Override

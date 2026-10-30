@@ -10,6 +10,11 @@ public class UserResponse {
     @SerializedName("profile_photo_url") private String profilePhotoURL;
     private float score;
 
+    // Inicio de sesión con autenticación de dos factores pendiente
+    @SerializedName("requires_2fa") private boolean requiresTwoFactor;
+    @SerializedName("code_sent") private boolean codeSent;
+    private String challenge;
+
     public UserResponse(int id, String fullName, String email, String role, String profilePhotoURL, float score) {
         this.id = id;
         this.fullName = fullName;
@@ -25,6 +30,9 @@ public class UserResponse {
     public String getRole() { return role; }
     public String getProfilePhotoURL() { return profilePhotoURL; }
     public float getScore() { return score; }
+    public boolean requiresTwoFactor() { return requiresTwoFactor; }
+    public boolean isCodeSent() { return codeSent; }
+    public String getChallenge() { return challenge; }
 
     public void setID(int id) { this.id = id; }
     public void setFullName(String fullName) { this.fullName = fullName; }

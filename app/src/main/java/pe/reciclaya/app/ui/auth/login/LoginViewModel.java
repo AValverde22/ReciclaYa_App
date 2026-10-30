@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import pe.reciclaya.app.data.repository.user.LoginRepositoryImp;
+import pe.reciclaya.app.domain.model.user.LoginResult;
 import pe.reciclaya.app.domain.model.user.UserRole;
 import pe.reciclaya.app.domain.repository.user.LoginRepository;
 import pe.reciclaya.app.domain.repository.RepositoryCallback;
@@ -16,6 +17,7 @@ import pe.reciclaya.app.ui.common.util.Validaciones;
 
 public class LoginViewModel extends AndroidViewModel {
     private final MutableLiveData<Event<UserRole>> roleResponse = new MutableLiveData<>();
+    private final MutableLiveData<Event<LoginResult>> verificacion = new MutableLiveData<>();
 
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
     private final MutableLiveData<String> error = new MutableLiveData<>();
@@ -30,6 +32,7 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public LiveData<Event<UserRole>> getRoleResponse() { return roleResponse; }
+    public LiveData<Event<LoginResult>> getVerificacion() { return verificacion; }
 
     public LiveData<Boolean> getLoading() { return loading; }
     public LiveData<String> getError() { return error; }
@@ -48,9 +51,12 @@ public class LoginViewModel extends AndroidViewModel {
         loading.setValue(true);
         loginRepository.login(email.trim(), password.trim(), new RepositoryCallback<>() {
             @Override
-            public void onSuccess(UserRole role) {
+            public void onSuccess(LoginResult result) {
                 loading.postValue(false);
-                roleResponse.postValue(new Event<>(role));
+
+                // Con 2FA activo se debe ingresar el código enviado al correo
+                if(result.requiereCodigo()) verificacion.postValue(new Event<>(result));
+                else roleResponse.postValue(new Event<>(result.getRole()));
             }
 
             @Override

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- HU-3.1: Seguridad de la cuenta -->
+    <string name="seguridad_titulo">Seguridad de la cuenta</string>
+    <string name="seguridad_2fa_titulo">Autenticación de dos factores</string>
+    <string name="seguridad_2fa_descripcion">Al iniciar sesión le pediremos un código de verificación enviado a %1$s.</string>
+    <string name="seguridad_confirmar_titulo">Desactivar autenticación de dos factores</string>
+    <string name="seguridad_confirmar_mensaje">Ingrese su contraseña para confirmar.</string>
+    <string name="seguridad_desactivar">Desactivar</string>
+
+    <!-- HU-3.2: Validar código de verificación -->
+    <string name="verificacion_titulo">Verificación en dos pasos</string>
+    <string name="verificacion_enviado_a">Enviado a %1$s</string>
+    <string name="verificacion_reenviar">Reenviar código</string>
+    <string name="verificacion_reenviar_en">Reenviar código en %1$d s</string>
+    <string name="verificacion_boton">Verificar</string>
+</resources>

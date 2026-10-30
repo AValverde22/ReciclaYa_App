@@ -25,6 +25,7 @@ import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.GestionarPuntos;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.HistorialSolicitudes;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.InformacionPersonal;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.MiActividad;
+import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.SeguridadCuenta;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.MiActividadRVA;
 import pe.reciclaya.app.ui.splash.Splash;
@@ -105,13 +106,16 @@ public class FragmentMainPerfil extends Fragment {
         misActividades = new MiActividad[] {
                 new HistorialSolicitudes(),
                 new GestionarPuntos(),
-                new InformacionPersonal()
+                new InformacionPersonal(),
+                new SeguridadCuenta()
             };
 
         MiActividadRVA miActividadRecyclerViewAdapter = new MiActividadRVA(misActividades, actividad -> {
-            if (requireActivity() instanceof ProfileNavigator) {
-                ((ProfileNavigator) requireActivity()).openRequestHistory();
-            }
+            if (!(requireActivity() instanceof ProfileNavigator)) return;
+
+            ProfileNavigator navigator = (ProfileNavigator) requireActivity();
+            if (actividad instanceof SeguridadCuenta) navigator.openAccountSecurity();
+            else navigator.openRequestHistory();
         });
         RV.setLayoutManager(
                 new LinearLayoutManager(getContext()) {

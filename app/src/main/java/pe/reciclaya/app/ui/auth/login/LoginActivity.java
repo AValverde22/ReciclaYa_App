@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.main.navigation.MainManager;
 import pe.reciclaya.app.ui.auth.restablecer.RestablecerActivity;
+import pe.reciclaya.app.ui.auth.verificacion.VerificacionActivity;
 import pe.reciclaya.app.ui.auth.register.RegisterActivity;
 import pe.reciclaya.app.ui.common.util.Inicializaciones;
 
@@ -62,6 +63,13 @@ public class LoginActivity extends AppCompatActivity {
         viewModel.getRoleResponse().observe(this, new EventObserver<>(roleResponse -> {
             startActivity(new Intent(this, MainManager.crearMainFactory(roleResponse)));
             finishAffinity();
+        }));
+
+        viewModel.getVerificacion().observe(this, new EventObserver<>(result -> {
+            Intent intent = new Intent(this, VerificacionActivity.class);
+            intent.putExtra(VerificacionActivity.EXTRA_EMAIL, result.getEmail());
+            intent.putExtra(VerificacionActivity.EXTRA_CHALLENGE, result.getChallenge());
+            startActivity(intent);
         }));
 
         viewModel.getError().observe(this, errorMessage ->
