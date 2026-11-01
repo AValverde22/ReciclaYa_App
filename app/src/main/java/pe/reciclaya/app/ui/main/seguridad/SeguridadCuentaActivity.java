@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import pe.reciclaya.app.R;
 import pe.reciclaya.app.ui.common.event.EventObserver;
+import pe.reciclaya.app.ui.main.seguridad.historial.HistorialAccesosActivity;
 
 // HU-3.1: activar o desactivar la autenticación de dos factores
 public class SeguridadCuentaActivity extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class SeguridadCuentaActivity extends AppCompatActivity {
     private TextView TVDescripcion;
     private SwitchCompat SW2FA;
     private LinearLayout LLLoading;
+    private LinearLayout LLAccesos;
 
     private SeguridadCuentaViewModel viewModel;
 
@@ -46,6 +50,16 @@ public class SeguridadCuentaActivity extends AppCompatActivity {
         TVDescripcion = findViewById(R.id.TVDescripcionSC);
         SW2FA = findViewById(R.id.SW2FASC);
         LLLoading = findViewById(R.id.LLLoadingSC);
+        LLAccesos = findViewById(R.id.LLAccesosSC);
+
+        LLAccesos.setOnClickListener(view -> {
+            Intent intent = new Intent(
+                    SeguridadCuentaActivity.this,
+                    HistorialAccesosActivity.class
+            );
+
+            startActivity(intent);
+        });
     }
 
     private void inicializarVM() {

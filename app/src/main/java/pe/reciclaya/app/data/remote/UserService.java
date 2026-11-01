@@ -14,6 +14,7 @@ import pe.reciclaya.app.data.model.user.request.restablecer.RestablecerRequestCo
 import pe.reciclaya.app.data.model.user.request.restablecer.RestablecerRequestRecover;
 import pe.reciclaya.app.data.model.user.request.restablecer.RestablecerRequestReset;
 
+import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.PATCH;
@@ -21,6 +22,12 @@ import retrofit2.http.POST;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import pe.reciclaya.app.data.model.user.response.UserScoreResponse;
+import pe.reciclaya.app.data.model.user.response.LoginAccessResponse;
+import pe.reciclaya.app.data.model.user.request.login.LoginAccessRequest;
+import pe.reciclaya.app.data.model.user.request.reportes.ReporteActividadRequest;
+import pe.reciclaya.app.data.model.user.response.reportes.ReporteActividadResponse;
+import pe.reciclaya.app.data.model.user.response.reportes.ReporteActividadResponseWrapper;
+import pe.reciclaya.app.data.model.user.response.reportes.ReporteActividadDetalleWrapper;
 
 public interface UserService {
     @GET("user/{id}/score")
@@ -55,4 +62,22 @@ public interface UserService {
 
     @PATCH("user/reset")
     Call<UserResponse> resetUser(@Body RestablecerRequestReset requestModel);
+
+    @GET("accesos/{userId}")
+    Call<List<LoginAccessResponse>> obtenerHistorialAccesos(@Path("userId") int userId);
+
+    @GET("accesos/{userId}/{id}")
+    Call<LoginAccessResponse> obtenerDetalleAcceso(@Path("userId") int userId, @Path("id") int id);
+
+    @POST("solicitud/{userId}")
+    Call<Void> registrarAcceso(@Path("userId") int userId, @Body LoginAccessRequest request);
+
+    @POST("accesos/{userId}/{id}/reportar")
+    Call<ReporteActividadDetalleWrapper> registrarReporte(@Path("userId") int userId, @Path("id") int id, @Body ReporteActividadRequest request);
+
+    @GET("accesos/{userId}/mis-reportes")
+    Call<ReporteActividadResponseWrapper> obtenerMisReportes(@Path("userId") int userId);
+
+    @GET("accesos/{userId}/mis-reportes/{idReporte}")
+    Call<ReporteActividadDetalleWrapper> obtenerDetalleReporte(@Path("userId") int userId, @Path("idReporte") int idReporte);
 }

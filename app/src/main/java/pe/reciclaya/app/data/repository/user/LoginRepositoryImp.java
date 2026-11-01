@@ -2,6 +2,8 @@ package pe.reciclaya.app.data.repository.user;
 
 import android.content.Context;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 
 import pe.reciclaya.app.data.local.SaveUser;
@@ -22,13 +24,18 @@ import pe.reciclaya.app.domain.repository.RepositoryCallback;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import pe.reciclaya.app.data.model.user.request.login.LoginAccessRequest;
+import pe.reciclaya.app.data.location.CurrentLocationProvider;
+import pe.reciclaya.app.data.location.LocationGeocoder;
 
 public class LoginRepositoryImp implements LoginRepository {
     private static UserService apiService;
     private static AppPreferencesManager appPreferencesManager;
     private static User user;
+    private final Context context;
 
     public LoginRepositoryImp(Context context) {
+        this.context = context.getApplicationContext();
         apiService = BackendClient.getUserService();
         appPreferencesManager = AppPreferencesManager.getInstance(context);
         user = User.getInstance();
@@ -52,6 +59,7 @@ public class LoginRepositoryImp implements LoginRepository {
                     else if(userResponse.getID() == -1) callback.onError("Usuario y/o contraseñas inválidos.");
                     else {
                         SaveUser.saveData(appPreferencesManager, user, userResponse);
+                        registrarAcceso();
                         callback.onSuccess(LoginResult.accesoConcedido(UserRole.fromString(userResponse.getRole())));
                     }
                 }
@@ -86,6 +94,7 @@ public class LoginRepositoryImp implements LoginRepository {
                             return;
                         }
                         SaveUser.saveData(appPreferencesManager, user, userResponse);
+                        registrarAcceso();
                         callback.onSuccess(UserRole.fromString(userResponse.getRole()));
                         break;
                     case LoginVerifyResponse.INVALID:
@@ -141,6 +150,81 @@ public class LoginRepositoryImp implements LoginRepository {
             public void onFailure(@NonNull Call<LoginResendResponse> call, @NonNull Throwable t) {
                 callback.onError("Error en la red, compruebe su conexión.");
             }
+        });
+    }
+    private void registrarAcceso() {
+
+        CurrentLocationProvider locationProvider =
+                new CurrentLocationProvider(context);
+
+        locationProvider.getCurrentLocation((latitude, longitude) -> {
+
+            LocationGeocoder geocoder = new LocationGeocoder(context);
+
+            geocoder.obtenerCiudadPais(latitude, longitude, (ciudad, pais) -> {
+
+                try {
+                    int userId = user.getID();
+
+                    if (userId <= 0) return;
+
+                    String appVersion = "Desconocida";
+
+                    try {
+                        appVersion = context.getPackageManager()
+                                .getPackageInfo(context.getPackageName(), 0)
+                                .versionName;
+                    } catch (Exception ignored) {
+                    }
+
+                    String dispositivo = Build.MANUFACTURER + " " + Build.MODEL;
+
+                    LoginAccessRequest request = new LoginAccessRequest(
+                            appVersion,
+                            dispositivo,
+                            latitude,
+                            longitude,
+                            ciudad,
+                            pais
+                    );
+
+                    apiService.registrarAcceso(userId, request)
+                            .enqueue(new Callback<Void>() {
+
+                                @Override
+                                public void onResponse(
+                                        @NonNull Call<Void> call,
+                                        @NonNull Response<Void> response
+                                ) {
+                                    if (!response.isSuccessful()) {
+                                        android.util.Log.e(
+                                                "LoginRepository",
+                                                "Error registrando acceso: " + response.code()
+                                        );
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(
+                                        @NonNull Call<Void> call,
+                                        @NonNull Throwable t
+                                ) {
+                                    android.util.Log.e(
+                                            "LoginRepository",
+                                            "Error de red al registrar acceso",
+                                            t
+                                    );
+                                }
+                            });
+
+                } catch (Exception e) {
+                    android.util.Log.e(
+                            "LoginRepository",
+                            "Error preparando registro de acceso",
+                            e
+                    );
+                }
+            });
         });
     }
 }
