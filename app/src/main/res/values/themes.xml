@@ -7,6 +7,13 @@
 
     <style name="Theme.ReciclaYa" parent="Base.Theme.ReciclaYa" />
 
+    <style name="Theme.ReciclaYa.Accesos" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/verde</item>
+        <item name="colorPrimaryVariant">@color/verde</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/verde</item>
+    </style>
+
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/verde</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/reciclaya</item>

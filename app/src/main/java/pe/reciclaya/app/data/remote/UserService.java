@@ -69,7 +69,7 @@ public interface UserService {
     @GET("accesos/{userId}/{id}")
     Call<LoginAccessResponse> obtenerDetalleAcceso(@Path("userId") int userId, @Path("id") int id);
 
-    @POST("solicitud/{userId}")
+    @POST("accesos/{userId}")
     Call<Void> registrarAcceso(@Path("userId") int userId, @Body LoginAccessRequest request);
 
     @POST("accesos/{userId}/{id}/reportar")

@@ -24,7 +24,6 @@ import pe.reciclaya.app.domain.repository.RepositoryCallback;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import pe.reciclaya.app.data.model.user.request.login.LoginAccessRequest;
 import pe.reciclaya.app.data.location.CurrentLocationProvider;
 import pe.reciclaya.app.data.location.LocationGeocoder;
 
@@ -45,6 +44,33 @@ public class LoginRepositoryImp implements LoginRepository {
     public void login(String email, String password, RepositoryCallback<LoginResult> callback) {
         LoginRequest body = new LoginRequest(email, password);
 
+        String version = pe.reciclaya.app.BuildConfig.VERSION_NAME;
+        String device = Build.MANUFACTURER + " " + Build.MODEL;
+        body.setAccessMetadata(version, device, null, null, null, null);
+        android.os.Handler handler = new android.os.Handler(context.getMainLooper());
+        java.util.concurrent.atomic.AtomicBoolean started = new java.util.concurrent.atomic.AtomicBoolean();
+        // La ubicación es opcional y no debe bloquear el inicio de sesión.
+        Runnable fallback = () -> {
+            if (started.compareAndSet(false, true)) sendLogin(body, callback);
+        };
+        handler.postDelayed(fallback, 5000);
+        try {
+            new CurrentLocationProvider(context).getCurrentLocation((latitude, longitude) -> {
+                new LocationGeocoder(context).obtenerCiudadPais(latitude, longitude, (city, country) -> {
+                    if (started.compareAndSet(false, true)) {
+                        handler.removeCallbacks(fallback);
+                        body.setAccessMetadata(version, device, latitude, longitude, city, country);
+                        sendLogin(body, callback);
+                    }
+                });
+            });
+        } catch (RuntimeException error) {
+            handler.removeCallbacks(fallback);
+            fallback.run();
+        }
+    }
+
+    private void sendLogin(LoginRequest body, RepositoryCallback<LoginResult> callback) {
         apiService.loginUser(body).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
@@ -53,13 +79,13 @@ public class LoginRepositoryImp implements LoginRepository {
 
                     if(userResponse.requiresTwoFactor()) {
                         if(userResponse.isCodeSent() && userResponse.getChallenge() != null)
-                            callback.onSuccess(LoginResult.codigoRequerido(email, userResponse.getChallenge()));
+                            callback.onSuccess(LoginResult.codigoRequerido(body.getEmail(), userResponse.getChallenge()));
                         else callback.onError("No se pudo enviar el código de verificación. Inténtelo más tarde.");
                     }
                     else if(userResponse.getID() == -1) callback.onError("Usuario y/o contraseñas inválidos.");
                     else {
                         SaveUser.saveData(appPreferencesManager, user, userResponse);
-                        registrarAcceso();
+
                         callback.onSuccess(LoginResult.accesoConcedido(UserRole.fromString(userResponse.getRole())));
                     }
                 }
@@ -94,7 +120,7 @@ public class LoginRepositoryImp implements LoginRepository {
                             return;
                         }
                         SaveUser.saveData(appPreferencesManager, user, userResponse);
-                        registrarAcceso();
+
                         callback.onSuccess(UserRole.fromString(userResponse.getRole()));
                         break;
                     case LoginVerifyResponse.INVALID:
@@ -150,81 +176,6 @@ public class LoginRepositoryImp implements LoginRepository {
             public void onFailure(@NonNull Call<LoginResendResponse> call, @NonNull Throwable t) {
                 callback.onError("Error en la red, compruebe su conexión.");
             }
-        });
-    }
-    private void registrarAcceso() {
-
-        CurrentLocationProvider locationProvider =
-                new CurrentLocationProvider(context);
-
-        locationProvider.getCurrentLocation((latitude, longitude) -> {
-
-            LocationGeocoder geocoder = new LocationGeocoder(context);
-
-            geocoder.obtenerCiudadPais(latitude, longitude, (ciudad, pais) -> {
-
-                try {
-                    int userId = user.getID();
-
-                    if (userId <= 0) return;
-
-                    String appVersion = "Desconocida";
-
-                    try {
-                        appVersion = context.getPackageManager()
-                                .getPackageInfo(context.getPackageName(), 0)
-                                .versionName;
-                    } catch (Exception ignored) {
-                    }
-
-                    String dispositivo = Build.MANUFACTURER + " " + Build.MODEL;
-
-                    LoginAccessRequest request = new LoginAccessRequest(
-                            appVersion,
-                            dispositivo,
-                            latitude,
-                            longitude,
-                            ciudad,
-                            pais
-                    );
-
-                    apiService.registrarAcceso(userId, request)
-                            .enqueue(new Callback<Void>() {
-
-                                @Override
-                                public void onResponse(
-                                        @NonNull Call<Void> call,
-                                        @NonNull Response<Void> response
-                                ) {
-                                    if (!response.isSuccessful()) {
-                                        android.util.Log.e(
-                                                "LoginRepository",
-                                                "Error registrando acceso: " + response.code()
-                                        );
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(
-                                        @NonNull Call<Void> call,
-                                        @NonNull Throwable t
-                                ) {
-                                    android.util.Log.e(
-                                            "LoginRepository",
-                                            "Error de red al registrar acceso",
-                                            t
-                                    );
-                                }
-                            });
-
-                } catch (Exception e) {
-                    android.util.Log.e(
-                            "LoginRepository",
-                            "Error preparando registro de acceso",
-                            e
-                    );
-                }
-            });
         });
     }
 }

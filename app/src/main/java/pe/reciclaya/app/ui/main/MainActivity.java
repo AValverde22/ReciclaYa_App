@@ -20,6 +20,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.domain.model.user.User;
+import pe.reciclaya.app.domain.model.user.UserRole;
+import pe.reciclaya.app.ui.splash.Splash;
 import pe.reciclaya.app.ui.main.tabs.MainTabsAbstractFactory;
 import pe.reciclaya.app.ui.main.tabs.MainPagerAdapter;
 import pe.reciclaya.app.ui.main.navigation.ProfileNavigator;
@@ -44,6 +47,15 @@ public abstract class MainActivity extends AppCompatActivity implements ProfileN
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        User user = User.getInstance();
+        if (user.getID() <= 0 || (user.getRole() != UserRole.USUARIO
+                && user.getRole() != UserRole.RECICLADOR)) {
+            Intent intent = new Intent(this, Splash.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_main);
 
         comprobarPermisoDeUbicacion();

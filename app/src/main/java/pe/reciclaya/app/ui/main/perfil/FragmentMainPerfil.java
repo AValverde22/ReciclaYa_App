@@ -79,7 +79,7 @@ public class FragmentMainPerfil extends Fragment {
         );
 
         viewModel.getRole().observe(lifecycleOwner, role ->
-                TVRol.setText(role.getRole())
+                TVRol.setText(role == null ? "" : role.getRole())
         );
 
         viewModel.getScore().observe(lifecycleOwner, score -> {
