@@ -35,7 +35,7 @@ public final class RecojoDialogs {
         content.addView(stars,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
         EditText comment=new EditText(context); comment.setHint("Reseña opcional"); comment.setMaxLines(3);
         comment.setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(1000)}); content.addView(comment);
-        dialog=new AlertDialog.Builder(context).setTitle("Califica a la otra persona").setView(content).setNegativeButton("Más tarde",null).setPositiveButton("Guardar",null).create();
+        dialog=new AlertDialog.Builder(context).setTitle("Califica a la otra persona").setView(content).setNegativeButton("Más tarde",null).setPositiveButton("Enviar reseña",null).create();
         final AlertDialog ratingDialog=dialog;
         ratingDialog.setOnShowListener(d -> {
             style(ratingDialog);

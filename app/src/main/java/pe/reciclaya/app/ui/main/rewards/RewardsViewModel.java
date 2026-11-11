@@ -40,7 +40,11 @@ public final class RewardsViewModel extends ViewModel {
 
     public void redeem(Benefit benefit) {
         RewardsAccount current = account.getValue();
-        if (current == null || current.balance < benefit.pointsRequired) {
+        if (current == null) {
+            message.setValue(new Event<>("No se pudo consultar el saldo de puntos."));
+            return;
+        }
+        if (current.balance < benefit.pointsRequired) {
             message.setValue(new Event<>("No cuenta con puntos suficientes para realizar este canje."));
             return;
         }

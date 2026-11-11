@@ -56,7 +56,8 @@ public final class ReputationActivity extends AppCompatActivity {
     private void show(Reputation value) {
         if (value == null) return;
         name.setText(value.fullName);
-        average.setText(String.format(java.util.Locale.US, "%.1f / 5", value.averageRating));
+        average.setText(value.totalRatings == 0 ? "Sin calificaciones"
+                : String.format(java.util.Locale.US, "%.1f / 5", value.averageRating));
         count.setText(value.totalRatings == 1 ? "1 calificación" : value.totalRatings + " calificaciones");
         adapter.submit(value.reviews);
         empty.setVisibility(value.reviews == null || value.reviews.isEmpty() ? View.VISIBLE : View.GONE);

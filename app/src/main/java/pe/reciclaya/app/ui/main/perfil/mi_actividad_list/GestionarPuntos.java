@@ -5,12 +5,12 @@ import pe.reciclaya.app.R;
 public class GestionarPuntos implements MiActividad {
     @Override
     public String getActividad() {
-        return "Gestionar Puntos";
+        return "Mis puntos";
     }
 
     @Override
     public String getMensajeActividad() {
-        return "Gestionar recompensas";
+        return "Canjear beneficios";
     }
 
     @Override
