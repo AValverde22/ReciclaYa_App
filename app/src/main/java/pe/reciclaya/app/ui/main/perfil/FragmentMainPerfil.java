@@ -28,6 +28,7 @@ import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.MiActividad;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.SeguridadCuenta;
 import pe.reciclaya.app.ui.common.event.EventObserver;
 import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.MiActividadRVA;
+import pe.reciclaya.app.ui.main.perfil.mi_actividad_list.CalificacionesResenas;
 import pe.reciclaya.app.ui.splash.Splash;
 import pe.reciclaya.app.ui.main.navigation.ProfileNavigator;
 
@@ -106,6 +107,7 @@ public class FragmentMainPerfil extends Fragment {
         misActividades = new MiActividad[] {
                 new HistorialSolicitudes(),
                 new GestionarPuntos(),
+                new CalificacionesResenas(),
                 new InformacionPersonal(),
                 new SeguridadCuenta()
             };
@@ -115,6 +117,9 @@ public class FragmentMainPerfil extends Fragment {
 
             ProfileNavigator navigator = (ProfileNavigator) requireActivity();
             if (actividad instanceof SeguridadCuenta) navigator.openAccountSecurity();
+            else if (actividad instanceof InformacionPersonal) navigator.openPersonalInformation();
+            else if (actividad instanceof GestionarPuntos) navigator.openRewards();
+            else if (actividad instanceof CalificacionesResenas) navigator.openReputation();
             else navigator.openRequestHistory();
         });
         RV.setLayoutManager(
@@ -133,6 +138,7 @@ public class FragmentMainPerfil extends Fragment {
 
     @Override public void onResume() {
         super.onResume();
+        viewModel.refreshLocalProfile();
         viewModel.refreshScore();
     }
 }

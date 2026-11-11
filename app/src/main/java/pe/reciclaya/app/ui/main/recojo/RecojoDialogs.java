@@ -18,7 +18,7 @@ public final class RecojoDialogs {
     public void confirm(Runnable action) {
         dismiss();
         dialog=new AlertDialog.Builder(context).setTitle("¿Terminar reciclaje?")
-            .setMessage("Confirma cuando hayan entregado y recibido los residuos. Ambos deberán confirmar y calificarse.")
+            .setMessage("Confirma cuando hayan entregado y recibido los residuos. Ambos deberán confirmar; después podrán calificarse.")
             .setNegativeButton("No",null).setPositiveButton("Sí",(d,which)->action.run()).show();
         style(dialog);
     }

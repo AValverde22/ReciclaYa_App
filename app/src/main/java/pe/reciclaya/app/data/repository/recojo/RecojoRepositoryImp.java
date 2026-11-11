@@ -51,7 +51,14 @@ public final class RecojoRepositoryImp implements RecojoRepository {
         JsonObject body=new JsonObject(); body.addProperty("latitude",fix.point.latitude); body.addProperty("longitude",fix.point.longitude); body.addProperty("accuracy",fix.accuracyMeters);
         return execute(service.ubicacion(id,userId,body),ignored -> null,cb);
     }
-    @Override public RequestHandle confirm(int id, int userId, RepositoryCallback<Void> cb) { return execute(service.confirmar(id,userId),ignored -> null,cb); }
+    @Override public RequestHandle confirm(int id, int userId, RepositoryCallback<ConfirmationResult> cb) {
+        return execute(service.confirmar(id,userId),body -> {
+            boolean completed=body.has("completed") && body.get("completed").getAsBoolean();
+            int awarded=body.has("points_awarded") && !body.get("points_awarded").isJsonNull() ? body.get("points_awarded").getAsInt() : 0;
+            Integer balance=body.has("points_balance") && !body.get("points_balance").isJsonNull() ? body.get("points_balance").getAsInt() : null;
+            return new ConfirmationResult(completed,awarded,balance);
+        },cb);
+    }
     @Override public RequestHandle cancel(int id, int userId, RepositoryCallback<Void> cb) { return execute(service.cancelarRecojo(id,userId),ignored -> null,cb); }
     @Override public RequestHandle rate(int id, int userId, int score, String comment, RepositoryCallback<Void> cb) {
         JsonObject body=new JsonObject(); body.addProperty("evaluador_id",userId); body.addProperty("puntuacion",score); body.addProperty("comentario",comment);

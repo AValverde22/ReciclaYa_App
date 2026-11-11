@@ -4,6 +4,8 @@ public class RecojoActivo {
     public Solicitud solicitud;
     public Persona counterpart;
     public boolean arrived, has_rated;
+    public int points_awarded;
+    public Integer points_balance;
     public static class Persona { public int id; public String full_name; public float score; }
     public static class Solicitud {
         public int id, created_by, accepted_by;

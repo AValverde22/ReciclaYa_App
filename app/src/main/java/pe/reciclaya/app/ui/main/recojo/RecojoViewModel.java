@@ -35,7 +35,7 @@ public final class RecojoViewModel extends ViewModel {
     }
     public LiveData<RecojoUiState> getState() { return state; }
     public LiveData<Event<String>> getMessages() { return messages; }
-    public boolean blocked() { return !known || pickup!=null; }
+    public boolean blocked() { return !known || (pickup!=null && !pickup.isFinalized()); }
     private void emit() {
         if (!cleared) state.setValue(new RecojoUiState(known,busy,session.isRecycler(),permission,session.userId(),pickup,fix,scheduler.nowMillis(),route,routeNote,error));
     }
@@ -64,7 +64,7 @@ public final class RecojoViewModel extends ViewModel {
         });
     }
     private void publishLocation(LocationFix location) {
-        if (!known || pickup==null || sharing || busy) return;
+        if (!known || pickup==null || pickup.isFinalized() || sharing || busy) return;
         sharing=true; final long token=++shareVersion;
         RequestHandle handle=repository.shareLocation(pickup.id,session.userId(),location,new RepositoryCallback<Void>() {
             @Override public void onSuccess(Void ignored) {
@@ -110,7 +110,26 @@ public final class RecojoViewModel extends ViewModel {
         RecojoUiState current=state.getValue();
         if (current==null || !current.canFinish) return;
         final int id=pickup.id;
-        action(callback -> repository.confirm(id,session.userId(),callback),() -> pickup=pickup.withConfirmation(session.userId()));
+        if (busy || cleared) return;
+        cancelRead(); scheduler.remove(poll); busy=true; error=null; emit();
+        repository.confirm(id,session.userId(),new RepositoryCallback<ConfirmationResult>() {
+            @Override public void onSuccess(ConfirmationResult result) {
+                if (cleared) return;
+                busy=false;
+                pickup=pickup.withConfirmation(session.userId());
+                if (result.completed) {
+                    pickup=pickup.withCompletion(result.pointsAwarded,result.pointsBalance);
+                    String text="Recojo finalizado. Recibiste "+result.pointsAwarded+" puntos";
+                    if (result.pointsBalance!=null) text+=". Nuevo saldo: "+result.pointsBalance+" puntos";
+                    messages.setValue(new Event<>(text+"."));
+                }
+                emit(); refresh();
+            }
+            @Override public void onError(String message) {
+                if (cleared) return;
+                busy=false; error=message; messages.setValue(new Event<>(message)); emit(); refresh();
+            }
+        });
     }
     public void cancelPickup() {
         RecojoUiState current=state.getValue();
@@ -127,7 +146,10 @@ public final class RecojoViewModel extends ViewModel {
         RecojoUiState current=state.getValue();
         if (current==null || !current.canRate) return;
         final int id=pickup.id;
-        action(callback -> repository.rate(id,session.userId(),score,comment==null?"":comment.trim(),callback),() -> pickup=pickup.withRating());
+        action(callback -> repository.rate(id,session.userId(),score,comment==null?"":comment.trim(),callback),() -> {
+            pickup=pickup.withRating();
+            messages.setValue(new Event<>("Calificación registrada correctamente."));
+        });
     }
     private void action(Function<RepositoryCallback<Void>,RequestHandle> operation, Runnable success) {
         if (busy || cleared) return;
@@ -144,7 +166,7 @@ public final class RecojoViewModel extends ViewModel {
         });
     }
     private void requestRoute() {
-        if (!foreground || !known || pickup==null || pickup.recyclerLocation==null || routing) return;
+        if (!foreground || !known || pickup==null || pickup.isFinalized() || pickup.recyclerLocation==null || routing) return;
         long now=scheduler.nowMillis();
         if (lastRoute!=Long.MIN_VALUE && now-lastRoute<30000) return;
         lastRoute=now; routing=true; final int id=pickup.id; final long token=++routeVersion;

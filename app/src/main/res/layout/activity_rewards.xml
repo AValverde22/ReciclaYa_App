@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+            <FrameLayout android:layout_width="match_parent" android:layout_height="60dp">
+                <ImageView
+                    android:id="@+id/IVRegresarRewards"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="30dp"
+                    android:background="@drawable/flechaizquierda"
+                    android:contentDescription="@string/Cancelar" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:gravity="center"
+                    android:text="Mis puntos"
+                    android:textColor="@color/black"
+                    android:textSize="19sp" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/linearlayout_verde_perfil"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="18dp">
+                <ImageView android:layout_width="38dp" android:layout_height="38dp" android:src="@drawable/billetera" android:contentDescription="Billetera" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="15dp" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="@font/gothamnarrow_medium" android:text="Saldo disponible" android:textColor="@color/gris_intermedio" android:textSize="12sp" />
+                    <TextView android:id="@+id/TVSaldoRewards" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:fontFamily="@font/gotham_bold" android:text="0 puntos" android:textColor="@color/verde" android:textSize="24sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/TextViewLabel" android:layout_marginHorizontal="30dp" android:layout_marginTop="24dp" android:text="BENEFICIOS DISPONIBLES" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RVBeneficiosRewards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp" />
+
+            <TextView style="@style/TextViewLabel" android:layout_marginHorizontal="30dp" android:layout_marginTop="24dp" android:text="HISTORIAL DE PUNTOS" />
+            <TextView
+                android:id="@+id/TVHistorialVacioRewards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:paddingVertical="14dp"
+                android:text="Aún no tienes movimientos de puntos."
+                android:textColor="@color/gris" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RVHistorialRewards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/LLLoadingRewards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gris_transparente"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminateTint="@color/verde_claro" />
+    </LinearLayout>
+</FrameLayout>

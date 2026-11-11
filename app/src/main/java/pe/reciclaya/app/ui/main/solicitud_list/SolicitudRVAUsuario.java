@@ -20,6 +20,7 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.main.reputation.ReputationActivity;
 
 public class SolicitudRVAUsuario extends RecyclerView.Adapter<SolicitudRVAUsuario.ViewHolder> {
     private boolean blocked = true;
@@ -127,15 +128,22 @@ public class SolicitudRVAUsuario extends RecyclerView.Adapter<SolicitudRVAUsuari
 
             TVPuntuacion.setText(String.valueOf(solicitud.getPuntuacion()));
 
+            View.OnClickListener openProfile = view -> {
+                if (solicitud.getUserID() > 0)
+                    context.startActivity(ReputationActivity.intent(context, solicitud.getUserID()));
+            };
+            IVFotoPerfil.setOnClickListener(openProfile);
+            TVNombreUsuario.setOnClickListener(openProfile);
+
             BtnEditar.setEnabled(!blocked);
             BtnCancelar.setEnabled(!blocked);
-            BtnEditar.setOnClickListener(view ->
-                    listener.onEditRequested(solicitud)
-            );
+            BtnEditar.setOnClickListener(view -> {
+                if (listener != null) listener.onEditRequested(solicitud);
+            });
 
-            BtnCancelar.setOnClickListener(view ->
-                    listener.onCancelRequested(solicitud.getSolicitudID())
-            );
+            BtnCancelar.setOnClickListener(view -> {
+                if (listener != null) listener.onCancelRequested(solicitud.getSolicitudID());
+            });
         }
     }
 }

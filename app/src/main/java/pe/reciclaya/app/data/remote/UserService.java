@@ -28,8 +28,32 @@ import pe.reciclaya.app.data.model.user.request.reportes.ReporteActividadRequest
 import pe.reciclaya.app.data.model.user.response.reportes.ReporteActividadResponse;
 import pe.reciclaya.app.data.model.user.response.reportes.ReporteActividadResponseWrapper;
 import pe.reciclaya.app.data.model.user.response.reportes.ReporteActividadDetalleWrapper;
+import pe.reciclaya.app.data.model.user.request.profile.UpdateProfileRequest;
+import pe.reciclaya.app.data.model.user.response.ProfileResponse;
+import pe.reciclaya.app.data.model.user.response.PointsAccountResponse;
+import pe.reciclaya.app.data.model.user.response.BenefitsResponse;
+import pe.reciclaya.app.data.model.user.response.RedemptionResponse;
+import pe.reciclaya.app.data.model.user.response.ReputationResponse;
 
 public interface UserService {
+    @GET("user/{id}/profile")
+    Call<ProfileResponse> getProfile(@Path("id") int userId);
+
+    @PATCH("user/{id}/profile")
+    Call<ProfileResponse> updateProfile(@Path("id") int userId, @Body UpdateProfileRequest requestModel);
+
+    @GET("user/{id}/points")
+    Call<PointsAccountResponse> getPoints(@Path("id") int userId);
+
+    @GET("user/{id}/benefits")
+    Call<BenefitsResponse> getBenefits(@Path("id") int userId);
+
+    @POST("user/{id}/benefits/{benefitId}/redeem")
+    Call<RedemptionResponse> redeemBenefit(@Path("id") int userId, @Path("benefitId") int benefitId);
+
+    @GET("user/{id}/reputation")
+    Call<ReputationResponse> getReputation(@Path("id") int userId);
+
     @GET("user/{id}/score")
     Call<UserScoreResponse> getScore(@Path("id") int userId);
 

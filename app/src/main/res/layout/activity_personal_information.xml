@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <FrameLayout android:layout_width="match_parent" android:layout_height="60dp">
+                <ImageView
+                    android:id="@+id/IVRegresarPI"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="30dp"
+                    android:background="@drawable/flechaizquierda"
+                    android:contentDescription="@string/Cancelar" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gothamnarrow_medium"
+                    android:gravity="center"
+                    android:text="Información personal"
+                    android:textColor="@color/black"
+                    android:textSize="19sp" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/IVFotoPI"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/foto_en_blanco"
+                android:contentDescription="Foto de perfil"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/TVRolPI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/gotham_bold"
+                android:textColor="@color/verde"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/TVEstadoPI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/linearlayout_dorado"
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:textColor="@color/dorado"
+                android:visibility="gone" />
+
+            <TextView style="@style/TextViewLabel" android:layout_marginHorizontal="30dp" android:layout_marginTop="24dp" android:text="Nombre completo" />
+            <EditText
+                android:id="@+id/ETNombrePI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/linearlayout_transparente"
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:inputType="textPersonName"
+                android:maxLength="100"
+                android:padding="14dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris_intermedio" />
+
+            <TextView style="@style/TextViewLabel" android:layout_marginHorizontal="30dp" android:layout_marginTop="16dp" android:text="Correo electrónico" />
+            <EditText
+                android:id="@+id/ETCorreoPI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/linearlayout_transparente"
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:inputType="textEmailAddress"
+                android:maxLength="254"
+                android:padding="14dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris_intermedio" />
+
+            <TextView style="@style/TextViewLabel" android:layout_marginHorizontal="30dp" android:layout_marginTop="16dp" android:text="URL de foto de perfil (opcional)" />
+            <EditText
+                android:id="@+id/ETFotoPI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/linearlayout_transparente"
+                android:fontFamily="@font/gothamnarrow_medium"
+                android:inputType="textUri"
+                android:maxLines="2"
+                android:padding="14dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris_intermedio" />
+
+            <Button
+                android:id="@+id/BtnGuardarPI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_green"
+                android:fontFamily="@font/gotham_bold"
+                android:text="Guardar cambios"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/LLLoadingPI"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gris_transparente"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/verde_claro" />
+    </LinearLayout>
+</FrameLayout>

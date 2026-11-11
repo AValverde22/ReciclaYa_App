@@ -83,5 +83,17 @@
             android:name=".ui.main.seguridad.SeguridadCuentaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.profile.PersonalInformationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.rewards.RewardsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.reputation.ReputationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

@@ -27,6 +27,9 @@ import pe.reciclaya.app.ui.main.tabs.MainTabsAbstractFactory;
 import pe.reciclaya.app.ui.main.tabs.MainPagerAdapter;
 import pe.reciclaya.app.ui.main.navigation.ProfileNavigator;
 import pe.reciclaya.app.ui.main.seguridad.SeguridadCuentaActivity;
+import pe.reciclaya.app.ui.main.profile.PersonalInformationActivity;
+import pe.reciclaya.app.ui.main.rewards.RewardsActivity;
+import pe.reciclaya.app.ui.main.reputation.ReputationActivity;
 
 public abstract class MainActivity extends AppCompatActivity implements ProfileNavigator {
     private LinearLayout LLLoading;
@@ -97,6 +100,18 @@ public abstract class MainActivity extends AppCompatActivity implements ProfileN
 
     @Override public void openAccountSecurity() {
         startActivity(new Intent(this, SeguridadCuentaActivity.class));
+    }
+
+    @Override public void openPersonalInformation() {
+        startActivity(new Intent(this, PersonalInformationActivity.class));
+    }
+
+    @Override public void openRewards() {
+        startActivity(new Intent(this, RewardsActivity.class));
+    }
+
+    @Override public void openReputation() {
+        startActivity(ReputationActivity.intent(this, User.getInstance().getID()));
     }
 
     public void mostrarLLoading(boolean mostrar) {
