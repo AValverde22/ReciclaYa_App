@@ -8,6 +8,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -284,12 +286,12 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
             geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1, new Geocoder.GeocodeListener() {
                 @Override
                 public void onGeocode(@NonNull List<Address> addresses) {
-                    mostrarDireccion(addresses, latLng);
+                    enHiloPrincipal(() -> mostrarDireccion(addresses, latLng));
                 }
 
                 @Override
                 public void onError(@Nullable String errorMessage) {
-                    actualizarError("Error al obtener la ubicación");
+                    enHiloPrincipal(() -> actualizarError("Error al obtener la ubicación"));
                 }
             });
         } else {
@@ -322,6 +324,13 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
     }
 
     private void actualizarError(String error) { viewModel.updateError(error); }
+
+    // El Geocoder responde en un hilo secundario y LiveData.setValue exige el hilo principal.
+    private void enHiloPrincipal(Runnable accion) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if(isAdded()) accion.run();
+        });
+    }
 
     private void publicarSolicitud() {
         if (recojo.blocked()) return;
