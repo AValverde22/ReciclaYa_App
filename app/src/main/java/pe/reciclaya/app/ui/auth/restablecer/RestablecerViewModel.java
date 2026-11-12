@@ -27,6 +27,7 @@ public class RestablecerViewModel extends AndroidViewModel {
     private final MutableLiveData<String> confirmPasswordError = new MutableLiveData<>();
 
     private String email;
+    private int codigo;
 
     private final RestablecerRepository restablecerRepository;
     public RestablecerViewModel(@NonNull Application application) {
@@ -85,6 +86,7 @@ public class RestablecerViewModel extends AndroidViewModel {
         }
 
         int codigo = Integer.parseInt(cod1 + cod2 + cod3 + cod4 + cod5 + cod6);
+        this.codigo = codigo;
 
         loading.setValue(true);
         restablecerRepository.compareCode(
@@ -113,7 +115,7 @@ public class RestablecerViewModel extends AndroidViewModel {
 
         loading.setValue(true);
         restablecerRepository.resetUser(
-                email, password.trim(),
+                email, codigo, password.trim(),
                 new RepositoryCallback<>() {
                     @Override
                     public void onSuccess(UserRole role) {

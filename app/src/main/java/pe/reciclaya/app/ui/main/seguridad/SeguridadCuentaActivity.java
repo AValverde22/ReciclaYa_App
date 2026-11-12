@@ -92,8 +92,7 @@ public class SeguridadCuentaActivity extends AppCompatActivity {
         SW2FA.setOnCheckedChangeListener((boton, activado) -> {
             if(actualizandoInterruptor) return;
 
-            if(activado) viewModel.activar();
-            else confirmarDesactivacion();
+            confirmarCambio(activado);
         });
     }
 
@@ -103,7 +102,8 @@ public class SeguridadCuentaActivity extends AppCompatActivity {
         SW2FA.setEnabled(!cargando && viewModel.getHabilitado().getValue() != null);
     }
 
-    private void confirmarDesactivacion() {
+    // Sin sesiones en el servidor, activar o desactivar exige la contraseña
+    private void confirmarCambio(boolean activar) {
         EditText ETPassword = new EditText(this);
         ETPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         ETPassword.setHint(R.string.Contrasena);
@@ -114,11 +114,14 @@ public class SeguridadCuentaActivity extends AppCompatActivity {
         contenedor.addView(ETPassword);
 
         new AlertDialog.Builder(this)
-                .setTitle(R.string.seguridad_confirmar_titulo)
+                .setTitle(activar ? R.string.seguridad_activar_titulo : R.string.seguridad_confirmar_titulo)
                 .setMessage(R.string.seguridad_confirmar_mensaje)
                 .setView(contenedor)
-                .setPositiveButton(R.string.seguridad_desactivar, (dialog, which) ->
-                        viewModel.desactivar(ETPassword.getText().toString()))
+                .setPositiveButton(activar ? R.string.seguridad_activar : R.string.seguridad_desactivar, (dialog, which) -> {
+                    String password = ETPassword.getText().toString();
+                    if(activar) viewModel.activar(password);
+                    else viewModel.desactivar(password);
+                })
                 .setNegativeButton(R.string.Cancelar, (dialog, which) -> viewModel.restaurarEstado())
                 .setOnCancelListener(dialog -> viewModel.restaurarEstado())
                 .show();

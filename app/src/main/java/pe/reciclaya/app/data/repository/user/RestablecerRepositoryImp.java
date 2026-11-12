@@ -71,8 +71,8 @@ public class RestablecerRepositoryImp implements RestablecerRepository {
     }
 
     @Override
-    public void resetUser(String email, String password, RepositoryCallback<UserRole> callback) {
-        RestablecerRequestReset body = new RestablecerRequestReset(email, password);
+    public void resetUser(String email, int codigo, String password, RepositoryCallback<UserRole> callback) {
+        RestablecerRequestReset body = new RestablecerRequestReset(email, password, codigo);
 
         apiService.resetUser(body).enqueue(new Callback<>() {
             @Override

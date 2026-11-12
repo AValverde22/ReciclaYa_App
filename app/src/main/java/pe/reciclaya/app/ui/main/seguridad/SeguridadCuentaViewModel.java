@@ -50,8 +50,13 @@ public class SeguridadCuentaViewModel extends AndroidViewModel {
         });
     }
 
-    public void activar() {
-        actualizar(true, null, "Autenticación de dos factores activada");
+    public void activar(String password) {
+        if(password == null || password.isBlank()) {
+            mensaje.setValue(new Event<>("Ingrese su contraseña."));
+            restaurarEstado();
+            return;
+        }
+        actualizar(true, password, "Autenticación de dos factores activada");
     }
 
     public void desactivar(String password) {
