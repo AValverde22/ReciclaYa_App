@@ -20,6 +20,7 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.ui.main.reputation.ReputationActivity;
 
 public class SolicitudRVAReciclador extends RecyclerView.Adapter<SolicitudRVAReciclador.ViewHolder> {
     private boolean blocked = true;
@@ -136,11 +137,17 @@ public class SolicitudRVAReciclador extends RecyclerView.Adapter<SolicitudRVARec
             BtnAceptar.setVisibility(showDistance && solicitud.isBtnCancelarEnabled() ? View.VISIBLE : View.GONE);
             BtnAceptar.setEnabled(!blocked);
             BtnAceptar.setText(blocked ? "Finaliza tu reciclaje activo" : "Aceptar");
-            BtnAceptar.setOnClickListener(view ->
-                listener.onAcceptRequested(solicitud.getSolicitudID())
-            );
+            BtnAceptar.setOnClickListener(view -> {
+                if (listener != null) listener.onAcceptRequested(solicitud.getSolicitudID());
+            });
 
             TVPuntuacion.setText(String.valueOf(solicitud.getPuntuacion()));
+            View.OnClickListener openProfile = view -> {
+                if (solicitud.getUserID() > 0)
+                    context.startActivity(ReputationActivity.intent(context, solicitud.getUserID()));
+            };
+            IVFotoPerfil.setOnClickListener(openProfile);
+            TVNombreUsuario.setOnClickListener(openProfile);
         }
     }
 }

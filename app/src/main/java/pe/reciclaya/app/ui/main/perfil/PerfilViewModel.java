@@ -45,6 +45,8 @@ public class PerfilViewModel extends AndroidViewModel {
         score.setValue(userRepository.getScore());
     }
 
+    public void refreshLocalProfile() { obtenerInformacionPerfil(); }
+
     public void refreshScore() {
         userRepository.refreshScore(new RepositoryCallback<Float>() {
             @Override public void onSuccess(Float value) { score.setValue(value); }

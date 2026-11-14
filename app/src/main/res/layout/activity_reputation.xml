@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/white">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="60dp">
+            <ImageView android:id="@+id/IVRegresarReputation" android:layout_width="15dp" android:layout_height="15dp" android:layout_gravity="center_vertical" android:layout_marginStart="30dp" android:background="@drawable/flechaizquierda" android:contentDescription="@string/Cancelar" />
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent" android:fontFamily="@font/gothamnarrow_medium" android:gravity="center" android:text="Calificaciones y reseñas" android:textColor="@color/black" android:textSize="19sp" />
+        </FrameLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="30dp" android:layout_marginTop="12dp" android:background="@drawable/linearlayout_verde_perfil" android:gravity="center_vertical" android:orientation="horizontal" android:padding="16dp">
+            <ImageView android:id="@+id/IVFotoReputation" android:layout_width="70dp" android:layout_height="70dp" android:background="@drawable/foto_en_blanco" android:scaleType="centerCrop" android:contentDescription="Foto de perfil" />
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:id="@+id/TVNombreReputation" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/gotham_bold" android:textColor="@color/black" android:textSize="17sp" />
+                <TextView android:id="@+id/TVPromedioReputation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:fontFamily="@font/gotham_bold" android:textColor="@color/dorado" android:textSize="16sp" />
+                <TextView android:id="@+id/TVCantidadReputation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:fontFamily="@font/gothamnarrow_medium" android:textColor="@color/gris" android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView style="@style/TextViewLabel" android:layout_marginHorizontal="30dp" android:layout_marginTop="22dp" android:text="RESEÑAS DISPONIBLES" />
+        <TextView android:id="@+id/TVReviewsVacio" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="30dp" android:fontFamily="@font/gothamnarrow_medium" android:paddingVertical="15dp" android:text="Aún no hay reseñas disponibles." android:textColor="@color/gris" android:visibility="gone" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/RVReviews" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginHorizontal="30dp" android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/LLLoadingReputation" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/gris_transparente" android:elevation="3dp" android:gravity="center" android:orientation="vertical" android:visibility="gone">
+        <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminateTint="@color/verde_claro" />
+    </LinearLayout>
+</FrameLayout>

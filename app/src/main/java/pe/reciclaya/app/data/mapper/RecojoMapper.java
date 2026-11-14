@@ -9,8 +9,9 @@ public final class RecojoMapper {
         if (response.solicitud == null) return null;
         RecojoActivo.Solicitud s = response.solicitud;
         GeoPoint recycler = s.recycler_latitude == null || s.recycler_longitude == null ? null : new GeoPoint(s.recycler_latitude,s.recycler_longitude);
-        return new Recojo(s.id,s.created_by,s.accepted_by,s.type,s.size,s.address,s.day,s.time,
+        return new Recojo(s.id,s.created_by,s.accepted_by,s.type,s.size,s.address,s.day,s.time,s.status,
             response.counterpart == null ? null : response.counterpart.full_name,s.location_updated_at,
-            new GeoPoint(s.latitude,s.longitude),recycler,s.user_confirmed,s.recycler_confirmed,response.arrived,response.has_rated);
+            new GeoPoint(s.latitude,s.longitude),recycler,s.user_confirmed,s.recycler_confirmed,response.arrived,response.has_rated,
+            response.points_awarded,response.points_balance);
     }
 }

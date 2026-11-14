@@ -19,18 +19,19 @@ public final class RecojoUiState {
         this.nowMillis=now;
         this.location=permission && fix!=null && fix.isRecent(now,120000)?fix:null;
         this.routePolyline=route;
-        this.loading=!known; this.busy=busy; this.blocked=!known || pickup!=null;
-        this.showPermission=recycler && !permission;
         boolean active=known && pickup!=null;
+        boolean finalized=active && pickup.isFinalized();
+        this.loading=!known; this.busy=busy; this.blocked=!known || (active && !finalized);
+        this.showPermission=recycler && !permission && active && !finalized;
         boolean mine=active && pickup.confirmedBy(userId);
         boolean both=active && pickup.confirmedByBoth();
-        this.showFinish=active && !mine;
+        this.showFinish=active && !finalized && !mine;
         this.canFinish=showFinish && !busy && pickup.arrived;
-        this.showRating=active && mine && !pickup.hasRated;
-        this.canRate=showRating && both && !busy;
-        this.showCancel=active && !both && !pickup.hasRated;
+        this.showRating=active && finalized && !pickup.hasRated;
+        this.canRate=showRating && !busy;
+        this.showCancel=active && !finalized && !both && !pickup.hasRated;
         this.canCancel=showCancel && !busy;
-        this.showNavigate=active && recycler;
+        this.showNavigate=active && !finalized && recycler;
         this.showCenter=recycler || active;
         this.centerPoint=recycler ? (location==null?null:location.point) : (active?pickup.destination:null);
         this.details=!known?"Consultando reciclaje activo…":!active?"No tienes un reciclaje activo.":
@@ -39,7 +40,11 @@ public final class RecojoUiState {
         String message;
         if (!known) message="Comprobando el estado del recojo…";
         else if (!active) message="Cuando se acepte una solicitud, podrás seguir el recojo aquí.";
-        else if (both) message=pickup.hasRated?"Calificación guardada. Esperando la calificación de la otra persona.":"Ambos confirmaron el fin. Califica a la otra persona para completar el reciclaje.";
+        else if (finalized) {
+            String points=pickup.pointsAwarded>0?" Recibiste "+pickup.pointsAwarded+" puntos"+(pickup.pointsBalance==null?".":" y tu saldo es "+pickup.pointsBalance+"."):"";
+            message=pickup.hasRated?"Calificación registrada correctamente.":"Recojo finalizado."+points+" Puedes calificar a la otra persona y dejar una reseña opcional.";
+        }
+        else if (both) message="Procesando la finalización del recojo…";
         else if (mine) message="Confirmaste el fin. Podrás calificar cuando la otra persona también confirme.";
         else if (pickup.arrived) message="El reciclador llegó. Pueden confirmar el fin del reciclaje.";
         else if (pickup.recyclerLocation==null) message="Esperando ubicación del reciclador. Mantenga su aplicación abierta y el GPS activo.";
