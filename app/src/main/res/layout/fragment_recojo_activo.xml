@@ -3,8 +3,31 @@
     android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#F4F8F1">
     <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
         <FrameLayout android:id="@+id/mapaRecojo" android:layout_width="match_parent" android:layout_height="match_parent" />
-        <Button android:id="@+id/centrarRecojo" style="@style/RecojoActionButton" android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end" android:layout_margin="12dp" android:text="Mi ubicación" android:textSize="14sp" android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="12dp"
+            android:gravity="end"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/centrarRecojo"
+                style="@style/RecojoActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Punto de recojo"
+                android:textSize="14sp"
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/centrarReciclador"
+                style="@style/RecojoSecondaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Reciclador"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        </LinearLayout>
     </FrameLayout>
     <ScrollView android:layout_width="match_parent" android:layout_height="240dp" android:fillViewport="true">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:orientation="vertical">

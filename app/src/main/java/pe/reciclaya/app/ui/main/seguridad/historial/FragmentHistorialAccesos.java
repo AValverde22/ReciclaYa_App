@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
@@ -25,6 +26,7 @@ public class FragmentHistorialAccesos extends Fragment {
     private RecyclerView RV;
     private LinearLayout LLLoading;
     private TextView TVVacio;
+    private ImageView IVRegresar;
     private AccesoRVA accesoRVA;
     private ViewModelHistorialAccesos viewModel;
     private com.google.android.material.button.MaterialButton BTMisReportes;
@@ -51,6 +53,7 @@ public class FragmentHistorialAccesos extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         inicializarComponentes(view);
+        IVRegresar.setOnClickListener(v -> requireActivity().finish());
         BTMisReportes.setOnClickListener(v -> {
             Intent intent = new Intent(
                     requireContext(),
@@ -68,6 +71,7 @@ public class FragmentHistorialAccesos extends Fragment {
         RV = view.findViewById(R.id.RVHistorialAccesos);
         LLLoading = view.findViewById(R.id.LLLoadingHistorialAccesos);
         TVVacio = view.findViewById(R.id.TVVacioHistorialAccesos);
+        IVRegresar = view.findViewById(R.id.IVRegresarHA);
         BTMisReportes = view.findViewById(R.id.BTMisReportesHA);
     }
 

@@ -7,11 +7,10 @@ import pe.reciclaya.app.ui.common.util.FechaHora;
 public final class RecojoUiState {
     public final Recojo pickup;
     public final LocationFix location;
-    public final GeoPoint centerPoint;
     public final String details, status, routePolyline;
     public final long nowMillis;
     public final boolean loading, blocked, busy, showPermission, showFinish, canFinish,
-        showRating, canRate, showCancel, canCancel, showNavigate, showCenter;
+        showRating, canRate, showCancel, canCancel, showNavigate;
 
     public RecojoUiState(boolean known, boolean busy, boolean recycler, boolean permission, int userId,
                           Recojo pickup, LocationFix fix, long now, String route, String routeNote, String error) {
@@ -32,8 +31,6 @@ public final class RecojoUiState {
         this.showCancel=active && !finalized && !both && !pickup.hasRated;
         this.canCancel=showCancel && !busy;
         this.showNavigate=active && !finalized && recycler;
-        this.showCenter=recycler || active;
-        this.centerPoint=recycler ? (location==null?null:location.point) : (active?pickup.destination:null);
         this.details=!known?"Consultando reciclaje activo…":!active?"No tienes un reciclaje activo.":
             "Solicitud #"+pickup.id+" · "+pickup.material+" · "+pickup.size+"\n"+pickup.address+"\n"+pickup.day+" · "+pickup.time+
             (pickup.counterpartName==null?"":"\n"+(recycler?"Usuario: ":"Reciclador: ")+pickup.counterpartName);

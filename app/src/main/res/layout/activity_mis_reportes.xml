@@ -9,15 +9,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="20dp"
-            android:text="Mis reportes"
-            android:textColor="@color/black"
-            android:textSize="21sp"
-            android:fontFamily="@font/gotham_bold" />
+            android:layout_height="60dp">
+
+            <ImageView
+                android:id="@+id/IVRegresarMR"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:contentDescription="@string/Cancelar"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="16dp"
+                android:src="@drawable/flechaizquierda" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/gotham_bold"
+                android:gravity="center"
+                android:text="Mis reportes"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+        </FrameLayout>
 
         <TextView
             android:layout_width="match_parent"

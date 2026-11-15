@@ -20,19 +20,16 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="15dp">
 
-            <androidx.cardview.widget.CardView
+            <ImageView
+                android:id="@+id/IVRegresarHA"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="0dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/reciclaya_negro" />
-
-            </androidx.cardview.widget.CardView>
+                android:clickable="true"
+                android:contentDescription="@string/Cancelar"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="10dp"
+                android:src="@drawable/flechaizquierda" />
 
             <TextView
                 android:layout_width="0dp"

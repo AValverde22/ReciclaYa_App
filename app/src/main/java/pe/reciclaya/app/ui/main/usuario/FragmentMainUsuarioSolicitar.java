@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -31,12 +33,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -46,6 +48,7 @@ import java.util.List;
 import java.util.Locale;
 
 import pe.reciclaya.app.R;
+import pe.reciclaya.app.data.location.CurrentLocationProvider;
 import pe.reciclaya.app.ui.main.recojo.RecojoViewModel;
 import pe.reciclaya.app.ui.main.recojo.RecojoViewModels;
 import pe.reciclaya.app.ui.common.event.EventObserver;
@@ -56,6 +59,10 @@ import pe.reciclaya.app.ui.main.tipo_residuo_list.TipoResiduoRVA;
 import pe.reciclaya.app.ui.main.tipo_residuo_list.Vidrio;
 
 public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMyLocationButtonClickListener {
+    private static final LatLng CENTRO_PERU = new LatLng(-9.19, -75.0152);
+    private static final LatLngBounds LIMITES_PERU = new LatLngBounds(
+            new LatLng(-18.6, -81.6), new LatLng(-0.03, -68.6)
+    );
     private RecyclerView RVTipoResiduo;
     private Spinner spinner;
     private TextView TVFecha, TVHora, TVDireccion, TVLimpiarCampos;
@@ -67,11 +74,17 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
 
     private GoogleMap googleMap;
     private Marker marker;
+    private CurrentLocationProvider currentLocationProvider;
 
     private TipoResiduoRVA tipoResiduoRVA;
     private ViewModelSolicitar viewModel;
 
     private RecojoViewModel recojo;
+    private final ActivityResultLauncher<String[]> permisosUbicacion = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                if(googleMap != null && tienePermisoUbicacion()) habilitarMiUbicacion();
+            }
+    );
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +96,7 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
         super.onViewCreated(view, savedInstanceState);
 
         recojo = RecojoViewModels.obtain(requireActivity());
+        currentLocationProvider = new CurrentLocationProvider(requireContext());
         inicializarComponentes(view);
         inicializarVM();
         inicializarTipoResiduoRA();
@@ -191,7 +205,14 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
             if(TVFecha.getError() == null) mostrarSelectorHora();
         });
 
-        TVDireccion.setOnClickListener(view -> FLMapa.setVisibility(View.VISIBLE));
+        TVDireccion.setOnClickListener(view -> {
+            FLMapa.setVisibility(View.VISIBLE);
+            if(tienePermisoUbicacion()) habilitarMiUbicacion();
+            else permisosUbicacion.launch(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            });
+        });
         CVCerrarMapa.setOnClickListener(view -> FLMapa.setVisibility(View.GONE));
 
         BtnPublicarSolicitud.setOnClickListener(view -> publicarSolicitud());
@@ -235,6 +256,10 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
         googleMap.setOnMapClickListener(this);
         googleMap.getUiSettings().setCompassEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
+        googleMap.getUiSettings().setScrollGesturesEnabled(true);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        googleMap.setLatLngBoundsForCameraTarget(LIMITES_PERU);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CENTRO_PERU, 5.5f));
 
         googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Nullable
@@ -250,17 +275,7 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
             }
         });
 
-        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-                    .getLastLocation()
-                    .addOnSuccessListener(location -> {
-                        if(location != null) {
-                            googleMap.setMyLocationEnabled(true);
-                            googleMap.setOnMyLocationButtonClickListener(this);
-                        }
-                    });
-        }
+        if(tienePermisoUbicacion()) habilitarMiUbicacion();
     }
 
     @Override
@@ -268,19 +283,15 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
 
     @Override
     public boolean onMyLocationButtonClick() {
-        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-                    .getLastLocation()
-                    .addOnSuccessListener(location -> {
-                        if(location != null)
-                            seleccionarUbicacion(new LatLng(location.getLatitude(), location.getLongitude()));
-                    });
-        }
+        seleccionarUbicacionActual();
         return true;
     }
 
     private void seleccionarUbicacion(LatLng latLng) {
+        if(!LIMITES_PERU.contains(latLng)) {
+            actualizarError("La ubicación debe encontrarse en Perú.");
+            return;
+        }
         Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1, new Geocoder.GeocodeListener() {
@@ -291,7 +302,7 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
 
                 @Override
                 public void onError(@Nullable String errorMessage) {
-                    enHiloPrincipal(() -> actualizarError("Error al obtener la ubicación"));
+                    enHiloPrincipal(() -> actualizarError("No se pudo obtener la dirección de esta ubicación."));
                 }
             });
         } else {
@@ -309,18 +320,16 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
         }
 
         Address address = addresses.get(0);
-        if(address.getPostalCode() == null) {
-            actualizarError("Debe ingresar una zona válida.");
+        if(address.getCountryCode() == null || !"PE".equalsIgnoreCase(address.getCountryCode())) {
+            actualizarError("La ubicación debe encontrarse en Perú.");
             return;
         }
 
-        if(!address.getCountryCode().equals("PE")) {
-            actualizarError("La ubicación debe encontrase en Perú.");
-            return;
-        }
-
+        String direccion = address.getAddressLine(0);
+        if(direccion == null || direccion.isBlank())
+            direccion = String.format(Locale.getDefault(), "Ubicación seleccionada (%.6f, %.6f)", latLng.latitude, latLng.longitude);
         viewModel.updateUbicacionSeleccionada(latLng);
-        viewModel.updateDireccion(address.getAddressLine(0));
+        viewModel.updateDireccion(direccion);
     }
 
     private void actualizarError(String error) { viewModel.updateError(error); }
@@ -329,6 +338,33 @@ public class FragmentMainUsuarioSolicitar extends Fragment implements OnMapReady
     private void enHiloPrincipal(Runnable accion) {
         new Handler(Looper.getMainLooper()).post(() -> {
             if(isAdded()) accion.run();
+        });
+    }
+
+    private boolean tienePermisoUbicacion() {
+        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @android.annotation.SuppressLint("MissingPermission")
+    private void habilitarMiUbicacion() {
+        if(googleMap == null || !tienePermisoUbicacion()) return;
+        googleMap.setMyLocationEnabled(true);
+        googleMap.setOnMyLocationButtonClickListener(this);
+    }
+
+    private void seleccionarUbicacionActual() {
+        if(currentLocationProvider == null || !tienePermisoUbicacion()) {
+            actualizarError("Permite el acceso a la ubicación para usar tu posición actual.");
+            return;
+        }
+        currentLocationProvider.getCurrentLocation((latitude, longitude) -> {
+            if(!isAdded()) return;
+            if(latitude == null || longitude == null) {
+                actualizarError("No se pudo obtener tu ubicación actual. Comprueba que el GPS esté activo.");
+                return;
+            }
+            seleccionarUbicacion(new LatLng(latitude, longitude));
         });
     }
 
