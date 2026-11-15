@@ -3,6 +3,7 @@ package pe.reciclaya.app.ui.main.seguridad.historial;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import pe.reciclaya.app.ui.main.seguridad.AccesosViewModel;
 public class ReportarAccesoActivity extends AppCompatActivity {
 
     private TextView TVAcceso;
+    private ImageView IVRegresar;
     private TextInputEditText ETDescripcion;
     private MaterialButton BTEnviar;
     private ProgressBar PBReporte;
@@ -52,10 +54,12 @@ public class ReportarAccesoActivity extends AppCompatActivity {
 
         TVAcceso.setText("Estás reportando el acceso #" + accesoId);
 
+        IVRegresar.setOnClickListener(v -> finish());
         BTEnviar.setOnClickListener(v -> enviarReporte());
     }
 
     private void inicializarComponentes() {
+        IVRegresar = findViewById(R.id.IVRegresarRA);
         TVAcceso = findViewById(R.id.TVAccesoReporteRA);
         ETDescripcion = findViewById(R.id.ETDescripcionRA);
         BTEnviar = findViewById(R.id.BTEnviarReporteRA);

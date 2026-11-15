@@ -3,6 +3,7 @@ package pe.reciclaya.app.ui.main.seguridad.historial;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import pe.reciclaya.app.ui.main.seguridad.AccesosViewModel;
 public class MisReportesActivity extends AppCompatActivity {
 
     private RecyclerView RV;
+    private ImageView IVRegresar;
     private TextView TVVacio;
     private ProgressBar PBLista;
 
@@ -36,10 +38,12 @@ public class MisReportesActivity extends AppCompatActivity {
         inicializarViewModel();
         observarDatos();
 
+        IVRegresar.setOnClickListener(v -> finish());
         viewModel.cargarMisReportes();
     }
 
     private void inicializarComponentes() {
+        IVRegresar = findViewById(R.id.IVRegresarMR);
         RV = findViewById(R.id.RVMisReportes);
         TVVacio = findViewById(R.id.TVVacioReportes);
         PBLista = findViewById(R.id.PBListaReportes);

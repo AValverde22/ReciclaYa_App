@@ -25,7 +25,7 @@ public abstract class FragmentRecojoMapa extends Fragment {
     private RecojoDialogs dialogs;
     private RecojoMapPresentation role;
     private TextView detail,status;
-    private Button finish,rate,navigate,permission,cancel,center;
+    private Button finish,rate,navigate,permission,cancel,centerDestination,centerRecycler;
     private final ActivityResultLauncher<String[]> permissions=registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),result -> {
         if (getView()!=null) vm.onPermissionChanged(hasFineLocation());
     });
@@ -37,8 +37,12 @@ public abstract class FragmentRecojoMapa extends Fragment {
         detail=view.findViewById(R.id.detalleRecojo); status=view.findViewById(R.id.estadoRecojo);
         finish=view.findViewById(R.id.terminarRecojo); rate=view.findViewById(R.id.calificarRecojo);
         navigate=view.findViewById(R.id.navegarRecojo); permission=view.findViewById(R.id.ubicacionRecojo);
-        cancel=view.findViewById(R.id.cancelarRecojo); center=view.findViewById(R.id.centrarRecojo);
-        center.setText(role.centerLabel()); center.setOnClickListener(v -> centerMap());
+        cancel=view.findViewById(R.id.cancelarRecojo);
+        centerDestination=view.findViewById(R.id.centrarRecojo);
+        centerRecycler=view.findViewById(R.id.centrarReciclador);
+        centerDestination.setOnClickListener(v -> { if (map!=null) map.centerDestination(); });
+        centerRecycler.setText(role.centersOnDevice()?"Mi ubicación":"Reciclador");
+        centerRecycler.setOnClickListener(v -> { if (map!=null) map.centerRecycler(); });
         permission.setOnClickListener(v -> permissions.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}));
         finish.setOnClickListener(v -> dialogs.confirm(vm::confirm));
         cancel.setOnClickListener(v -> dialogs.cancel(role,vm::cancelPickup));
@@ -64,20 +68,15 @@ public abstract class FragmentRecojoMapa extends Fragment {
         permission.setVisibility(state.showPermission?View.VISIBLE:View.GONE);
         button(finish,state.showFinish,state.canFinish); button(rate,state.showRating,state.canRate);
         button(cancel,state.showCancel,state.canCancel);
-        button(navigate,state.showNavigate,true); button(center,state.showCenter,map!=null);
+        button(navigate,state.showNavigate,true);
+        boolean active=state.pickup!=null;
+        button(centerDestination,active,map!=null);
+        boolean recyclerAvailable=active && (state.location!=null || state.pickup.recyclerLocation!=null);
+        button(centerRecycler,recyclerAvailable,map!=null);
         if (map!=null) map.render(state);
     }
     private void button(Button button,boolean visible,boolean enabled) {
         button.setVisibility(visible?View.VISIBLE:View.GONE); button.setEnabled(enabled); button.setAlpha(enabled?1f:0.5f);
-    }
-    private void centerMap() {
-        RecojoUiState state=vm.getState().getValue();
-        if (map==null || state==null) return;
-        if (role.centersOnDevice() && !hasFineLocation()) {
-            permissions.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}); return;
-        }
-        if (state.centerPoint!=null) map.center(state.centerPoint);
-        else { vm.requestLocation(); Toast.makeText(requireContext(),"Esperando tu ubicación actual. Comprueba que el GPS esté activo.",Toast.LENGTH_LONG).show(); }
     }
     private void navigate() {
         RecojoUiState state=vm.getState().getValue();

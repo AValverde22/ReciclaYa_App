@@ -20,6 +20,14 @@ public final class RecojoMapRenderer {
     public RecojoMapRenderer(GoogleMap map,View container,RecojoMapPresentation presentation) {
         this.map=map; this.container=container; this.presentation=presentation;
         map.clear();
+        map.getUiSettings().setMapToolbarEnabled(false);
+        map.getUiSettings().setScrollGesturesEnabled(true);
+        map.getUiSettings().setZoomGesturesEnabled(true);
+        map.setOnMarkerClickListener(marker -> {
+            marker.showInfoWindow();
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),17));
+            return true;
+        });
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-12.0464,-77.0428),12));
     }
     private LatLng latLng(GeoPoint point) { return new LatLng(point.latitude,point.longitude); }
@@ -63,11 +71,16 @@ public final class RecojoMapRenderer {
             }
         }
     }
-    public void center(GeoPoint point) {
-        if (closed || point==null) return;
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng(point),17));
-        Marker marker=presentation.centersOnDevice()?recycler:destination;
-        if (marker!=null) marker.showInfoWindow();
+    public void centerDestination() {
+        center(destination);
+    }
+    public void centerRecycler() {
+        center(recycler);
+    }
+    private void center(Marker marker) {
+        if (closed || marker==null) return;
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),17));
+        marker.showInfoWindow();
     }
     public void close() { closed=true; }
 }

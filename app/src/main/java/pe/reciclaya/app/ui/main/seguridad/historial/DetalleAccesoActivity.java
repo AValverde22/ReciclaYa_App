@@ -3,6 +3,7 @@ package pe.reciclaya.app.ui.main.seguridad.historial;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import pe.reciclaya.app.ui.main.seguridad.AccesosViewModel;
 public class DetalleAccesoActivity extends AppCompatActivity {
 
     private TextView TVIdentificador;
+    private ImageView IVRegresar;
     private TextView TVEstado;
     private TextView TVActividad;
     private TextView TVFecha;
@@ -62,12 +64,14 @@ public class DetalleAccesoActivity extends AppCompatActivity {
         inicializarViewModel();
         observarDatos();
 
+        IVRegresar.setOnClickListener(v -> finish());
         BTReportar.setOnClickListener(v -> abrirFormularioReporte());
 
         viewModel.cargarDetalleAcceso(accesoId);
     }
 
     private void inicializarComponentes() {
+        IVRegresar = findViewById(R.id.IVRegresarDA);
         TVIdentificador = findViewById(R.id.TVIdentificadorDA);
         TVEstado = findViewById(R.id.TVEstadoDA);
         TVActividad = findViewById(R.id.TVActividadDA);
